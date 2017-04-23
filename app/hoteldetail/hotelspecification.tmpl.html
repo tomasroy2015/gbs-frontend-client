@@ -1,0 +1,106 @@
+﻿<div id="hotelphotos" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-content">
+        <div class="container-fluid modal-header">
+            <div class="row col-md-12 col-sm-12">
+                <button type="button" class="close" ng-click="vm.HclosePopup();" data-dismiss1="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4><span style="color:gray" id="hdrtitle"></span>{{vm.hotelspecification.Name}}</h4>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="booking-list-wrapper">
+                <ul class="booking-list alt-padding">
+                    <li ng-repeat="val in vm.h_specifications" ng-if="$first">
+                        <h2><span style="color:gray" id="hdrtitle"></span></h2>
+                        <div class="row gap-20">
+                            <div class="col-md-4">
+                                <div class="booking-item-img-wrap mb10" id="TestUpdatedivv">
+                                    <div data-auto="false" fotorama item="items" class="fotorama" data-allowfullscreen="true" data-arrows="true" data-width="100%" data-ratio="800/600" data-minwidth="200" data-maxwidth="1000" data-minheight="200" data-maxheight="100%">
+                                    </div>
+                                    {{$scope.items}}
+                                </div>
+                                <h5 class="booking-item-title">
+                                    <span style="color:gray" id="hdrbed">
+                                        {{val.beds}}
+                                    </span>
+                                </h5>
+                                <p class="text-small" id="BedOptions">
+                                    <span ng-bind-html="vm.BedTypeName | trust">
+                                    </span>
+                                </p>
+                                <ul class="booking-item-features booking-item-features-sign clearfix" style=" margin-left: 15%;">
+                                    <li data-placement="top" title="" uib-tooltip="Adults Occupancy" data-original-title="Adults Occupancy">
+                                        <i class="fa fa-male"></i>
+                                        <span class="booking-item-feature-sign">
+                                            x <span id="maxpeoplecount">
+                                                {{val.MaxPeopleCount}}
+                                            </span>
+                                        </span>
+                                    </li>
+                                    <li data-placement="top" title="" uib-tooltip="Children Occupancy">
+                                        <i class="fa fa-child"></i>
+                                        <span class="booking-item-feature-sign">
+                                            x <span id="maxchildcount">
+                                                {{val.MaxChildrenCount}}
+                                            </span>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-8">
+                                <h5 class="booking-item-title">
+                                    <span id="lbldescriptions">
+                                        {{val.CultureDescription}}
+                                    </span>
+                                </h5>
+                                <p class="text-small" id="textdescriptions">
+                                    {{val.Description}}
+                                </p>
+                                <h5 class="booking-item-title">
+                                    <span id="txtfacility">
+                                        {{val.Facilitiesof}}
+                                    </span>
+                                </h5>
+                                <ul class="booking-item-features booking-item-features-small clearfix mb10" id="facilities">
+                                    <li ng-repeat="val1 in vm.icons  | unique: 'facilityname'" ng-if="val1.icon">
+                                        <img ng-src="/Images/Icons/{{val1.icon}}" title="{{val1.facilityname}}" style="width: 30px;">
+                                        <span>{{val1.facilityname}}</span>
+                                    </li>
+                                </ul>
+                                <h5 class="booking-item-title" style="display:none">
+                                    <span id="txtcancelpolicy">
+                                        {{val.CancelPolicyText}}
+                                    </span>
+                                </h5>
+                                <p class="text-small" style="display:none">
+                                    <span id="lblcancelpolicywarning">
+                                         {{val.CancelPolicyWarning}}
+                                    </span>
+                                </p> 
+                                <hr>
+                                <button class="btn btn-primary btn-sm" ng-click="vm.PopUpBookNow()">
+                                    <span id="booknow">
+                                        {{val.Book}}
+                                    </span>
+                                </button>
+
+                            </div>
+
+
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+
+
+
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+</div>
+<style>
+    div[uib-modal-window] {
+        z-index: 110000 !important;
+    }
+</style>

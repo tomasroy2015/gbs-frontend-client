@@ -1,0 +1,36 @@
+﻿
+    <div style="padding-top:10px">
+        <aside class="user-profile-sidebar alt-light gbox">
+            <div class="g_ribbon" ng-if="isUserGenius">
+                <span>Genius</span>
+            </div>
+            <div class="user-profile-avatar text-center">
+              
+                <img class="img-circle" ng-model="userphoto" style="height: 110px;width: 110px;" alt="" title="User"
+                     ng-src="{{userphoto}}" />
+                <span ng-click="vm.EditImage()" style="top:38px;" class="glyphicon glyphicon-pencil"></span>
+                <h5 style="color:gray; "><span>{{vm.username}} </span></h5>
+                <p>
+                    <span ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblMemberSince'">{{value.TextMessage}}</span>
+                    <span id="spnMembersince">{{userDashboard.CreatedDate | date : "MMMM dd, y"}}</span>
+                </p>
+            </div>
+            <ul class="list user-profile-nav">
+                <li id="overview" class="active" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lbloverview'" ng-click="vm.changeTitle(value.TextMessage,'overview')">
+                    <a ui-sref="master.gbs.profile.userProfile.View"><i class="fa fa-user"></i><span id="lbloverview" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lbloverview'">{{value.TextMessage}}</span></a>
+                </li>
+                <li id="setting" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblsettings'" ng-click="vm.changeTitle(value.TextMessage,'setting')">
+                    <a ui-sref="master.gbs.profile.userProfile.profilesetting"><i class="fa fa-cog"></i><span id="lblsettings" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblsettings'">{{value.TextMessage}}</span></a>
+                </li>
+                <li id="bookingHistory" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblbookinghistory'" ng-click="vm.changeTitle(value.TextMessage,'bookingHistory')">
+                    <a ui-sref="master.gbs.profile.userProfile.profilebookinghistory"><i class="fa fa-clock-o"></i><span id="lblbookinghistory" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblbookinghistory'">{{value.TextMessage}}</span></a>
+                </li>
+                <li id="creditCard" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblcrdeicardinfo'" ng-click="vm.changeTitle(value.TextMessage,'creditCard')">
+                    <a ui-sref="master.gbs.profile.userProfile.profilecreditcard"><i class="fa fa-credit-card"></i><span id="lblcrdeicardinfo" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblcrdeicardinfo'">{{value.TextMessage}}</span></a>
+                </li>
+                <li id="wishList" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblwhislist'" ng-click="vm.changeTitle(value.TextMessage,'wishList')">
+                    <a ui-sref="master.gbs.profile.userProfile.profilemywishlist"><i class="fa fa-heart-o"></i><span id="lblwhislist" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblwhislist'">{{value.TextMessage}} </span></a>
+                </li>
+            </ul>
+        </aside>
+    </div>

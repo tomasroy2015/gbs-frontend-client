@@ -1,0 +1,42 @@
+﻿<div class="container">
+    <ul class="breadcrumb alt clearfix">
+        <li><a ui-sref=" master.gbs.home"><i class="fa fa-home"></i> &nbsp;</a></li>
+        <li class="active" id="lblterms" ng-repeat="(key, value) in vm.termConditionlabel | objectByKeyValFilter:'LblId':'lblterms'">{{value.TextMessage}}</li>
+    </ul>
+
+    <div class="booking-item-details">
+        <header class="booking-item-header">
+            <h2 class="lh1em inline-rating-stars" id="lblterms" ng-repeat="(key, value) in vm.termConditionlabel | objectByKeyValFilter:'LblId':'lblterms'">{{value.TextMessage}}</h2>
+        </header>
+    </div>
+
+    <div class="mb30"></div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <aside class="sidebar-left">
+                <div class="sidebar-widget">
+                    <ul class="icon-list list-category">
+                        <li><a ui-sref=" master.gbs.aboutus"><i class="fa fa-angle-right"></i><span id="lblabout" ng-repeat="(key, value) in vm.termConditionlabel | objectByKeyValFilter:'LblId':'lblabout'">{{value.TextMessage}}</span></a></li>
+                        <li><a ui-sref=" master.gbs.faq"><i class="fa fa-angle-right"></i><span id="lblfaq" ng-repeat="(key, value) in vm.termConditionlabel | objectByKeyValFilter:'LblId':'lblfaq'">{{value.TextMessage}}</span></a></li>
+                        <li class="active"><a ui-sref="master.gbs.termsandcondition"><i class="fa fa-angle-right"></i><span id="lblterms" ng-repeat="(key, value) in vm.termConditionlabel | objectByKeyValFilter:'LblId':'lblterms'">{{value.TextMessage}}</span></a></li>
+                        <li><a href="javascript:void(0);" ng-click="showmanagereservation()"><i class="fa fa-angle-right"></i><span id="lblmanagereservation" ng-repeat="(key, value) in vm.termConditionlabel | objectByKeyValFilter:'LblId':'lblmanagereservation'">{{value.TextMessage}}</span></a></li>
+                        <li><a ui-sref=" master.gbs.property"><i class="fa fa-angle-right"></i><span id="lbladdproperty" ng-repeat="(key, value) in vm.termConditionlabel | objectByKeyValFilter:'LblId':'lbladdproperty'">{{value.TextMessage}}</span></a></li>
+                        <li><a href="http://www.gbsextranet.com"><i class="fa fa-angle-right"></i><span id="lblextranetlogin" ng-repeat="(key, value) in vm.termConditionlabel | objectByKeyValFilter:'LblId':'lblextranetlogin'">{{value.TextMessage}}</span></a></li>
+                        <li><a ui-sref="master.gbs.contactus"><i class="fa fa-angle-right"></i><span id="lblcontactus1" ng-repeat="(key, value) in vm.termConditionlabel | objectByKeyValFilter:'LblId':'lblcontactus1'">{{value.TextMessage}}</span></a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+        <div class="col-md-9">
+
+            <h4 id="lblterms" ng-repeat="(key, value) in vm.termConditionlabel | objectByKeyValFilter:'LblId':'lblterms'">{{value.TextMessage}}</h4>
+            <div id="divtermsandconditions" ng-repeat="termsConditions in vm.listTearmsCondition">
+                <p ng-bind-html="termsConditions.Content | trust"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb30"></div>
+
+</div>

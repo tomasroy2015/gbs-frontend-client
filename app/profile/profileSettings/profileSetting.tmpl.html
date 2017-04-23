@@ -1,0 +1,121 @@
+﻿<div class="container">
+    <div class="mb20"></div>
+    <div class="mb20"></div>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-5">
+                    <form name="profile" ng-submit="vm.updateProfile(profile)" novalidate>
+                        <h4><span id="lblpersonalinfo" ng-repeat="(key, value) in vm.profileSettinglabel | objectByKeyValFilter:'LblId':'lblpersonalinfo'">{{value.TextMessage}}</span></h4>
+                        <div class="form-group form-group-icon-left">
+                            <i class="fa fa-user input-icon"></i>
+                            <label ng-repeat="(key, value) in vm.profileSettinglabel | objectByKeyValFilter:'LblId':'lblfirstname'">{{value.TextMessage}}</label>
+                            <input class="form-control" required ng-class="{'inputError': profile.$submitted && profile.UserName.$invalid}" name="Surname" type="text" ng-model="vm.profileDetail.UserName" />
+                        </div>
+                        <div class="form-group form-group-icon-left">
+                            <i class="fa fa-user input-icon"></i>
+                            <label ng-repeat="(key, value) in vm.profileSettinglabel | objectByKeyValFilter:'LblId':'lbllastname'">{{value.TextMessage}}</label>
+                            <input class="form-control" required type="text" ng-class="{'inputError': profile.$submitted && profile.Surname.$invalid}" name="Surname" ng-model="vm.profileDetail.Surname" />
+                        </div>
+                        <div class="form-group form-group-icon-left">
+                            <i class="fa fa-envelope input-icon"></i>
+                            <label ng-repeat="(key, value) in vm.profileSettinglabel | objectByKeyValFilter:'LblId':'lblemail'">{{value.TextMessage}}</label>
+                            <input class="form-control" required type="email" ng-class="{'inputError': profile.Email.$touched && profile.Email.$invalid || profile.$submitted && profile.Email.$invalid}" name="Email" ng-model="vm.profileDetail.Email" />
+                        </div>
+                        <div class="form-group form-group-icon-left">
+                            <i class="fa fa-phone input-icon"></i>
+                            <label ng-repeat="(key, value) in vm.profileSettinglabel | objectByKeyValFilter:'LblId':'lblphonenumber'">{{value.TextMessage}}</label>
+                            <input class="form-control" ng-pattern="/^\d+$/" ng-minlength="10" ng-class="{'inputError': profile.$submitted && profile.Phone.$invalid}" name="Phone" type="text" ng-model="vm.profileDetail.Phone" />
+
+                            <div ng-messages="profile.Phone.$error" ng-show="profile.Phone.$touched || profile.$submitted">
+                                <div ng-message="required">please enter phone number, it should be min 10 character</div>
+                            </div>
+                        </div>
+                        <div class="gap gap-small"></div>
+                        <h4 ng-repeat="(key, value) in vm.profileSettinglabel | objectByKeyValFilter:'LblId':'lbllocatoin'">
+                            {{value.TextMessage}}
+                        </h4>
+                        <div class="form-group">
+                            <label ng-repeat="(key, value) in vm.profileSettinglabel | objectByKeyValFilter:'LblId':'lblstreet'">
+                                {{value.TextMessage}}
+                            </label>
+                            <input class="form-control" type="text"  ng-class="{'inputError': profile.$submitted && profile.Address.$invalid}" name="Address" ng-model="vm.profileDetail.Address" />
+                        </div>
+                        <div class="form-group">
+                            <label ng-repeat="(key, value) in vm.profileSettinglabel | objectByKeyValFilter:'LblId':'lblzip'">
+                                {{value.TextMessage}}
+                            </label>
+                            <input class="form-control"  ng-class="{'inputError': profile.$submitted && profile.PostCode.$invalid}" name="PostCode" type="text" ng-model="vm.profileDetail.PostCode" />
+                        </div>
+                        <div class="form-group">
+                            <label ng-repeat="(key, value) in vm.profileSettinglabel | objectByKeyValFilter:'LblId':'lblcountry'">
+                                {{value.TextMessage}}
+                            </label>
+                            <select ng-class="{'inputError': profile.$submitted && profile.Country.$invalid}" ng-init="vm.profileDetail.CountryId='0';" ng-change="vm.getCity(vm.profileDetail.CountryId)" name="Country" class="form-control" ng-model="vm.profileDetail.CountryId">
+                                <option selected value="0">Select Country</option>
+                                <option ng-repeat="country in vm.countryList" value="{{country.Id}}">{{country.CountryName}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label ng-repeat="(key, value) in vm.profileSettinglabel | objectByKeyValFilter:'LblId':'lblcity'">
+                                {{value.TextMessage}}
+                            </label>
+                            <select ng-disabled="vm.profileDetail.CountryId==''" ng-class="{'inputError': profile.$submitted && profile.City.$invalid}" name="City" class="form-control" ng-model="vm.profileDetail.CityId">
+                                <option selected value="">Select City</option>
+                                <option ng-repeat="city in vm.cityList" value="{{city.Id}}">{{city.CityName}}</option>
+                            </select>
+                        </div>
+                        <!--<div class="form-group">
+                            <label>City</label>
+                            <input id="cityInput" ng-change="vm.getCityNames(vm.city)" class="form-control" autocomplete="off" ng-model="vm.city" type="text" />
+                            <input type="hidden" id="hdnCityID" />
+                            <input type="hidden" id="hdnCityName" />
+                        </div>-->
+
+
+                        <input type="submit" class="btn btn-primary" ng-repeat="(key, value) in vm.profileSettinglabel | objectByKeyValFilter:'LblId':'btnsavechange'" value="{{value.TextMessage}}">
+                        <input type="button" class="btn btn-primary" ng-repeat="(key, value) in vm.profileSettinglabel | objectByKeyValFilter:'LblId':'btncancelupdate'" value="{{value.TextMessage}}" ui-sref="master.gbs.profile.userProfile.View" />
+                    </form>
+                </div>
+                <div class="col-md-4 col-md-offset-1">
+                    <h4>
+                        <span ng-repeat="(key, value) in vm.profileSettinglabel | objectByKeyValFilter:'LblId':'lblchangepassword'">
+                            {{value.TextMessage}}
+                        </span>
+                    </h4>
+                    <form name="updatePassword" ng-submit="vm.updatePassword(updatePassword)" novalidate>
+                        <div class="form-group form-group-icon-left">
+                            <i class="fa fa-lock input-icon"></i>
+                            <label ng-repeat="(key, value) in vm.profileSettinglabel | objectByKeyValFilter:'LblId':'lblCurrentPassword'">
+                                {{value.TextMessage}}
+                            </label>
+                            <input class="form-control" required name="oldPassword" type="password" ng-model="vm.oldPassword" ng-class="{'inputError': updatePassword.$submitted && updatePassword.oldPassword.$invalid}" />
+                        </div>
+                        <div class="form-group form-group-icon-left">
+                            <i class="fa fa-lock input-icon"></i>
+                            <label ng-repeat="(key, value) in vm.profileSettinglabel | objectByKeyValFilter:'LblId':'lblnewpassord'">
+                                {{value.TextMessage}}
+                            </label>
+                            <input class="form-control" required name="newPassword" type="password" ng-model="vm.newPassword" ng-class="{'inputError': updatePassword.$submitted && updatePassword.newPassword.$invalid}" />
+                        </div>
+                        <div class="form-group form-group-icon-left">
+                            <i class="fa fa-lock input-icon"></i>
+                            <label ng-repeat="(key, value) in vm.profileSettinglabel | objectByKeyValFilter:'LblId':'lblnewpassordagain'">
+                                {{value.TextMessage}}
+                            </label>
+                            <input class="form-control" required name="newPasswordConfirm" type="password" ng-model="vm.newPasswordConfirm" ng-class="{'inputError': updatePassword.$submitted && updatePassword.newPasswordConfirm.$invalid}" />
+                        </div>
+                        <input type="submit" class="btn btn-primary" ng-repeat="(key, value) in vm.profileSettinglabel | objectByKeyValFilter:'LblId':'btnchagepassord'" value="{{value.TextMessage}}">
+                        <div>
+                            <label style="color: red; display: none; margin-left: 0px;"></label>
+                            <label style="color:green;display:none;margin-left:0px;"></label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb30"></div>
+
+</div>

@@ -1,0 +1,152 @@
+﻿<div class="container">
+    <div class="mb20"></div>
+    <div class="mb20"></div>
+    <div class="row">
+        <div class="col-md-9 col-xs-12">
+            <div>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="javascript:void(0)" data-toggle="tab" data-target="#All1"><span id="lblAll" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblAll'">{{value.TextMessage}}</span></a></li>
+                    <li>               <a href="javascript:void(0)" data-toggle="tab" data-target="#Pending1"><span id="lblPending" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblPending'">{{value.TextMessage}}</span></a></li>
+                    <li>               <a href="javascript:void(0)" data-toggle="tab" data-target="#Complete1"><span id="lblComplete" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblComplete'">{{value.TextMessage}}</span></a></li>
+                    <li>               <a href="javascript:void(0)" data-toggle="tab" data-target="#Cancelled1"><span id="lblCancelled" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblCancelled'">{{value.TextMessage}}</span></a></li>
+                </ul>
+                <br />
+                <br />
+                <div class="tab-content">
+                    <div id="All1" class="tab-pane fade in active">
+                        <table class="table table-bordered table-striped table-booking-history mb30">
+                            <thead>
+                                <tr>
+                                    <th><span id="lblReservationID1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblReservationID1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblPinCode1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblPinCode1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblReservationDate1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblReservationDate1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblProperty1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblProperty1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblCheckInDate1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblCheckInDate1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblCheckOutDate1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblCheckOutDate1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblPayableAmount1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblPayableAmount1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblStatus1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblStatus1'">{{value.TextMessage}} </span></th>
+                                    <th><span id="lbloperations1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lbloperations1'">{{value.TextMessage}} </span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblAll">
+                                <tr ng-repeat="history in vm.bookingHistory">
+                                    <td>{{history.ReservationId}}</td>
+                                    <td>{{history.PinCode}}</td>
+                                    <td>{{history.ReservationDate}}</td>
+                                    <td>{{history.Property}}</td>
+                                    <td>{{history.CheckInDate}}</td>
+                                    <td>{{history.CheckOutDate}}</td>
+                                    <td>{{history.PayableAmount}}</td>
+                                    <td>{{history.Status}}</td>
+                                    <td>
+                                        <a style="cursor:pointer" ng-click="vm.manageReservation(history.ReservationId,history.PinCode)" rel="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-eye text-info"></i></a>
+                                        <a style="cursor:pointer" ng-click="vm.manageReservation(history.ReservationId,history.PinCode)" rel="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                                        <a style="cursor:pointer" ng-click="vm.manageReservation(history.ReservationId,history.PinCode)" rel="tooltip" data-placement="top" title="" data-original-title="Print"><i class="fa fa-fax text-success"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div id="Pending1" class="tab-pane fade">
+                        <table class="table table-bordered table-striped table-booking-history mb30">
+                            <thead>
+                                <tr>
+                                    <th><span id="lblReservationID1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblReservationID1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblPinCode1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblPinCode1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblReservationDate1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblReservationDate1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblProperty1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblProperty1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblCheckInDate1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblCheckInDate1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblCheckOutDate1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblCheckOutDate1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblPayableAmount1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblPayableAmount1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblStatus1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblStatus1'">{{value.TextMessage}} </span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblPending">
+                                <tr ng-repeat="history in vm.bookingHistory" ng-if="history.StatusId==4">
+                                    <td>{{history.ReservationId}}</td>
+                                    <td>{{history.PinCode}}</td>
+                                    <td>{{history.ReservationDate}}</td>
+                                    <td>{{history.Property}}</td>
+                                    <td>{{history.CheckInDate}}</td>
+                                    <td>{{history.CheckOutDate}}</td>
+                                    <td>{{history.PayableAmount}}</td>
+                                    <td>{{history.Status}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="Complete1" class="tab-pane fade">
+                        <table class="table table-bordered table-striped table-booking-history mb30">
+                            <thead>
+                                <tr>
+                                    <th><span id="lblReservationID1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblReservationID1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblPinCode1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblPinCode1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblReservationDate1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblReservationDate1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblProperty1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblProperty1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblCheckInDate1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblCheckInDate1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblCheckOutDate1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblCheckOutDate1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblPayableAmount1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblPayableAmount1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblStatus1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblStatus1'">{{value.TextMessage}} </span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblComplete">
+                                <tr ng-repeat="history in vm.bookingHistory" ng-if="history.StatusId==1">
+                                    <td>{{history.ReservationId}}</td>
+                                    <td>{{history.PinCode}}</td>
+                                    <td>{{history.ReservationDate}}</td>
+                                    <td>{{history.Property}}</td>
+                                    <td>{{history.CheckInDate}}</td>
+                                    <td>{{history.CheckOutDate}}</td>
+                                    <td>{{history.PayableAmount}}</td>
+                                    <td>{{history.Status}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="Cancelled1" class="tab-pane fade">
+                        <table class="table table-bordered table-striped table-booking-history mb30">
+                            <thead>
+                                <tr>
+                                    <th><span id="lblReservationID1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblReservationID1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblPinCode1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblPinCode1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblReservationDate1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblReservationDate1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblProperty1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblProperty1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblCheckInDate1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblCheckInDate1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblCheckOutDate1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblCheckOutDate1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblPayableAmount1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblPayableAmount1'">{{value.TextMessage}}</span></th>
+                                    <th><span id="lblStatus1" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblStatus1'">{{value.TextMessage}} </span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblCancelled">
+                                <tr ng-repeat="history in vm.bookingHistory" ng-if="history.StatusId==2">
+                                    <td>{{history.ReservationId}}</td>
+                                    <td>{{history.PinCode}}</td>
+                                    <td>{{history.ReservationDate}}</td>
+                                    <td>{{history.Property}}</td>
+                                    <td>{{history.CheckInDate}}</td>
+                                    <td>{{history.CheckOutDate}}</td>
+                                    <td>{{history.PayableAmount}}</td>
+                                    <td>{{history.Status}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div>
+                <label style="display:none;margin-top:10px" id="lblNoRecordFoundMessage"></label>
+            </div>
+
+           
+
+        </div>
+      
+        
+    </div>
+
+    <div class="mb30"></div>
+
+</div>

@@ -1,0 +1,30 @@
+﻿<div class="" role="document">
+    <div class="modal-content">
+        <!--role="dialog"-->
+
+        <div class="modal-body">
+            <button type="button" class="close btn_cls" ng-click="vm.hideTermsPopup()">&times;</button>
+            <div class="container-fluid">
+                <ul class="breadcrumb alt clearfix">
+                    <li><a ui-sref=" master.gbs.home"><i class="fa fa-home"></i> &nbsp;</a></li>
+                    <li class="active" id="lblterms" ng-repeat="(key, value) in vm.termConditionlabel | objectByKeyValFilter:'LblId':'lblterms'">{{value.TextMessage}}</li>
+                </ul>
+                <div class="booking-item-details">
+                    <header class="booking-item-header">
+                        <h2 class="lh1em inline-rating-stars" id="lblterms" ng-repeat="(key, value) in vm.termConditionlabel | objectByKeyValFilter:'LblId':'lblterms'">{{value.TextMessage}}</h2>
+                    </header>
+                </div>
+                <div class="mb30"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 id="lblterms" ng-repeat="(key, value) in vm.termConditionlabel | objectByKeyValFilter:'LblId':'lblterms'">{{value.TextMessage}}</h4>
+                        <div id="divtermsandconditions" ng-repeat="termsConditions in vm.listTearmsCondition">
+                            <p ng-bind-html="termsConditions.Content | trust"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb30"></div>
+            </div>
+        </div>
+    </div>
+</div>

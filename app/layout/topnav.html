@@ -1,0 +1,155 @@
+﻿<title></title>
+<div class="header-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-3 col-md-3">
+                <a class="logo" ui-sref="master.gbs.home">
+                    <label style="font-size: 27px; padding: 12px 22px 7px 0px; font-family: Audiowide, Arial, Helvetica, sans-serif; font-weight: normal; color: #FFFFFF; cursor: pointer">GBS HOTELS</label>
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-9">
+                <div id="user_form" class="top-user-area clearfix">
+                    <ul class=" top-user-area-list list list-horizontal list-border"><!--ui-toggle-class="active-drop"-->
+                        <li data-priority="1" class="boot-drop" uib-dropdown keyboard-nav>
+                            <a id="acurrency" href="javascript:void(0);" uib-dropdown-toggle>
+                                <label id="lblCurrency" style=" display: none;"></label>
+                                <span style="cursor:pointer;">{{vm.currentCurrency.CurrencyCode}}</span>
+                                <!--<span class="caret"></span>-->
+                                <i class="fa fa-angle-down" ui-toggle-class="fa fa-angle-up"></i>
+                                <i class="fa fa-angle-up" ui-toggle-class="fa fa-angle-down"></i>
+                                <!--<i class="fa fa-angle-up"></i>-->
+                            </a>
+                            <ul class="list nav-drop-menu" uib-dropdown-menu role="menu" id="ulCurrency" style="width: 500px;" aria-labelledby="acurrency">
+                                <li role="menuitem" class="horizontal" ng-repeat="currrency in vm.currencyList">
+                                    <a ng-click="vm.changecurrency(currrency)">
+                                        <span class="seldescription" style="margin-left: 10px;">{{currrency.CurrencyName}} </span>
+                                        <span class="right" style="float:right;">{{currrency.CurrencySymbol}}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li data-priority="1" class="boot-drop" uib-dropdown keyboard-nav>
+                            <a href="javascript:void(0);" uib-dropdown-toggle>
+                                <img ng-src="/Images/flag/{{vm.currentLang.CultureCode}}.png" style=" width: 20px;">
+                                <i class="fa fa-angle-down"></i>
+                                <i class="fa fa-angle-up"></i>
+                            </a>
+                            <ul class="list nav-drop-menu" uib-dropdown-menu role="menu" style="width: 520px;">
+                                <li class="horizontalNew" ng-repeat="language in vm.languageList">
+                                    <a ng-click="vm.changeLanguage(language)">
+                                        <span class="selsymbol"><img ng-src="/Images/flag/{{language.CultureCode}}.png" style="margin-top: -5px;width:20px;"> </span>
+                                        <span class="seldescription" style="margin-left: 10px;">{{language.Description}} </span>
+                                    </a>
+                            </ul>
+                        </li>
+
+                        <li class="boot-drop boot-drop-longer my-lists" auto-close="disabled" uib-dropdown keyboard-nav ng-click="vm.getRecentlyviewdHotels();">
+                            <a href="javascript:void(0);" uib-dropdown-toggle>
+                                <label id="lblrecentlyseen" style="cursor:pointer">Recently Seen</label><i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i>
+                            </a>
+                            <!--<label style="margin-top:10px"   id="lblNoRecordFoundMessage">No record has been found</label>-->
+                            <ul class="nav-drop-menu booking-list" uib-dropdown-menu>
+                                <li ng-repeat="val in vm.recentlyViewedHotel" class="clearfix MarginsmallScreen">
+                                    <a ui-sref="master.gbs.hoteldetail({'hotelId': val.Id,'hotelname':val.Name})" target="_blank" class="booking-item booking-item-small">
+                                        <div class="row gap-10">
+                                            <div class="col-xs-4 col-md-4"> <img ng-src="{{val.MainPhotoName}}"></div>
+                                            <div class="col-xs-8 col-md-8">
+                                                <ul class="icon-group booking-item-rating-stars">
+                                                    <li ng-if="val.IsPreferred=='True'" style="margin-right:10px;"><img style="width:10px;" src="/Images/preferred.png"></li>
+                                                    <li ng-bind-html="val.HotelClass | trust">
+                                                    </li>
+                                                </ul><h5 class="booking-item-title">{{val.Name}}</h5> <p class="thumb-location">
+                                                    <span class="font700"><i class="fa fa-map-marker"></i> {{val.CityName}}</span> - {{val.ClosestAirportDistance}} Km From {{val.ClosestAirportName}}
+                                                </p> <p class="font10 line14 mb0">{{val.Description}}...</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a ng-click="vm.DeleteMyViewedHotels(val.SearchId)" class="notification-close"><i class="fa fa-times"></i></a>
+                                </li>
+                                <li ng-if="vm.recentlyViewedHotel.length == 0">
+                                    <div class="no-record">No record has been found</div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="boot-drop boot-drop-longer my-lists" uib-dropdown keyboard-nav ng-click="vm.getMyWishlistsMaster();">
+                            <a href="javascript:void(0);" uib-dropdown-toggle>
+                                <label style="cursor:pointer">My lists</label><i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i>
+                            </a>
+
+                            <ul class="nav-drop-menu booking-list" uib-dropdown-menu>
+
+                                <li ng-repeat="val in vm.mywishist" class="clearfix MarginsmallScreen" > <!--style="left: -50px;"-->
+
+                                    <a ui-sref="master.gbs.hoteldetail({'hotelId': val.Id, 'hotelname':val.Name})" target="_blank" class="booking-item booking-item-small">
+
+                                        <div class="row gap-10">
+
+                                            <div class="col-xs-4 col-md-4">
+
+                                                <img ng-src="{{val.MainPhotoName}}" />
+
+                                            </div>
+                                            <div class="col-xs-8 col-md-8">
+
+                                                <ul class="icon-group booking-item-rating-stars" ng-bind-html="val.HotelClass | trust"> </ul>
+                                                <h5 class="booking-item-title">{{ val.Name}}</h5>
+                                                <p class="thumb-location"> {{val.Address}} </p>
+                                                <p class="font10 line14 mb0">{{val.Description}}...</p>
+
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a ng-click="vm.DeleteMyWishListHotels(val.Id)" class="notification-close"><i class="fa fa-times"></i></a>
+
+                                </li>
+                                <li  ng-if="vm.mywishist.length == 0"><div class="no-record">No record has been found</div></li>
+                            </ul>
+                        </li>
+
+                        <li ng-if="vm.isLoggedIn==false" style="display: block;">
+                            <a class="popupnew" ng-click="vm.showLoginPopup()"><label style="cursor: pointer; display: block;">{{vm.label.login}}</label></a>
+                        </li>
+
+                        <li class="top-user-area-avatar" ng-if="vm.isLoggedIn">
+                            <a ui-sref="master.gbs.profile.userProfile.View"><img id="imggg" class="origin round" src="./Images/profilePic.png" alt="Image Alternative text" title="User"> {{vm.username}} </a>
+
+                            <!--<div style="width:25%" ui-sref="master.gbs.profile.userProfile.View">
+                                <img src="./Images/profilePic.png" class="top-user-area" />
+                            </div>-->
+                            <!-- <a ui-sref="master.gbs.profile.userProfile.View"></a>-->
+                        </li>
+
+                        <li ng-if="vm.isLoggedIn" class="popupnew2" style=" display block;">
+                            <a class="popupnew" ng-click="vm.logout()"><label style="cursor: pointer; display: block;">{{vm.label.logout}}</label></a>
+                        </li>
+
+                        <li id="lisignout" style="display: none;">
+                            <a style="list-style-type:none" onclick="FbLogout();" href="../Home/Logout"><label style="cursor:pointer">Logout</label></a>
+                        </li>
+
+                        <li>
+                            <a id="amgReser" ng-click="showmanagereservation()" class="popupnew2"><label style="cursor:pointer">Manage Reservations</label></a>
+                        </li>
+                        <!-- language selection -->
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

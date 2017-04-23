@@ -1,0 +1,24 @@
+﻿<div style="border: 5px solid #ed8323;border-radius:2px">
+        <div class="modal-content">
+            <div class="modal-header" >
+                <button type="button" class="close" aria-label="Close" ng-click="vm.closePopup()"><span style=" color: green; font-size:xx-large; }" aria-hidden="true">×</span></button>
+                <h3 style="color: green; font-weight: 500; text-align: center;" class="modal-title" id="modal-title">Upload Photo</h3>
+               
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-5" style="text-align:center">
+                        <img src="../../../Images/profilePic.png" ngf-thumbnail="vm.profilePic" style="height:100px;width:100px;" />
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="form-group form-group-icon-left">
+                            <span class="btn btn-success" >
+                                <input type="file" ngf-select ng-model="vm.profilePic" accept="image/*" ngf-max-size="2MB" required />
+                            </span>
+                          </div>
+                        <div class="btn btn-success" ng-click="vm.fileUpload(vm.profilePic)">Upload</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

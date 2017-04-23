@@ -1,0 +1,179 @@
+﻿<div class="container">
+    <ul class="breadcrumb alt clearfix" ng-repeat="data in vm.city">
+        <li>
+            <a ui-sref="master.gbs.home"><i class="fa fa-home"></i> &nbsp;</a>
+        </li>
+        <li>
+            <a ui-sref="master.gbs.region({'regionId': data.CountryID})">{{data.CountryName}}</a>
+            <span>{{data.Properties1}} &nbsp;<label id="lblprpoerties3" style="display: inline;" ng-repeat="(key, value) in vm.hotelRegionlabel | objectByKeyValFilter:'LblId':'lblprpoerties3'">{{value.TextMessage}}</label></span>
+        </li>
+        <li>
+            {{data.CityName}}
+            <span>{{data.Properties}} &nbsp;<label id="lblprpoerties2" style="display: inline;" ng-repeat="(key, value) in vm.hotelRegionlabel | objectByKeyValFilter:'LblId':'lblprpoerties2'">{{value.TextMessage}}</label></span>
+        </li>
+    </ul>
+
+    <div ng-repeat="data in vm.city" class="search-main-02 for-city mt30" style="background-image: url({{data.CityImages}});">
+
+        <div class="search-main-inner">
+
+            <h1 class="page-title text-white mb10"><label id="lblwelcome" style="display: inline;" ng-repeat="(key, value) in vm.hotelRegionlabel | objectByKeyValFilter:'LblId':'lblwelcome'">{{value.TextMessage}}</label> {{data.CityName}} </h1>
+            <h5 class="text-white mb20"> <label id="lblEnterurdates" style="display: inline;" ng-repeat="(key, value) in vm.hotelRegionlabel | objectByKeyValFilter:'LblId':'lblEnterurdates'">{{value.TextMessage}}</label> {{data.Properties}} <label id="lblprpoerties1" style="display: inline;" ng-repeat="(key, value) in vm.hotelRegionlabel | objectByKeyValFilter:'LblId':'lblprpoerties1'">{{value.TextMessage}}</label></h5>
+
+            <form>
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <div class="input-daterange" data-date-format="MM d, D">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-icon-left">
+                                        <div class="dropdown">
+                                            <div class="dropdown-toggle my-toggle-select" id="lblCheckIn" role="button" data-toggle="dropdown">
+                                                <i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                                <label class="text-left text-white" id="lblCheckInDate" ng-repeat="(key, value) in vm.hotelRegionlabel | objectByKeyValFilter:'LblId':'lblCheckInDate'">{{value.TextMessage}}</label>
+                                                <input class="form-control" name="start" type="text" id="txtCheckInDate" data-ng-model="vm.CheckInDate.date | date:'MMMM d, EEE' ">
+                                            </div>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                <datetimepicker data-ng-model="vm.CheckInDate.date" data-before-render="vm.beforeRender($view, $dates, $leftDate, $upDate, $rightDate);" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' ,startView:'day', minView:'day'}"></datetimepicker>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-icon-left">
+                                        <div class="dropdown">
+                                            <div class="dropdown-toggle my-toggle-select1" id="lblCheckOut" role="button" data-toggle="dropdown" >
+                                                <i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                                <label class="text-left text-white" id="lblCheckOutDate" ng-repeat="(key, value) in vm.hotelRegionlabel | objectByKeyValFilter:'LblId':'lblCheckOutDate'">{{value.TextMessage}}</label>
+                                                <input class="form-control" name="start" type="text" id="txtCheckOutDate" data-ng-model="vm.CheckOutDate.date | date:'MMMM d, EEE' ">
+                                            </div>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="lblCheckOut">
+                                                <datetimepicker data-ng-model="vm.CheckOutDate.date" data-before-render="vm.beforeRender_CheckOutDate($view, $dates, $leftDate, $upDate, $rightDate);" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select1' ,startView:'day', minView:'day'}"></datetimepicker>
+                                            </ul>
+                                        </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <input type="button" class="btn btn-primary mt10" ng-repeat="(key, value) in vm.hotelRegionlabel | objectByKeyValFilter:'LblId':'btnfindthebestdeals'" value="{{value.TextMessage}}" id="btnfindthebestdeals" ng-click="vm.getSearchHotels();" />
+
+                <p class="text-white mt30" ng-repeat="(key, value) in vm.hotelRegionlabel | objectByKeyValFilter:'LblId':'lblFREEcancellation'" id="lblFREEcancellation">{{value.TextMessage}}</p>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-6">
+            <div class="map-wrapper" id="DivMap" style="padding-top: 35px; margin-bottom: 10px; min-height:575px; position: relative;">
+                <!--map-lazy-load="https://maps.google.com/maps/api/js?key={{vm.APIKEY}}&libraries=placeses,geometry,places"-->
+                <div style="height:100%;width:100%;"> 
+                    <ng-map default-style="false" class="hregionMap" zoom="15" ng-repeat="reg in vm.regions" center="{{vm.regionHotel1[0].Latitude}}, {{vm.regionHotel1[0].Longitude}}">
+                        <marker ng-repeat="hot in vm.regionHotel1" id="{{hot.Id}}" position="[{{hot.Latitude}}, {{hot.Longitude}}]" on-click="vm.showMarkerWindow(hot)"></marker>
+                        <info-window id="info_Region" style="  position: absolute; width: 270px; left: 391.961px; top: 46.5869px;">
+                            <div ng-non-bindable="" class="infobox">
+                                <div class="infobox-hotel-item thumb hotel-grid-item">
+                                    <header class="thumb-header booking-item-img-wrap">
+                                        <a target="_blank" class="preview" ui-sref="master.gbs.hoteldetail({'hotelId': vm.regionHotelAddress.Id,'hotelname':vm.regionHotelAddress.Name})">
+                                            <img ng-src="{{vm.regionHotelAddress.MainPhotoName}}" alt="Image" width="100%" />
+                                        </a>
+                                    </header>
+                                    <div class="thumb-caption">
+                                        <h5 class="thumb-title"><a ui-sref="master.gbs.hoteldetail({'hotelId': vm.regionHotelAddress.Id,'hotelname':vm.regionHotelAddress.Name})" class=" text-darken">{{vm.regionHotelAddress.Name}}</a></h5>
+                                        <span class="font700">Address: </span>{{vm.regionHotelAddress.Address}}<br />
+                                        <!--<a target="_blank" ui-sref="master.gbs.hoteldetail({'hotelId': vm.regionHotelAddress.Id,'hotelname':vm.regionHotelAddress.Name})">Learn More</a>-->
+                                        <span>{{vm.regionHotelAddress.RegionName}}</span>
+                                    </div>
+                                    <div class="row" style="margin-left:0px;margin-right:0px;">
+                                        <div class="col-xs-6"><a target="_blank" ui-sref="master.gbs.hoteldetail({'hotelId': vm.regionHotelAddress.Id,'hotelname':vm.regionHotelAddress.Name})" class="btn btn-primary">Book Now</a></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </info-window>
+                    </ng-map>
+
+
+                </div>
+                </div>
+            </div>
+
+        <div class="col-sm-6">
+
+            <div class="gap gap-small"></div>
+            <h3 class="mb20"><label id="lblrecommended" style="display: inline;" ng-repeat="(key, value) in vm.hotelRegionlabel | objectByKeyValFilter:'LblId':'lblrecommended'">{{value.TextMessage}}</label> <label id="lblrecommoncityname" style="display: inline;" ng-repeat="(key, value) in vm.hotelRegionlabel | objectByKeyValFilter:'LblId':'lblrecommoncityname'">{{value.TextMessage}}</label> </h3>
+
+            <div class="booking-grid-wrapper">
+                <div class="row row-wrap alt gap-20 mb20" id="searchhotels" ng-if="vm.hotels ==0">
+                    <label id="lblNoRecordFoundSearch" style="color:red"> No Hotels Found </label>
+                </div>
+
+                <div class="row row-wrap alt gap-20 mb20" id="divrecommendhotels">
+
+                    <div ng-repeat="data in vm.hotels" class="col-xss-12 col-xs-6 col-sm-6 col-md-6" data-match-height="result-grid" style="height: 472px;">
+                        <div class="thumb hotel-grid-item">
+                            <header class="thumb-header">
+                                <a class="hover-img" ui-sref="master.gbs.hoteldetail({'hotelId': data.Id,'hotelname':data.RoutingName})">
+                                    <img ng-src="{{data.MainPhotoName}}" alt="Image Alternative text" title="{{data.RoutingName}}" style="height: 178px;">
+                                    <h5 class="hover-title-center">{{data.Book}}</h5>
+                                </a>
+                            </header>
+                            <div class="thumb-caption">
+                                <h5 class="thumb-title"><a class="text-darken" ui-sref="master.gbs.hoteldetail({'hotelId': data.Id,'hotelname':data.RoutingName})">{{data.RoutingName}}</a></h5>
+                                <p class="thumb-location">
+                                    <span class="font700"><i class="fa fa-map-marker"></i> {{data.ClosestAirportDistance}}</span>{{data.KmFrom}} {{data.ClosestAirportName}}
+                                </p>
+                                <ul class="icon-group text-color">
+                                    <li ng-if="data.HotelClassValue=='OneStar'"><i class="fa fa-star"></i></li>
+                                    <li ng-if="data.HotelClassValue=='TwoStar'"><i class="fa fa-star"></i>&nbsp;<i class="fa fa-star"></i></li>
+                                    <li ng-if="data.HotelClassValue=='ThreeStar'"><i class="fa fa-star"></i>&nbsp;<i class="fa fa-star"></i>&nbsp;<i class="fa fa-star"></i></li>
+                                    <li ng-if="data.HotelClassValue=='FourStar'"><i class="fa fa-star"></i>&nbsp;<i class="fa fa-star"></i>&nbsp;<i class="fa fa-star"></i>&nbsp;<i class="fa fa-star"></i></li>
+                                    <li ng-if="data.HotelClassValue=='FiveStar'"><i class="fa fa-star"></i>&nbsp;<i class="fa fa-star"></i>&nbsp;<i class="fa fa-star"></i>&nbsp;<i class="fa fa-star"></i>&nbsp;<i class="fa fa-star"></i></li>
+                                    <li ng-if="data.HotelClassValue=='Unrated'">Unrated</li>
+                                </ul>
+                                {{data.ScoreFrom}} :&nbsp;<a ui-sref="master.gbs.hoteldetail({'hotelId': data.Id,'hotelname':data.RoutingName})"><span class="glyphicon glyphicon-comment"></span> <span>{{data.ReviewCount}} </span>{{data.Reviews}} </a>
+
+                                <p class="thumb-desc">{{data.DescriptionText}}  : {{data.Description}} ...</p>
+
+                                <div class="row">
+                                    <div class="col-xs-7">
+                                        <p class="mb0 text-darken thumb-price"><span class="text-lg lh1em text-color">{{data.CurrencyCode}} {{data.ConvertedRoomPrice}} </span></p>
+                                        <p class="mb0 text-darken thumb-price"><small> ({{data.Avgprice}})</small></p>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <div class="text-right">
+                                            <a ui-sref="master.gbs.hoteldetail({'hotelId': data.Id,'hotelname':data.RoutingName})" class="btn-book-now">Book <i class="fa fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<style>
+    .hregionMap {
+        width: 100%;
+        height: 550px;
+        position: absolute;
+    }
+    .ng-map-info-window{right:5px;}
+    .map-wrapper a.preview img {
+        width: 100% !important;
+    }
+</style>

@@ -1,0 +1,60 @@
+﻿<div class="container">
+
+    <ul class="breadcrumb alt clearfix">
+        <li><a ui-sref=" master.gbs.home"><i class="fa fa-home"></i> &nbsp;</a></li>
+        <li class="active" id="lblfaq11" ng-repeat="(key, value) in vm.FAQlabel | objectByKeyValFilter:'LblId':'lblfaq'">{{value.TextMessage}}</li>
+    </ul>
+
+    <div class="booking-item-details">
+        <header class="booking-item-header">
+            <h2 class="lh1em">
+                <label id="lblfaq10" ng-repeat="(key, value) in vm.FAQlabel | objectByKeyValFilter:'LblId':'lblfaq'">{{value.TextMessage}}</label>
+
+            </h2>
+        </header>
+    </div>
+
+    <div class="mb30"></div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <aside class="sidebar-left">
+                <div class="sidebar-widget">
+                    <ul class="icon-list list-category">
+                        <li><a ui-sref=" master.gbs.aboutus"><i class="fa fa-angle-right"></i><span id="lblabout" ng-repeat="(key, value) in vm.FAQlabel | objectByKeyValFilter:'LblId':'lblabout'">{{value.TextMessage}}</span></a></li>
+                        <li class="active"><a ui-sref=" master.gbs.faq"><i class="fa fa-angle-right"></i><span id="lblfaq" ng-repeat="(key, value) in vm.FAQlabel | objectByKeyValFilter:'LblId':'lblfaq'">{{value.TextMessage}}</span></a></li>
+                        <li><a ui-sref=" master.gbs.termsandcondition"><i class="fa fa-angle-right"></i><span id="lblterms" ng-repeat="(key, value) in vm.FAQlabel | objectByKeyValFilter:'LblId':'lblterms'">{{value.TextMessage}}</span></a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i><span id="lblmanagereservation" ng-repeat="(key, value) in vm.FAQlabel | objectByKeyValFilter:'LblId':'lblmanagereservation'">{{value.TextMessage}}</span></a></li>
+                        <li><a ui-sref=" master.gbs.property"><i class="fa fa-angle-right"></i><span id="lbladdproperty" ng-repeat="(key, value) in vm.FAQlabel | objectByKeyValFilter:'LblId':'lbladdproperty'">{{value.TextMessage}}</span></a></li>
+                        <li><a href="http://www.gbsextranet.com"><i class="fa fa-angle-right"></i><span id="lblextranetlogin" ng-repeat="(key, value) in vm.FAQlabel | objectByKeyValFilter:'LblId':'lblextranetlogin'">{{value.TextMessage}}</span></a></li>
+                        <li><a ui-sref="master.gbs.contactus"><i class="fa fa-angle-right"></i><span id="lblcontactus1" ng-repeat="(key, value) in vm.FAQlabel | objectByKeyValFilter:'LblId':'lblcontactus1'">{{value.TextMessage}}</span></a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+        <div class="col-md-9">
+
+            <div class="row gap-10">
+
+            </div>
+
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default" ng-repeat="faq in vm.listFAQ">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="javascript:" data-target="#collapse-{{faq.Id}}" class="collapsed">{{faq.Questions}}</a>
+                        </h4>
+                    </div>
+                    <div class="panel-collapse collapse" id="collapse-{{faq.Id}}" style="height: 0px;">
+                        <div class="panel-body">{{faq.Answers}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb20"></div>
+        </div>
+    </div>
+
+    <div class="mb30"></div>
+
+</div>

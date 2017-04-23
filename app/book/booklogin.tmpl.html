@@ -1,0 +1,74 @@
+﻿<div class="" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" ng-click="vm.closePopup()">&times;</button>
+            <h3><label id="lblLogintext">User Login</label></h3>
+            <div id="Logindisp" class="tabbable">
+                <div class="tab-content">
+
+                    <div class="modal-body col-md-12" style="border-bottom: 1px solid #e5e5e5;margin-bottom:20px;">
+                        <div class="row col-md-6" style="margin:0px;">
+                            <input class="form-control" ng-model="vm.username" placeholder="Email Address" type="text">
+                        </div>
+                        <div class="row col-md-6" style="margin: 0px; ">
+                            <input class="form-control" type="password" ng-model="vm.password" placeholder="Password">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer" style=" border-top: none;padding-right:0px;">
+                        <div class="row col-md-12 col-sm-12 col-xs-12" id="facebooklogin">
+                            <div class="col-md-6 col-sm-6 col-xs-12" align="center" style="margin-top:5px;">
+                                <!--vm.facebookID-->
+                                <span class="btn btn-facebook btn-sm btn-block" style="color: white; height: 35px;  font-size: 15px;" ng-click="loginToggle()"><i class="fa fa-facebook"></i><span id="Facebooklog">Register with Facebook</span> </span>
+                            </div>
+                            <div id="mySignIns" class="col-md-6 col-sm-6 col-xs-12" align="center" style="margin-top:5px;">
+                                <google-plus-signin clientid="{{vm.googleID}}" customtargetid="gbsgoo1" autorender="false">
+                                    <div id="gbsgoo1"> <button class="btn btn-google-plus btn-sm btn-block" style="color: white; height: 35px;  font-size: 15px;" id="gmailimage"><i class="fa fa-google-plus"></i><span id="gmaillog">Register with Google Plus</span></button></div>
+                                </google-plus-signin>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12" align="center" style="margin-top:5px;">
+                                <input type="button" ng-click="vm.login()" class="btn btn-primary" style="color: white; height: 35px; width: 100%; font-size: 15px;" id="btnloginBook" value="Login">
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12" align="center" style="margin-top:5px;">
+                                <button type="button" style="height: 35px; width: 100%; font-size: 15px;" ng-click="vm.closePopup()" id="Closebutton" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <!--<div class="row">
+
+
+                       <div class="col-sm-12">
+
+                            <span class="btn btn-primary btn-sm btn-block" id="btnSigninLogin" ><span id="spanLogin">Login</span></span>
+                            <div class="or-box">
+                                <span class="line"></span>
+                                <span class="text" id="txtOr"></span>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="col-sm-12" style="padding-top:5px;">
+
+                            <button ng-click="loginToggle()" class="btn btn-facebook btn-sm btn-block"><i class="fa fa-facebook"></i><span id="RegisterFBReg">Register with Facebook</span></button>
+                            <!--vm.facebookID-->
+                    <!--<div id="mySignIn" style="padding-top:5px;">
+                                <google-plus-signin clientid="{{vm.googleID}}" customtargetid="gbsgoo1" autorender="false">
+                                    <div id="gbsgoo1"> <button class="btn btn-google-plus btn-sm btn-block" id="gmailimage"><i class="fa fa-google-plus"></i><span id="RegisterGoogleReg">Register with Google Plus</span></button></div>
+                                </google-plus-signin>
+                            </div>
+                        </div>
+                        <label id="lblsuccess1" style="display:none; color:green; text-align:center;font-size:12px">Inserted SuccessFully</label>
+                        <label id="lblNotSuccess" style="display:none; color:red; text-align:center;font-size:12px"></label>
+
+                    </div>-->
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>

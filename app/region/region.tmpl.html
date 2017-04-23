@@ -1,0 +1,214 @@
+﻿<div class="container">
+    <ul class="breadcrumb alt clearfix">
+        <li>
+            <a ui-sref=" master.gbs.home"><i class="fa fa-home"></i> &nbsp;</a>
+        </li>
+        <li ng-repeat="data in vm.regionHotel" ng-if="$first">
+            <a style="color: #999;" id="lblCountryName1">{{data.CountryName}}</a>
+            <span><label id="lblCountryCount" style="display: inline;">{{data.CountryCount}}</label>&nbsp; <label id="lblproperties" style="display: inline;"> {{data.textmessage}}</label></span>
+        </li>
+    </ul> 
+        <div sticky sticky-class="imSoSticky" class="search-main-02 mt30 tabbable sticky-box" media-query="min-width: 1024px">
+            <h1 class="page-title" id="spnHotelSearch" ng-repeat="(key, value) in vm.regionlabel | objectByKeyValFilter:'LblId':'spnHotelSearch'">{{value.TextMessage}}</h1>
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div class="form-group form-group-icon-left">
+                        <i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
+                        <label id="lblhoteldestinations" class="lgb" ng-repeat="(key, value) in vm.regionlabel | objectByKeyValFilter:'LblId':'lblhoteldestinations'">{{value.TextMessage}}</label>
+                        <!--<input class="form-control" placeholder="City, region, district or specific hotel" id="txtDestinationSearch" type="text" autocomplete="off" />-->
+                        <angucomplete-alt ng-repeat="(key, value) in vm.regionlabel | objectByKeyValFilter:'LblId':'txtDestinationSearch'"
+                                          placeholder="{{value.TextMessage}}"
+                                          pause="300"
+                                          selected-object="vm.selected_destination"
+                                          remote-url="{{vm.URL}}/Home/GetDestinationSearchResult"
+                                          remote-url-request-formatter="vm.remoteUrlRequestFn"
+                                          remote-url-data-field="items"
+                                          search-fields="DisplayName"
+                                          title-field="DisplayName"
+                                          image-field="DestinationSearchTypeImagePath"
+                                          minlength="1"
+                                          maxlength="20"
+                                          input-class="form-control autocomp_w330 small-input"
+                                          match-class="highlight"
+                                          focus-in="vm.focusIn()"
+                                          focus-out="vm.focusOut()"
+                                          id="txtDestinationSearch" autocomplete="off" />
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-4">
+                    <div class="input-daterange" data-date-format="MM d, D">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-group-icon-left form-group-filled">
+                                    <!--<i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                    <label id="lblCheckIn" ng-repeat="(key, value) in vm.regionlabel | objectByKeyValFilter:'LblId':'lblCheckIn'">{{value.TextMessage}}</label>
+                                    <input class="form-control" name="start" type="text" id="txtCheckInDate">-->
+                                    <div class="dropdown">
+                                        <div class="dropdown-toggle my-toggle-select" id="lblCheckIn" role="button" data-toggle="dropdown">
+                                            <i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                            <label class="text-left lgb" id="lblCheckInDate" ng-repeat="(key, value) in vm.regionlabel | objectByKeyValFilter:'LblId':'lblCheckIn'">{{value.TextMessage}}</label>
+                                            <input class="form-control" name="start" type="text" id="txtCheckInDate" data-ng-model="vm.CheckInDate.date | date:'MMMM d, EEE' ">
+                                        </div>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                            <datetimepicker data-ng-model="vm.CheckInDate.date" data-before-render="vm.beforeRender($view, $dates, $leftDate, $upDate, $rightDate);" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' ,startView:'day', minView:'day'}"></datetimepicker>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-group-icon-left form-group-filled">
+                                    <!--<i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                    <label id="lblCheckOut" ng-repeat="(key, value) in vm.regionlabel | objectByKeyValFilter:'LblId':'lblCheckOut'">{{value.TextMessage}}</label>
+                                    <input class="form-control" name="end" type="text" id="txtCheckOutDate">-->
+
+                                    <div class="dropdown">
+                                        <div class="dropdown-toggle my-toggle-select1" id="lblCheckOut" role="button" data-toggle="dropdown">
+                                            <i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                            <label class="text-left lgb" id="lblCheckOutDate" ng-repeat="(key, value) in vm.regionlabel | objectByKeyValFilter:'LblId':'lblCheckOut'">{{value.TextMessage}}</label>
+                                            <input class="form-control" name="start" type="text" id="txtCheckOutDate" data-ng-model="vm.CheckOutDate.date | date:'MMMM d, EEE' ">
+                                        </div>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="lblCheckOut">
+                                            <datetimepicker data-ng-model="vm.CheckOutDate.date" data-before-render="vm.beforeRender_CheckOutDate($view, $dates, $leftDate, $upDate, $rightDate);" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select1' ,startView:'day', minView:'day'}"></datetimepicker>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-4">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group form-group- form-group-select-plus">
+                                <label id="lblguest" class="lgb" ng-repeat="(key, value) in vm.regionlabel | objectByKeyValFilter:'LblId':'lblguest'">{{value.TextMessage}}</label>
+                                <div class="btn-group btn-group-select-num" data-toggle="buttons" ng-class="{hidden:vm.showGuestCountDropdown}">
+                                    <label class="btn btn-primary active" id="guestCount1">
+                                        <input type="radio" name="AdultOptions" checked="checked" ng-model="vm.guestCount" ng-click="vm.guestCountChange()" class="options" value="1" />1
+                                    </label>
+                                    <label class="btn btn-primary" id="guestCount2">
+                                        <input type="radio" name="AdultOptions" class="options" ng-model="vm.guestCount" ng-click="vm.guestCountChange()" value="2" />2
+                                    </label>
+                                    <label class="btn btn-primary" id="guestCount3">
+                                        <input type="radio" name="AdultOptions" class="options" ng-model="vm.guestCount" ng-click="vm.guestCountChange()" value="3" />3
+                                    </label>
+                                    <label class="btn btn-primary" ng-click="vm.showGuestDropdown()">
+                                        <input type="radio" name="AdultOptions" class="options" ng-model="vm.guestCount" value="4" />3+
+                                    </label>
+                                </div>
+                                <select class="form-control" id="drpgusts" ng-model="vm.guestCount" ng-class="{hidden:vm.showGuestCountDropdown==false}">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option selected="selected">4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                    <option>13</option>
+                                    <option>14</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group form-group- form-group-select-plus">
+                                 <label id="lblRoomCount" class="lgb" ng-repeat="(key, value) in vm.regionlabel | objectByKeyValFilter:'LblId':'lblRoomCount'">{{value.TextMessage}}</label>
+
+                                <div class="btn-group btn-group-select-num" data-toggle="buttons" ng-class="{hidden:vm.showRoomCountDropdown}">
+                                    <label class="btn btn-primary active" id="roomCount1">
+                                        <input type="radio" name="RoomOptions" checked="checked" ng-model="vm.roomCount" class="roomcount" value="1" ng-click="vm.guestCountChange()" />1
+                                    </label>
+                                    <label class="btn btn-primary" id="roomCount2">
+                                        <input type="radio" name="RoomOptions" class="roomcount" ng-model="vm.roomCount" value="2" ng-click="vm.roomCountChange()" />2
+                                    </label>
+                                    <label class="btn btn-primary" id="roomCount3">
+                                        <input type="radio" name="RoomOptions" class="roomcount" ng-model="vm.roomCount" value="3" ng-click="vm.roomCountChange()" />3
+                                    </label>
+                                    <label class="btn btn-primary" ng-click="vm.showRoomDropdown()">
+                                        <input type="radio" name="RoomOptions" class="roomcount" ng-model="vm.roomCount" value="4" />3+
+                                    </label>
+                                </div>
+                                <select class="form-control" id="drprooms" ng-model="vm.roomCount" ng-class="{hidden:vm.showRoomCountDropdown==false}">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option selected="selected">4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                    <option>13</option>
+                                    <option>14</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-4 col-md-1 no-padding">
+                    <input class="btn btn-primary btn-search_a mt10" type="submit" value="Search" ng-click="vm.getRoutingDetails();">
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="regsrch_detail">
+            <!--ng-class="{'hidden':vm.regionHotel}"-->
+            <div class="col-sm-6" style="margin-top:10px;margin-bottom:15px;">
+                <div class="map-wrapper" id="DivMap" style="padding-top: 35px;">
+                    <ng-map default-style="false" class="hregionMap" zoom="15" ng-if="$first" ng-repeat="reg in vm.regionmap" center="{{reg.Latitude}}, {{reg.Longitude}}">
+                        <marker ng-repeat="hot in vm.regionmap" id="{{hot.Id}}" position="[{{hot.Latitude}}, {{hot.Longitude}}]"></marker>
+                    </ng-map>
+                </div>
+            </div>
+            <div class="col-sm-6 mb10">
+                <div class="gap gap-small"></div>
+                <h3 class="mb20" ng-if="$first" ng-repeat="data in vm.regionHotel"><label id="lblRegionDestination" style="display:inline" ng-repeat="(key, value) in vm.regionlabel | objectByKeyValFilter:'LblId':'lblRegionDestination'">{{value.TextMessage}}</label> <label id="lblCountryName" style="display:inline">{{data.CountryName}}</label></h3>
+                <h3 class="mb20"><label id="lblnohotel" ng-if="vm.regionHotel.length==0" ng-repeat="(key, value) in vm.regionlabel | objectByKeyValFilter:'LblId':'lblnohotel'">{{value.TextMessage}}</label></h3>
+                <div class="row row-wrap mb10 gap-20" id="displaydiv">
+                    <div class="col-xss-12 col-xs-6 col-md-6" ng-repeat="HotelRegion in vm.regionHotel">
+                        <div class="thumb" id="displaydiv">
+                            <a class="hover-img" href="{{HotelRegion.NavigateURL}}">
+                                <img ng-src="{{HotelRegion.topphoto}}" alt="Image Alternative text" title="{{HotelRegion.RegionName}}" style="width:100%;height:175px;">
+                                <div class="hover-inner hover-inner-block hover-inner-bottom hover-inner-bg-black hover-hold">
+                                    <div class="text-small">
+                                        <h5>{{HotelRegion.RegionName}}</h5>
+                                        <p>{{HotelRegion.Count}}&nbsp;{{HotelRegion.textmessage}}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+
+
+        <!-- start Back To Top -->
+        <div id="back-to-top">
+            <a href="#"><i class="fa fa-chevron-up"></i></a>
+        </div>
+        <!-- end Back To Top -->
+    </div>
+ <style>
+     .fsm-sticky-header {
+         background: #fff;
+         padding: 12px;
+         box-shadow: 1px 2px 9px #ffebda;
+     }
+ </style>

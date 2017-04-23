@@ -1,0 +1,548 @@
+﻿<div class="container" style="padding-top:25px;">
+    <h3 class="booking-title" id="Bookinghdr">
+        <span id="SpnCount">{{vm.total}}</span>
+        <span id="SpnHotelsIn" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'SpnHotelsIn'">{{value.TextMessage}}</span>
+        <span id="lblcityvalue">{{vm.regionName}}</span>
+        <span id="lblon" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lblon'">{{value.TextMessage}}</span> &nbsp;
+        <span id="lblcheckindate">{{ vm.CheckInDateFormatted}}</span>
+        <span id="lblslash">-</span>
+        <span id="lblcheckoutdate">{{ vm.CheckOutDateFormatted}}</span>&nbsp;
+        <span id="lblfor" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lblfor'">{{value.TextMessage}}</span> &nbsp;
+        <span id="lbladultCounts">{{vm.adultCount}}</span> &nbsp;
+        <span id="lbladult" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lbladult'">{{value.TextMessage}}</span>
+    </h3>
+    <div class="row">
+
+        <div class="col-sm-4 col-md-4">
+
+            <div class="booking-item-dates-change mb30">
+                <div class="form-group form-group-icon-left">
+                    <i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
+                    <label id="lblDestination" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lblDestination'">{{value.TextMessage}} </label>
+                    <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                    <!--<input class="form-control ui-autocomplete-input" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'txtDestinationSearch'" type="text" autocomplete="off" id="txtDestinationSearch" placeholder="{{value.TextMessage}}">-->
+                    <angucomplete-alt ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'txtDestinationSearch'"
+                                      placeholder="{{value.TextMessage}}"
+                                      pause="300"
+                                      selected-object="vm.selected_destination"
+                                      remote-url="{{vm.URL}}/Home/GetDestinationSearchResult"
+                                      remote-url-request-formatter="vm.remoteUrlRequestFn"
+                                      remote-url-data-field="items"
+                                      search-fields="DisplayName"
+                                      title-field="DisplayName"
+                                      image-field="DestinationSearchTypeImagePath"
+                                      minlength="3"
+                                      maxlength="20"
+                                      input-class="form-control autocomp_w330 small-input"
+                                      match-class="highlight"
+                                      focus-in="vm.focusIn()"
+                                      focus-out="vm.focusOut()"
+                                      field-required="true"
+                                      ng-model="vm.ddlsearchtext"
+                                      initial-value="vm.selected_destination"
+                                      id="txtDestinationSearch" autocomplete="off" />
+                </div>
+                <!--ng-change="vm.getselected_destination(vm.ddlsearchtext)"
+                    ng-model="vm.ddlsearchtext"
+                        ng-change="vm.bindRegion();"-->
+
+
+                <div class="input-daterange" data-date-format="M d, D">
+
+                    <div class="form-group form-group-icon-left dropdown">
+                        <a class="dropdown-toggle my-toggle-select" id="lblCheckIn" role="button" data-toggle="dropdown" href="">
+                            <div class="input-append">
+                                <i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                <label id="lblCheckIn" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lblCheckIn'">{{value.TextMessage}} </label>
+                                <input class="form-control" id="txtCheckInDate" name="start" type="text" data-ng-model="vm.CheckInDate.date | date:'MMM d, EEE' " />
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="lblCheckInDate">
+                            <datetimepicker data-ng-model="vm.CheckInDate.date" data-before-render="vm.beforeRender($view, $dates, $leftDate, $upDate, $rightDate);" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' ,startView:'day', minView:'day'}"></datetimepicker>
+                        </ul>
+                    </div>
+                    <div class="form-group form-group-icon-left dropdown">
+                        <a class="dropdown-toggle my-toggle-select1" id="lblCheckOut" role="button" data-toggle="dropdown" href="">
+                            <div class="input-append">
+                                <i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                <label id="lblCheckOut" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lblCheckOut'">{{value.TextMessage}} </label>
+                                <input class="form-control" id="txtCheckOutDate" name="end" type="text" data-ng-model="vm.CheckOutDate.date | date:'MMM d, EEE' " />
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="lblCheckOut">
+                            <datetimepicker data-ng-model="vm.CheckOutDate.date" data-before-render="vm.beforeRender($view, $dates, $leftDate, $upDate, $rightDate);" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select1' ,startView:'day', minView:'day'}"></datetimepicker>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group form-group-select-plus">
+                    <label id="lblRoomCount" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lblRoomCount'">{{value.TextMessage}}</label>
+                    <div class="btn-group btn-group-select-num" data-toggle="buttons" ng-class="{hidden:vm.showRoomCountDropdown}">
+                        <label class="btn btn-primary" id="roomCount1" ng-click="vm.roomCountChange();">
+                            <input type="radio" name="RoomOptions" ng-model="vm.roomCount" checked="checked" class="RoomOptions" value="1">1
+                        </label>
+                        <label class="btn btn-primary" id="roomCount2" ng-click="vm.roomCountChange();">
+                            <input type="radio" name="RoomOptions" ng-model="vm.roomCount" class="RoomOptions" value="2">2
+                        </label>
+                        <label class="btn btn-primary" id="roomCount3" ng-click="vm.roomCountChange();">
+                            <input type="radio" name="RoomOptions" ng-model="vm.roomCount" class="RoomOptions" value="3">3
+                        </label>
+                        <label class="btn btn-primary" id="roomCount4" ng-click="vm.roomCountChange();">
+                            <input type="radio" name="RoomOptions" ng-model="vm.roomCount" class="RoomOptions" value="4">4
+                        </label>
+                        <label class="btn btn-primary active" id="roomCount5" ng-click="vm.showRoomDropdown();">
+                            <input type="radio" name="RoomOptions" ng-model="vm.roomCount" class="RoomOptions" value="5">4+
+                        </label>
+                    </div>
+                    <select class="form-control" id="ddlRoomCount" ng-model="vm.roomCount" ng-class="{hidden:vm.showRoomCountDropdown==false}">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option selected="selected">5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>13</option>
+                        <option>14</option>
+                    </select>
+                </div>
+
+                <div class="form-group  form-group-select-plus">
+                    <label id="lblAdultCount" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lblAdultCount'">{{value.TextMessage}}</label>
+                    <div id="dvAdultCount" class="btn-group btn-group-select-num" data-toggle="buttons" ng-class="{hidden:vm.showAdultCountDropdown==true}">
+                        <label class="btn btn-primary" id="adultCount1">
+                            <input type="radio" name="AdultOptions" ng-model="vm.adultCount" ng-click="vm.adultCountChange();" checked="checked" class="AdultOptions" value="1">1
+                        </label>
+                        <label class="btn btn-primary" id="adultCount2">
+                            <input type="radio" name="AdultOptions" ng-model="vm.adultCount" ng-click="vm.adultCountChange();" class="AdultOptions" value="2">2
+                        </label>
+                        <label class="btn btn-primary" id="adultCount3">
+                            <input type="radio" name="AdultOptions" ng-model="vm.adultCount" ng-click="vm.adultCountChange();" class="AdultOptions" value="3">3
+                        </label>
+                        <label class="btn btn-primary" id="adultCount4">
+                            <input type="radio" name="AdultOptions" ng-model="vm.adultCount" ng-click="vm.adultCountChange();" class="AdultOptions" value="4">4
+                        </label>
+                        <label class="btn btn-primary active" id="adultCount5">
+                            <input type="radio" name="AdultOptions" ng-model="vm.adultCount" ng-click="vm.showAdultDropdown();" class="AdultOptions" value="5">4+
+                        </label>
+                    </div>
+
+                    <select class="form-control" id="ddlAdultCount" ng-class="{hidden:vm.showAdultCountDropdown==false}">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option selected="selected">5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>13</option>
+                        <option>14</option>
+                    </select>
+                </div>
+
+                <div class="form-group  form-group-select-plus">
+                    <label id="lblChildCount" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lblChildCount'">{{value.TextMessage}}</label>
+
+                    <div class="btn-group btn-group-select-num" data-toggle="buttons" ng-class="{hidden:vm.showChildCountDropdown==true}">
+                        <label class="btn btn-primary active" id="childCount0">
+                            <input type="radio" name="Childrenoptions" ng-model="vm.childCount" ng-click="vm.childrenCountChange();" checked="checked" class="Childrenoptions" value="0">0
+                        </label>
+                        <label class="btn btn-primary" id="childCount1">
+                            <input type="radio" name="Childrenoptions" ng-model="vm.childCount" ng-click="vm.childrenCountChange();" class="Childrenoptions" value="1">1
+                        </label>
+                        <label class="btn btn-primary" id="childCount2">
+                            <input type="radio" name="Childrenoptions" ng-model="vm.childCount" ng-click="vm.childrenCountChange();" class="Childrenoptions" value="2">2
+                        </label>
+                        <label class="btn btn-primary" id="childCount3">
+                            <input type="radio" name="Childrenoptions" ng-model="vm.childCount" ng-click="vm.childrenCountChange();" class="Childrenoptions" value="3">3
+                        </label>
+                        <label class="btn btn-primary" id="childCount4">
+                            <input type="radio" name="Childrenoptions" ng-model="vm.childCount" ng-click="vm.childrenCountChange();" class="Childrenoptions" value="4">4
+                        </label>
+                        <label class="btn btn-primary" id="childCount5">
+                            <input type="radio" name="Childrenoptions" ng-model="vm.childCount" ng-click="vm.showChildDropdown();" class="Childrenoptions" value="5">4+
+                        </label>
+                    </div>
+                    <select class="form-control" id="ddlChildCount" ng-model="vm.childCount" ng-class="{hidden:vm.showChildCountDropdown==false}">
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option selected="selected">5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>13</option>
+                        <option>14</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" id="lblSearch" ng-click="vm.hotelSearch();" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lblSearch'">{{value.TextMessage}}</button>
+
+            </div>
+
+            <aside class="booking-filters booking-filters-white">
+
+                <h3 id="lblFilterSearch" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lblFilterSearch'">{{value.TextMessage}}</h3>
+
+                <div ng-click="vm.another_toggle($event);" class="another-toggle filter-toggle clearfix" id="BudgetDivdisplay">
+                    <h4 class="active" id="lblPrice" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lblPrice'">{{value.TextMessage}}</h4>
+                    <div class="another-toggle-content" style="display: block;">
+                        <div class="another-toggle-inner">
+
+                            <div>
+                                <!--<ionslider type="vm.type"
+                                           grid="true"
+                                           min="vm.min"
+                                           max="vm.max"
+                                           from="vm.from"
+                                           to="vm.to"
+                                           prefix="vm.prefix"
+                                           prettify="true"
+                                           disable="false"></ionslider>-->
+                                <rzslider rz-slider-model="vm.slider.minValue"
+                                          rz-slider-high="vm.slider.maxValue"
+                                          rz-slider-step="0"
+                                          rz-slider-options="vm.slider.options"></rzslider>
+
+                            </div>
+                            <!--End-->
+
+                            <label style="display:none" id="hdnPriceRangeMin"></label>
+                            <label style="display:none" id="hdnPriceRangeMax"></label>
+                            <div id="slider" style="width:200px;margin:0px auto;float:none;display:none"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-click="vm.another_toggle($event);" class="another-toggle filter-toggle clearfix">
+                    <h4 class="active" id="lblHotelClass" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lblHotelClass'">{{value.TextMessage}}</h4>
+                    <div class="another-toggle-content" style="display: block;">
+                        <div class="another-toggle-inner">
+                            <div class="checkbox-wrapper" id="HotelClassDetails">
+                                <div class="checkbox" ng-repeat="HotelClass in vm.hotelclass">
+
+                                    <div class="squaredThree squaredClass">
+                                        <input type="checkbox" id="chkstars{{HotelClass.Id}}" class="filtertypehotelclass" ng-model="HotelClass.ans" value="{{HotelClass.Id}}"
+                                               ng-click="vm._filterHotelDetails();" />
+                                        <label for="chkstars{{HotelClass.Id}}"></label>
+                                        <label for="chkstars{{HotelClass.Id}}">
+                                            <ul ng-if="HotelClass.Id =='5'" class="icon-group booking-item-rating-stars" style="display: inline-block;margin-right: 17px;margin-bottom: -5px;color: #ed8323;"><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li></ul>
+                                            <ul ng-if="HotelClass.Id =='4'" class="icon-group booking-item-rating-stars" style="display: inline-block;margin-right: 17px;margin-bottom: -5px;color: #ed8323;"><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-o"></i></li></ul>
+                                            <ul ng-if="HotelClass.Id =='3'" class="icon-group booking-item-rating-stars" style="display: inline-block;margin-right: 17px;margin-bottom: -5px;color: #ed8323;"><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-o"></i></li><li><i class="fa fa-star-o"></i></li></ul>
+                                            <ul ng-if="HotelClass.Id =='2'" class="icon-group booking-item-rating-stars" style="display: inline-block;margin-right: 17px;margin-bottom: -5px;color: #ed8323;"><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-o"></i></li><li><i class="fa fa-star-o"></i></li><li><i class="fa fa-star-o"></i></li></ul>
+                                            <ul ng-if="HotelClass.Id =='1'" class="icon-group booking-item-rating-stars" style="display: inline-block;margin-right: 17px;margin-bottom: -5px;color: #ed8323;"><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-o"></i></li><li><i class="fa fa-star-o"></i></li><li><i class="fa fa-star-o"></i></li><li><i class="fa fa-star-o"></i></li></ul>
+                                            <ul ng-if="HotelClass.Id =='6'" class="icon-group booking-item-rating-stars" style="display: inline-block;margin-right: 17px;margin-bottom: -5px;color: #ed8323;"><li>{{HotelClass.Name}}</li></ul>
+                                            <ul ng-if="HotelClass.Id =='7'" class="icon-group booking-item-rating-stars" style="display: inline-block;margin-right: 17px;margin-bottom: -5px;color: #ed8323;"><li>{{HotelClass.Name}}</li></ul>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-click="vm.another_toggle($event);" class="another-toggle filter-toggle clearfix">
+                    <h4 class="" id="lblHotelType" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lblHotelType'">{{value.TextMessage}}</h4>
+                    <div class="another-toggle-content" style="display: none;">
+                        <div class="another-toggle-inner">
+                            <div class="checkbox-wrapper" id="PropertyType">
+
+                                <div ng-repeat="PropertyType in vm.hotelPropertyType">
+                                    <!--<label>
+                                        <i-check class="filtertypehotel" ng-model="PropertyType.ans" value="{{PropertyType.Id}}" type="checkbox" ng-click="vm.filterHotelDetails();" />{{PropertyType.TypeName}}
+                                    </label>-->
+                                    <div class="squaredThree">
+                                        <input type="checkbox" id="chkhtype{{PropertyType.Id}}" class="filtertypehotel" ng-model="PropertyType.ans" value="{{PropertyType.Id}}" ng-click="vm._filterHotelDetails();">
+                                        <label for="chkhtype{{PropertyType.Id}}"></label>
+                                        <label for="chkhtype{{PropertyType.Id}}">{{PropertyType.TypeName}}</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-click="vm.another_toggle($event);" class="another-toggle filter-toggle clearfix" id="divRegionType">
+                    <h4 class="active" id="lblHotelAttribute" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lblHotelAttribute'">{{value.TextMessage}}</h4>
+                    <div class="another-toggle-content" style="display: block;">
+                        <div class="another-toggle-inner">
+                            <div class="checkbox-wrapper" id="PropertyFacility">
+                                <!--<div class="checkbox" ng-repeat="region in vm.hotelFacility">
+                                    <label>
+                                         <i-check class="filtertyperegion" ng-model="region.ans" value="{{region.ID}}" type="checkbox" ng-click="vm.filterHotelDetails();" />{{region.TypeName}}
+                                    </label>
+                                </div>-->
+                                <div title=".squaredThree" ng-repeat="region in vm.hotelFacility">
+                                    <div class="squaredThree">
+                                        <input type="checkbox" id="chkregtype{{region.ID}}" class="filtertypefacilities" ng-model="region.ans" value="{{region.ID}}" ng-click="vm._filterHotelDetails();">
+                                        <label for="chkregtype{{region.ID}}"></label>
+                                        <label for="chkregtype{{region.ID}}">{{region.TypeName}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-click="vm.another_toggle($event);" ng-model="vm.regionwrapper" class="another-toggle filter-toggle clearfix">
+                    <h4 class="" id="lblHotelRegion" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lblHotelRegion'">{{value.TextMessage}}</h4>
+                    <div class="another-toggle-content">
+                        <div class="another-toggle-inner">
+                            <div class="checkbox-wrapper" id="PropertyRegion">
+                                <!--<div class="checkbox" ng-repeat="region in vm.hotelPropertyRegion">
+                                    <label>
+                                        <i-check class="filtertyperegion" ng-model="region.ans" value="{{region.ID}}" type="checkbox" ng-click="vm.filterHotelDetails();" />{{region.Name}}
+                                    </label>
+                                </div>-->
+
+                                <div title=".squaredThree" ng-repeat="region in vm.hotelPropertyRegion">
+                                    <div class="squaredThree">
+                                        <input type="checkbox" id="chkHProtype{{region.ID}}" class="filtertyperegion" ng-model="propregion.ans" value="{{region.ID}}" ng-click="vm._filterHotelDetails();">
+                                        <label for="chkHProtype{{region.ID}}"></label>
+                                        <label for="chkHProtype{{region.ID}}">{{region.Name}}</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </aside>
+            <div>
+                <h4><label id="lblmyViewdHotel" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lblmyViewdHotel'">{{value.TextMessage}}</label></h4>
+                <ul class="booking-list" id="MyViewedhotels">
+                    <li class="relative" ng-repeat="val in vm.recentlyViewedHotel">
+                        <a target="_blank" ui-sref="master.gbs.hoteldetail({'hotelId': val.Id,'hotelname':val.Name})" class="booking-item booking-item-small alt-booking-item-title">
+                            <div class="row gap-15">
+                                <div class="col-xs-4 col-md-4"><img ng-src="{{val.MainPhotoName}}"> </div><div class="col-xs-8 col-md-8">
+                                    <ul class="icon-group booking-item-rating-stars">
+                                        <li ng-if="val.IsPreferred=='True'"><img src="/Images/preferred.png"></li>
+                                        <li ng-bind-html="val.HotelClass | trust">
+                                        </li>
+                                    </ul>
+                                    <h5 class="booking-item-title">{{val.Name}}</h5>
+                                    <p class="thumb-location">
+                                        <span class="font700"> <i class="fa fa-map-marker"></i> {{val.CityName}}</span> -  {{val.ClosestAirportDistance}} Km From {{val.ClosestAirportName}}
+                                    </p>
+                                </div>
+                            </div>
+                        </a><a ng-click="vm.DeleteMyViewedHotels(val.SearchId)" class="notification-close"><i class="fa fa-times"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-sm-8 col-md-8">
+
+            <div class="row">
+
+                <div class="col-sm-6">
+
+                    <div uib-dropdown keyboard-nav class="inline=block boot-drop booking-sort" id="divSort" style="pointer-events: initial;display:table">
+                        <h5 class="booking-sort-title"><a href="javascript:void(0)" uib-dropdown-toggle><span id="lblHotelSort" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lblHotelSort'">{{value.TextMessage}}</span> <i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></a></h5>
+                        <ul class="nav-drop-menu" uib-dropdown-menu id="ddlHotelSort">
+                            <li ng-click="vm.setSortValue(ssort);" class="liselect" value="{{ssort.Sort}}" ng-repeat="ssort in vm.searchsort">
+                                <a href="javascript:void(0)" class="SortClass" name="Sortclass" style="left:0px" value="{{ssort.Sort}}">
+                                    {{ssort.Name}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="grid-option" id="divmapMenu">
+
+                        <div class="show-on-map" id="divshowonmap" style="top: -55px;">
+
+                            <a href="javascript:void(0)" class="show-on-map-link"  id="ShowMapRef" style="background-image: url(&quot;../Images/show-on-map.gif&quot;);" ng-click="vm.ShowHideMap(false)">
+                                <span>
+                                    <img src="../Images/mapicon.png" alt="images" class="block">
+                                    <span class="bg-primary absolute" id="lnkShowMap" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lnkShowMap'">{{value.TextMessage}}</span>
+                                </span>
+                            </a>
+                            <a href="javascript:void(0)" class="show-on-map-link"  id="HideMapRef" style="background-image:url('../Images/show-on-map.gif');" ng-class="{'hidden':vm.showmap}" ng-click="vm.ShowHideMap(true)">
+                                <span>
+                                    <img src="../Images/mapicon.png" alt="images" class="block">
+                                    <span class="bg-primary absolute" id="lnkHideMap" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lnkHideMap'">{{value.TextMessage}}</span>
+                                </span>
+                            </a>
+                        </div>
+
+                        <ul>
+                            <li id="List" class="active"><a ng-click="vm.searchResultView('List');" style="cursor:pointer"><i class="fa fa-align-justify"></i></a></li>
+                            <li id="Grid"><a ng-click="vm.searchResultView('Grid');" style="cursor:pointer"><i class="fa fa-th-large"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <div class="map-wrapper" id="DivMap" ng-class="{'hidden':vm.showmap}">
+                        <ng-map default-style="false" class="hregionMap" zoom="10" ng-repeat="reg in vm.regionSearch" center="{{vm.HotelsLocation[0].Latitude}}, {{vm.HotelsLocation[0].Longitude}}">
+                            <marker ng-repeat="hot in vm.HotelsLocation" id="{{hot.Id}}" position="[{{hot.Latitude}}, {{hot.Longitude}}]"></marker>
+                        </ng-map><!--<div id="result-map"></div>-->
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="classGap"></div>
+
+            <div class="booking-list-wrapper" id="listType">
+                <ul mainhdetail class="booking-list alt-padding" id="listItems">
+                    <li ng-repeat="val in vm.searchHotel">
+                        <div class="booking-item">
+                            <div class="row gap-20">
+                                <div class="col-md-3">
+                                    <div class="booking-item-img-wrap">
+                                        <a target="_blank" ui-sref="master.gbs.hoteldetail({'hotelId': val.ID,'hotelname':val.Name,'checkin': vm.CheckInDateFormatted,'checkout':vm.CheckOutDateFormatted })">
+                                            <img style="height:150px" ng-src="{{val.MainPhotoName}}" alt="Image Alternative text" title="{{val.Name}}">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 class="booking-item-title">
+                                        <a target="_blank" ui-sref="master.gbs.hoteldetail({'hotelId': val.ID,'hotelname':val.Name,'checkin': vm.CheckInDateFormatted,'checkout':vm.CheckOutDateFormatted })">{{val.Name}} </a>
+                                    </h5>
+                                    <p class="thumb-location">
+                                        <a target="_blank" href="{{val.CityNavigateURL}}">
+                                            <!--{{val.CityNavigateURL}}-->
+                                            <span class="font700"><i class="fa fa-map-marker"></i> {{val.CityName}}</span>
+                                        </a> -  {{val.ClosestAirportDistance}} {{val.KmFrom}} {{val.ClosestAirportName}} - <a target="_blank" href="{{val.CityNavigateURL}}">
+                                            <i class="fa fa-map-marker"></i> {{val.CityName}} {{val.ShowMap}}
+                                        </a>
+                                    </p>
+
+                                    <label ng-if="val.CheckInDate != '' && val.CheckOutDate != ''" style="color:green;font-size:13px;">
+                                        {{val.LastBookingMadeText}}
+                                    </label>
+                                    <div class="popup-gallery" >
+
+                                        <ul class="image-tooltip clearfix mb-30" >
+                                            <li ng-repeat=" p in val.HotelPhotosThumb">
+                                                <!--<span id='hd_{{$index}}' custom-tooltip tooltip-url="{{p}}" class='image-tooltip-preview popup-gallery-image' data-effect='mfp-zoom-out'>
+                                                    <img ng-src="{{p}}" alt='gallery {{val.MainPhotoName}}'>
+                                                </span>-->
+                                                <a class="image-zoom" magnific-image href="{{ p }}">
+                                                    <img ng-src="{{ p }}">
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="booking-item-rating">
+                                        <ul class="icon-group booking-item-rating-stars" ng-bind-html="val.HotelClass | trust">
+                                            <ul class="icon-group booking-item-rating-stars">
+                                                <li ng-if="val.IsPreferred == 'True'"><img style="width:12px" src="/Images/preferred.png" /></li>
+                                            </ul>
+
+                                        </ul>
+                                        <div ng-if="val.AverageReviewPoint !=''">
+                                            <span class="booking-item-rating-number">{{val.ReviewTypeScaleName}}  {{val.AverageReviewPointCount}}</span><small>({{val.ReviewCountValue}} {{val.Reviews}})</small>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <span class="booking-item-price-from"></span>
+                                <span id="lblroomPriceDesign{{arrayCount}}" class="booking-item-price">
+                                    {{ val.NewCurrencySymbol }} {{val.ConvertedRoomPrice}}
+                                </span>
+                                <span>
+                                </span>
+                                <br>
+                                <a ui-sref="master.gbs.hoteldetail({'hotelId': val.ID,'hotelname':val.Name,'checkin': vm.CheckInDateFormatted,'checkout':vm.CheckOutDateFormatted })">
+                                    <span class="btn btn-primary btn-sm">{{val.Book}}</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+              
+            <div class="booking-grid-wrapper with-border" id="gridView" style="display:none">
+                <div class="row row-wrap alt gap-20" id="gridType">
+                    <div class="col-sm-6 col-md-4" data-match-height="result-grid" style="height: 457px;" ng-repeat="val in vm.searchHotel">
+                        <div class="thumb booking-item" style="padding:15px;">
+                            <header class="thumb-header">
+                                <a target="_blank" class="hover-img" ui-sref="master.gbs.hoteldetail({'hotelId': val.ID,'hotelname':val.Name,'checkin': vm.CheckInDateFormatted,'checkout':vm.CheckOutDateFormatted })">
+                                    <img style="height:150px" ng-src="{{val.MainPhotoName}}" alt="Image Alternative text" title="{{val.Name}}" />
+                                    <h5 class="hover-title-center">{{val.Book}}</h5>
+                                </a>
+                            </header>
+                            <div class="thumb-caption">
+                                <ul class="icon-group text-color" ng-bind-html="val.HotelClass | trust"></ul>
+                                <h5 class="thumb-title"><a target="_blank" class="text-darken" ui-sref="master.gbs.hoteldetail({'hotelId': val.ID,'hotelname':val.Name,'checkin': vm.CheckInDateFormatted,'checkout':vm.CheckOutDateFormatted })">{{val.Name}}</a></h5>
+                                <p class="thumb-location">
+                                    <span class="font700"><i class="fa fa-map-marker"></i>{{val.CityName}}</span> -  {{val.ClosestAirportDistance}} {{val.KmFrom}}  {{val.ClosestAirportName}}
+                                </p>
+                                <label ng-if="val.CheckInDate != '' && val.CheckOutDate != ''" style="color:green;font-size:13px;">
+                                    {{val.LastBookingMadeText}}
+                                </label>
+                                <p class="thumb-desc" style="max-height: 90px;">{{val.DescriptionText}} : {{val.Description}}...</p>
+                                <div class="row">
+                                    <div class="col-xs-7" style="padding-right: 0px;">
+                                        <p class="mb0 text-darken thumb-price"><span id="lblroomPriceDesign{{arrayCount}}" class="text-lg lh1em text-color">{{val.NewCurrencySymbol}}  {{val.ConvertedRoomPrice}}</span><small> </small></p>
+                                    </div>
+                                    <div class="col-xs-5" style="padding-left: 0px;">
+                                        <div class="text-right">
+                                            <a target="_blank" ui-sref="master.gbs.hoteldetail({'hotelId': val.ID,'hotelname':val.Name,'checkin': vm.CheckInDateFormatted,'checkout':vm.CheckOutDateFormatted })" class="btn-book-now">{{val.Book}} <i class="fa fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <div class="row col-md-12">
+                <div class="col-md-9">
+                    <p>
+                        <small><span id="SpnCount1"></span> <span id="SpnHotelsFoundIn" style="display: none;" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'SpnHotelsFoundIn'">{{value.TextMessage}}</span> <span id="lblcityvalue1"></span></small>
+                    </p>
+                    <!--<ul class="pagination" id="divPaginationForAllRecords"></ul>-->
+                    <div ng-if="vm.searchHotel.length > 0" paging
+                         page="vm.currentPage"
+                         page-size="vm.pageSize"
+                         total="vm.total"
+                         paging-action="vm.hoteSearchPageWise(page)">
+                    </div>
+                </div>
+                <div class="col-md-3 text-right">
+
+                </div>
+            </div>
+
+            <div class="row col-md-12" id="rowerrormsg" ng-if="vm.searchHotel.length == 0">
+                <label class="noroom" id="lblNoDestinationFound" ng-repeat="(key, value) in vm.searchHotellabel | objectByKeyValFilter:'LblId':'lblNoDestinationFound'">{{value.TextMessage}}</label>
+            </div>
+
+        </div>
+    </div>
+</div>

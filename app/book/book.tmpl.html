@@ -1,0 +1,661 @@
+﻿<div class="container">
+
+    <p>
+
+    </p>
+    <!-- start hero-header -->
+    <div class="booking-step-wrapper">
+
+        <div class="container">
+
+            <div class="row gap-0">
+
+                <div class="col-sm-4">
+                    <a class="step-item active">
+                        <div class="step-number">
+                            <span><span>1</span></span>
+                        </div>
+                        <span class="step-method">
+                            <label id="lblSelectHotel" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblSelectHotel'">{{value.TextMessage}}</label>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-sm-4">
+                    <a class="step-item active">
+                        <div class="step-number">
+                            <span><span>2</span></span>
+                        </div>
+                        <span class="step-method">
+                            <label id="lblBookingDetails" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblBookingDetails'">{{value.TextMessage}}</label>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="step-item" id="divProgressColor" ng-class="{'step-item active':vm.BookingSuccess}">
+                        <div class="step-number">
+                            <span><span>3</span></span>
+                        </div>
+                        <span class="step-method">
+                            <label id="labelBookingSucessText" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'labelBookingSucessText'">{{value.TextMessage}}</label>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- end hero-header -->
+
+    <div class="add-property-box" align="center" id="DivBookingSuccess" ng-if="vm.BookingSuccess">
+        <div class="row mb20" align="center">
+
+            <div class="col-md-12 col-sm-12 col-xs-12" align="center" style="padding: 0px; margin-bottom: 20px;" ng-repeat="bookconfirm in vm.BookingSuccess">
+                <div class="row mb20" align="center">
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px;font-size: 14px;color: black;">
+                        <label style="font-weight: 500;" id="lblReservationSucessMessage" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblReservationSucessMessage'">{{value.TextMessage}}</label>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <label style="color: green; font-size: 18px; margin-top: 10px;" id="lblHotelName">{{bookconfirm.HotelName}}</label>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" id="printpreview">
+                    <div class="col-md-6 col-sm-6 col-xs-6" align="right" style=" margin-top: 10px;">
+                        <label style="color: #2E2F2E; font-size: 14px; " id="lblReservationStatusText" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblReservationStatusText'">{{value.TextMessage}}</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6" align="left" style=" margin-top: 10px;">
+                        <label style="color: black; font-size: 14px;" id="lblOperationSucessMessage" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblOperationSucessMessage'">{{value.TextMessage}}</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6" align="right" style=" margin-top: 10px;">
+                        <label style="color: #2E2F2E; font-size: 14px;" id="lblReservationIDText" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblReservationIDText'">{{value.TextMessage}}</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6" align="left" style=" margin-top: 10px;">
+                        <label style="color: black; font-size: 14px;" id="lblReservationNumber">{{bookconfirm.ReservationID}}</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6" align="right" style=" margin-top: 10px;">
+                        <label style="color: #2E2F2E; font-size: 14px; " id="lblPincodeText" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblPincodeText'">{{value.TextMessage}}</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6" align="left" style=" margin-top:10px;">
+                        <label style="color: black; font-size: 14px;" id="lblPinCodeValue">{{bookconfirm.PinCode}} </label>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <a ng-click="vm.printDiv('printpreview');" target="_blank" href="javascript:"><img title="Print" src="/Images/print.png" style="border-width:0px;margin-left:10px;width: 23px;"></a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="mb20"></div>
+    <div ng-if="!vm.BookingSuccess">
+        <div class="alert alert-success text-center" role="alert" id="divBookingDetails1">
+            <label id="lblBookingStartMessage" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblBookingStartMessage'">{{value.TextMessage}}</label>
+        </div>
+        <div class="mb30"></div>
+        <div class="row" id="divBookingDetails">
+            <div id="sticky-sidebar" class="col-sm-4 col-md-4 mb30">
+                <div sticky sticky-class="imSoSticky" class="sticky-box" media-query="min-width: 1024px">
+                    <div class="booking-success-tist">
+                        <h4>Your booking amount details:</h4>
+                    </div>
+                    <hr class="mt15" />
+                    <ul class="booking-room-price-list">
+
+                        <li ng-repeat="RoomInfo1 in vm.HotelInformation" ng-if="$last">Room <span class="pull-right">{{RoomInfo1.NewCurrencySymbol}}  {{vm.convertedRoomPriceTotal | number : 2}} </span></li>
+
+                        <!--<li ng-repeat="HotelTaxinfo in vm.HotelTax">{{HotelTaxinfo.AttributeHeaderName}}  <span class="pull-right"> {{HotelTaxinfo.attributeCharge | number : 2}}</span></li>-->
+
+                        <li ng-repeat="RoomInfo1 in vm.HotelInformation" ng-if="$last">
+                            <span ng-if="RoomInfo1.VAT != null || RoomInfo1.CityTax !=null">
+                                price per room
+                            </span>
+                            <br />
+                            <span ng-if="RoomInfo1.VAT">
+                                Included: <span class="pull-right">{{RoomInfo1.VAT}} % VAT</span>
+                            </span>
+                            <span ng-if="RoomInfo1.CityTax">
+                                Not Included: <span class="pull-right"><!--{{RoomInfo1.NewCurrencySymbol}}-->  {{RoomInfo1.CityTax}} City Tax per person per night.</span>
+                            </span>
+                        </li>
+
+                    </ul>
+
+
+                    <ul class="booking-currency-price">
+                        <li>
+                            <div class="row gap-10">
+                                <div class="col-xs-6 col-sm-6">
+                                    <h5 class="mb0"><label id="lblCharge" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblCharge'">{{value.TextMessage}}</label></h5>
+                                    <small><label id="lblYourCurency" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblYourCurency'">{{value.TextMessage}}</label></small>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 text-right">
+                                    <h5 class="mb0">{{vm.NewCurrencySymbol}} {{vm.total | number : 2}} *</h5>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row gap-10">
+                                <div class="col-xs-6 col-sm-6">
+                                    <p class="mb0"><label id="lblPropertyCurrency" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblPropertyCurrency'">{{value.TextMessage}} {{HotelInfo.CurrencySymbol}}</label></p>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 text-right">
+
+                                    <p>{{vm.CurrencySymbol}}  {{vm.totalInHotelCurrency| number : 2}} *</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="mb20"></div>
+                    <div id="booklabels" ng-repeat="hotel in vm.HotelInformation" ng-bind-html="hotel.LblId | trust">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-8 col-md-8">
+
+                <div class="booking-list-wrapper">
+
+                    <ul class="booking-list alt-padding">
+
+                        <li ng-repeat="HotelInfo in vm.HotelInformation" ng-if="$index==0">
+
+                            <div class="booking-item">
+                                <div class="row gap-20">
+                                    <div class="col-md-4">
+                                        <div class="booking-item-img-wrap">
+                                            <img ng-src="{{HotelInfo.MainPhotoName}}" title="{{HotelInfo.HotelName}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h5 class="booking-item-title"><a id="AhotelName">{{HotelInfo.HotelName}}</a></h5>
+                                        <p class="thumb-location mb5"><span class="font700"><i class="fa fa-map-marker"></i></span> {{HotelInfo.Address}}</p>
+
+                                        <small><label id="lblcheckinDate" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblcheckinDate'">{{value.TextMessage}}</label></small>
+                                        <p class="mb0">{{HotelInfo.CheckDatefrom}}</p>
+                                        <small><label id="lblcheckoutdate" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblcheckoutdate'">{{value.TextMessage}}</label></small>
+                                        <p class="mb0">{{HotelInfo.CheckDateto}}</p>
+
+                                        <small style="display:flex;">{{HotelInfo.NightCount}} - <label id="lblnightStayText" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblnightStayText'">{{value.TextMessage}} </label>  </small>
+
+                                    </div>
+                                    <div class="col-md-3">
+
+                                        <div class="booking-item-rating">
+                                            <i class="fa fa-trophy mr5 text-info"></i>
+                                            <ul class="icon-group booking-item-rating-stars">
+                                                <li ng-if="HotelInfo.HotelClassValue == 'onestar'"><i class="fa fa-star"></i></li>
+
+                                                <li ng-if="HotelInfo.HotelClassValue == 'TwoStar'"><i class="fa fa-star"></i></li>
+                                                <li ng-if="HotelInfo.HotelClassValue == 'TwoStar'"><i class="fa fa-star"></i></li>
+
+
+                                                <li ng-if="HotelInfo.HotelClassValue == 'ThreeStar'"><i class="fa fa-star"></i></li>
+                                                <li ng-if="HotelInfo.HotelClassValue == 'ThreeStar'"><i class="fa fa-star"></i></li>
+                                                <li ng-if="HotelInfo.HotelClassValue == 'ThreeStar'"><i class="fa fa-star"></i></li>
+
+
+                                                <li ng-if="HotelInfo.HotelClassValue == 'FourStar'"><i class="fa fa-star"></i></li>
+                                                <li ng-if="HotelInfo.HotelClassValue == 'FourStar'"><i class="fa fa-star"></i></li>
+                                                <li ng-if="HotelInfo.HotelClassValue == 'FourStar'"><i class="fa fa-star"></i></li>
+                                                <li ng-if="HotelInfo.HotelClassValue == 'FourStar'"><i class="fa fa-star"></i></li>
+
+                                                <li ng-if="HotelInfo.HotelClassValue == 'FiveStar'"><i class="fa fa-star"></i></li>
+                                                <li ng-if="HotelInfo.HotelClassValue == 'FiveStar'"><i class="fa fa-star"></i></li>
+                                                <li ng-if="HotelInfo.HotelClassValue == 'FiveStar'"><i class="fa fa-star"></i></li>
+                                                <li ng-if="HotelInfo.HotelClassValue == 'FiveStar'"><i class="fa fa-star"></i></li>
+                                                <li ng-if="HotelInfo.HotelClassValue == 'FiveStar'"><i class="fa fa-star"></i></li>
+
+                                            </ul>
+
+                                            <div class="mb20"></div>
+
+                                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#changeDateModal">Change your date</button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="changeDateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                            <h4 class="modal-title" id="myModalLabel">Change your date</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="input-daterange">
+                                                                <div class="row gap-20">
+                                                                    <div class="col-sm-6">
+
+                                                                        <div class="form-group form-group-icon-left">
+                                                                            <div class="dropdown">
+                                                                                <div class="dropdown-toggle changedtselect" id="dLabel" role="button" data-toggle="dropdown">
+                                                                                    <i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                                                                    <label>Check in</label>
+                                                                                    <input id="ChangeCheckInDate" ng-model="vm.ChangeCheckInDate.date | date:'MMMM d, EEEE'" class="form-control" name="start" type="text">
+                                                                                </div>
+                                                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                                                    <datetimepicker data-ng-model="vm.ChangeCheckInDate.date" data-before-render="vm.beforeRender($view, $dates, $leftDate, $upDate, $rightDate);" data-datetimepicker-config="{ dropdownSelector: '.changedtselect' ,startView:'day', minView:'day'}"></datetimepicker>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group form-group-icon-left">
+                                                                            <div class="dropdown">
+                                                                                <div class="dropdown-toggle changedtselect1" id="dLabel1" role="button" data-toggle="dropdown">
+                                                                                    <i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                                                                    <label>Check out</label>
+                                                                                    <input id="ChangeCheckoutDate" class="form-control" ng-model="vm.ChangeCheckoutDate.date |date:'MMMM d, EEEE'" name="end" type="text">
+                                                                                </div>
+                                                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel1">
+                                                                                    <datetimepicker data-ng-model="vm.ChangeCheckoutDate.date" ng-click="$event.stopPropagation()" data-before-render="vm.beforeRender_CheckOutDate($view, $dates, $leftDate, $upDate, $rightDate,1);" data-datetimepicker-config="{ dropdownSelector: '.changedtselect1' ,startView:'day', minView:'day'}"></datetimepicker>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer" style="padding-top:5px;margin:0"> 
+                                                            <div id="divNotFoundrooms" align="center" ng-if="vm.CountavailableNone">
+                                                                <label style="margin-top:4px;" id="lblRoomNotFound" class="noroom" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblRoomNotFound'">
+                                                                    {{value.TextMessage}}
+                                                                </label>
+                                                            </div>
+                                                            <input type="button" value="Save changes" class="btn btn-primary" ng-click="vm.ChangeBookingDate()" />
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="alert alert-success alert-icon" role="alert" ng-repeat="HotelInfo in vm.HotelInformation" ng-if="$index==0">
+                    <i class="fa fa-check-circle"></i>
+                    <p> {{vm.luckyDayMessgae}} <strong>{{HotelInfo.RoutingName}}</strong> {{vm.dontMissOutMessage}}</p>
+                </div>
+
+                <div class="mb30"></div>
+
+                <fieldset ng-disabled="vm.isDisabled">
+                    <form name="bookingForm" ng-submit="vm.bookHotel(bookingForm)" novalidate>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h4><label id="lblyourdetails" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblyourdetails'">{{value.TextMessage}}</label></h4>
+
+                            </div>
+                            <div class="col-sm-6 text-right" ng-if="!vm.isLogin">
+                                <a id="btnUserLoginPopUp" class="btn btn-ghost btn-primary" ng-click="vm.showLoginPopup()" data-toggle="modal" data-target="#myModal"><i class="fa fa-sign-in"></i>{{vm.signInTitle}}</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <small><label id="lblrequiredFields" style="font-size: 11px; font-weight: normal; color: blue;" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblrequiredFields'">{{value.TextMessage}} </label></small>
+                            </div>
+                        </div>
+                        <div class="add-property-box">
+                            <div class="row mb20">
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <span style="display:flex;">
+                                            <label id="lbltitle" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lbltitle'">{{value.TextMessage}}</label>
+                                            <span style="color: red;margin-top:3px;margin-left:3px;">*</span>
+                                        </span>
+                                        <select ng-model="vm.profiledetails.SalutationTypeID" required class="form-control" id="drbTypeSalutation" ng-class="{'inputError':bookingForm.title.$touched && bookingForm.title.$invalid || bookingForm.$submitted && bookingForm.title.$invalid}" name="title">
+                                            <option selected="selected" value="">Select</option>
+                                            <option ng-repeat="sal in vm.Salutation" value="{{sal.SalutationTypeID}}">{{sal.Salutation}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <span style="display:flex;">
+                                            <label id="lblname" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblname'">{{value.TextMessage}}</label>
+                                            <span style="color: red; margin-top: 3px; margin-left: 3px;">*</span>
+                                        </span>
+                                        <input required type="text" ng-model="vm.profiledetails.Name" class="form-control" ng-class="{'inputError':bookingForm.firstName.$touched && bookingForm.firstName.$invalid || bookingForm.$submitted && bookingForm.firstName.$invalid}" name="firstName" id="txtname">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <span style="display:flex;">
+                                            <label id="lblSurname" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblSurname'">{{value.TextMessage}}</label>
+                                            <span style="color: red; margin-top: 3px; margin-left: 3px;">*</span>
+                                        </span>
+                                        <input type="text" class="form-control" required ng-model="vm.profiledetails.Surname" ng-class="{'inputError':bookingForm.lastName.$touched && bookingForm.lastName.$invalid || bookingForm.$submitted && bookingForm.lastName.$invalid}" name="lastName" id="txtsurname">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb20">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <span style="display:flex;">
+                                            <label id="lblEmail" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblEmail'">{{value.TextMessage}}</label>
+                                            <span style="color: red; margin-top: 3px; margin-left: 3px;">*</span>
+                                        </span>
+                                        <input type="email" ng-model="vm.profiledetails.Email" required ng-class="{'inputError':bookingForm.email.$touched && bookingForm.email.$invalid || bookingForm.$submitted && bookingForm.email.$invalid}" name="email" id="txtEmail" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="hidden-xs">&nbsp;</label>
+                                    <span class="font-italic"> <label id="lblEmailGoesMessage" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblEmailGoesMessage'">{{value.TextMessage}}</label></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb20">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <span style="display:flex;"><label id="lblPhone" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblPhone'">{{value.TextMessage}}</label><span style="color: red; margin-top: 3px; margin-left: 3px;">*</span></span>
+                                        <input type="tel" class="form-control" ng-model="vm.profiledetails.Phone" required ng-class="{'inputError':bookingForm.phone.$touched && bookingForm.phone.$invalid || bookingForm.$submitted && bookingForm.phone.$invalid}" name="phone" id="txtPhone">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb20">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <span style="display:flex;"><label id="lblCountry" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblCountry'">{{value.TextMessage}}</label><span style="color: red; margin-top: 3px; margin-left: 3px;">*</span></span>
+                                        <select ng-model="vm.profiledetails.CountryID" id="drbcountry" class="form-control" required ng-class="{'inputError':bookingForm.country.$touched && bookingForm.country.$invalid || bookingForm.$submitted && bookingForm.country.$invalid}" name="country">
+                                            <option selected value="">Country</option>
+                                            <option ng-repeat="country in vm.countryList" value="{{country.Id}}">{{country.CountryName}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="booking-list-wrapper" ng-repeat="RoomInfo in vm.HotelInformation">
+                                <ul class="booking-list alt-padding bg-light">
+                                    <li>
+                                        <div class="booking-item">
+                                            <div class="row gap-20">
+                                                <div class="col-md-3"> <!--lightbox="images"-->
+                                                    <div class="booking-item-img-wrap"> 
+                                                        <a class="hover-img popup-image " ng-click="vm.openLightboxModal($index);" target="_blank" >
+                                                            <img class="lightbox-trigger" ng-src="{{RoomInfo.RoomPhotoName}}" alt="{{RoomInfo.HotelTypeName}}" title="{{RoomInfo.HotelTypeName}}"><i class="fa fa-plus round box-icon-small hover-icon i round"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <h5 class="booking-item-title"><span class="font400">{{RoomInfo.RoomTypeText}}</span>:{{RoomInfo.HotelTypeName}}</h5>
+                                                    <h5 class="booking-item-title"><span class="font400">{{RoomInfo.RoomMaxPeopleCount}}</span>:<span ng-bind-html="RoomInfo.MaxPeopleCount | trust"></span> </h5>
+                                                    <h5 class="booking-item-title"><span class="font400">{{RoomInfo.RoomPriceText}}</span>: {{RoomInfo.NewCurrencySymbol}}  {{RoomInfo.ConvertedRoomPrice}}</h5>
+                                                    <h5 class="booking-item-title"><span class="font400">{{RoomInfo.RoomCounttext}}</span>: {{RoomInfo.RoomCount}}</h5>
+                                                    <div class="row gap-10">
+                                                        <div class="col-sm-5">
+                                                            <div class="form-group">
+                                                                <label style="padding-top:5px">{{RoomInfo.GuestName}}</label>
+                                                                <input type="text" ng-model="vm.book.Guest[$index]" ng-init="vm.book.Guest[$index]='';" id="txtGuestorSurname[$index]" ng-class="{'inputError':bookingForm.guestName.$touched && bookingForm.guestName.$invalid || bookingForm.$submitted && bookingForm.guestName.$invalid}" name="guestName" class="form-control" />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-3">
+                                                            <div class="form-group">
+                                                                <label style="padding-top:5px">{{RoomInfo.BedPreference}}</label>
+                                                                <select ng-options="tt as tt.BedTypeNameWithCount for tt in RoomInfo.BedSelectionList" class="form-control" ng-init="vm.book.BedPreference[$index].BedTypeID='0';vm.book.BedPreference[$index].BedTypeNameWithCount='0';" ng-model="vm.book.BedPreference[$index]" ng-class="{'inputError':bookingForm.BedPref.$touched && bookingForm.BedPref.$invalid || bookingForm.$submitted && bookingForm.BedPref.$invalid}" name="BedPref[$index]">
+                                                                    <option selected="selected" value="0">Select</option>
+                                                                    <!--<option ng-repeat="BedInfo in RoomInfo.BedSelectionList" value="{{BedInfo.BedTypeID}}">{{BedInfo.BedTypeNameWithCount}}</option>-->
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <label style="padding-top:5px">{{RoomInfo.TravellerType}}</label>
+                                                                <select ng-options="tt as tt.TravellerType for tt in vm.typeTraveller" ng-init="vm.book.TravelerType[$index].TravellerID='0';vm.book.TravelerType[$index].TravellerType='0';" ng-model="vm.book.TravelerType[$index]" class="form-control" ng-class="{'inputError':bookingForm.TravelerType.$touched && bookingForm.TravelerType.$invalid || bookingForm.$submitted && bookingForm.TravelerType.$invalid}" name="TravelerType[$index]">
+                                                                    <option selected="selected" value="0">Select</option>
+                                                                    <!--<option ng-repeat="data in vm.typeTraveller" id="drptrvelertype[$index]" value="{{data.TravellerID}}" style="color: darkgray;">{{data.TravellerType}}</option>-->
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-12 alert alert-info" style="margin-top: 20px; margin-bottom: 10px; padding: 8px; ">
+                                                    <h5 class="mb5">{{RoomInfo.Conditions}} :</h5>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <label class="font12 line-height-16" style="font-weight: normal">{{RoomInfo.RoomTypeInfo}}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+
+
+                                <div class="row mb30">
+                                    <div class="col-sm-12">
+                                        <h5 class="mb5">{{RoomInfo.EstimatedArrivalTime}} :</h5>
+                                        <p class="font12"><strong>Arrival time:</strong> {{RoomInfo.CheckDatefrom}}</p>
+
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                <select class="form-control" ng-model="vm.book.ArivalTime[$index]" ng-init="vm.book.ArivalTime[$index]='Not Certain'" ng-class="{'inputError':bookingForm.arivalTime.$touched && bookingForm.arivalTime.$invalid || bookingForm.$submitted && bookingForm.arivalTime.$invalid}" name="arivalTime[$index]">
+                                                    <option value="Not Certain" selected="selected">Not Certain</option>
+                                                    <option value="00:00">00:00</option>
+                                                    <option value="00:30">00:30</option>
+                                                    <option value="01:00">01:00</option>
+                                                    <option value="01:30">01:30</option>
+                                                    <option value="02:00">02:00</option>
+                                                    <option value="02:30">02:30</option>
+                                                    <option value="03:00">03:00</option>
+                                                    <option value="03:30">03:30</option>
+                                                    <option value="04:00">04:00</option>
+                                                    <option value="04:30">04:30</option>
+                                                    <option value="05:00">05:00</option>
+                                                    <option value="05:30">05:30</option>
+                                                    <option value="06:00">06:00</option>
+                                                    <option value="06:30">06:30</option>
+                                                    <option value="07:00">07:00</option>
+                                                    <option value="07:30">07:30</option>
+                                                    <option value="08:00">08:00</option>
+                                                    <option value="08:30">08:30</option>
+                                                    <option value="09:00">09:00</option>
+                                                    <option value="09:30">09:30</option>
+                                                    <option value="10:00">10:00</option>
+                                                    <option value="10:30">10:30</option>
+                                                    <option value="11:00">11:00</option>
+                                                    <option value="11:30">11:30</option>
+                                                    <option value="12:00">12:00</option>
+                                                    <option value="12:30">12:30</option>
+                                                    <option value="13:00">13:00</option>
+                                                    <option value="13:30">13:30</option>
+                                                    <option value="14:00">14:00</option>
+                                                    <option value="14:30">14:30</option>
+                                                    <option value="15:00">15:00</option>
+                                                    <option value="15:30">15:30</option>
+                                                    <option value="16:00">16:00</option>
+                                                    <option value="16:30">16:30</option>
+                                                    <option value="17:00">17:00</option>
+                                                    <option value="17:30">17:30</option>
+                                                    <option value="18:00">18:00</option>
+                                                    <option value="18:30">18:30</option>
+                                                    <option value="19:00">19:00</option>
+                                                    <option value="19:30">19:30</option>
+                                                    <option value="20:00">20:00</option>
+                                                    <option value="20:30">20:30</option>
+                                                    <option value="21:00">21:00</option>
+                                                    <option value="21:30">21:30</option>
+                                                    <option value="22:00">22:00</option>
+                                                    <option value="22:30">22:30</option>
+                                                    <option value="23:00">23:00</option>
+                                                    <option value="23:30">23:30</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h5 class="mb5" ng-repeat="HotelInfo in vm.HotelInformation" ng-if="$index==0">{{HotelInfo.SpecialNote}}</h5>
+                                    <textarea ng-model="vm.book.SpecialNote" class="form-control mt10" id="txtareaNote[$index]" rows="5" ng-class="{'inputError':bookingForm.specialNote.$touched && bookingForm.specialNote.$invalid || bookingForm.$submitted && bookingForm.specialNote.$invalid}" name="specialNote[$index]"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="divCreditCardDetails" ng-class="{'hidden':vm.book.CreditCardNotRequired==1}">
+
+
+                            <div class="col-sm-12">
+                                <h5 class="mb5" id="lblcreditCardProvider[$index]" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblcreditCardProvider'">{{value.TextMessage}}</h5>
+                                <div class="row">
+
+                                    <div class="col-sm-12">
+
+                                        <ul class="card-select alt clearfix mt10">
+                                            <li id="{{card.CreditCardTypeID}}" ng-repeat="card in vm.typeCreditCardByHotel" value="{{card.CreditCardTypeName}}" ng-click="vm.changecardupdate(card.CreditCardTypeID,card.CreditCardTypeName)">
+                                                <img class="{{card.CssClass}}" ng-src="{{card.CreditCardTypeImage}}" alt="{{card.CreditCardTypeName}}" title="{{card.CreditCardTypeName}}" />
+                                            </li>
+                                        </ul>
+                                        <!--<select class="form-control" style="width: 230px" ng-model="vm.profileCarddetails.typeCreditCard" required id="selectCreditCardType" ng-class="{'inputError':bookingForm.cardtype.$touched && bookingForm.cardtype.$invalid || bookingForm.$submitted && bookingForm.cardtype.$invalid}" name="cardtype"
+                                ng-change="vm.changecardupdate(card.CreditCardTypeID,card.CreditCardTypeName)">
+                            <option ng-repeat="card  in vm.typeCreditCardByHotel" value="{{card.CreditCardTypeID}}"> {{card.CreditCardTypeName }}</option></select>-->
+                                    </div>
+
+                                    <div class="clear"></div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group form-group-cc-number">
+                                            <label class="font12" id="lblCreditcardNumber" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblCreditcardNumber'">{{value.TextMessage}}</label>
+                                            <input class="form-control" id="txtCreditcardNumber" ng-model="vm.profileCarddetails.CreditCardNumber" cc-number cc-eager-type="vm.Provider" placeholder="xxxx xxxx xxxx xxxx" type="text" required ng-class="{'inputError':bookingForm.cardNumber.$touched && bookingForm.cardNumber.$invalid || bookingForm.$submitted && bookingForm.cardNumber.$invalid}" name="cardNumber" />
+                                            <span class="cc-card-icon"></span>
+                                            <label class="font12" style="color: red; display: none; " id="lblCreditcardNumberError"> Invalid Credit Card Number!</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <div class="form-group form-group-cc-cvc">
+                                            <label class="font12" id="lblcvvCode" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblcvvCode'">{{value.TextMessage}}</label>
+                                            <input class="form-control" id="txtcvvCode" ng-model="vm.profileCarddetails.CardCvc" placeholder="xxxx" maxlength="{{vm.selected_CVCLenth}}" type="number" required ng-class="{'inputError':bookingForm.cardCvc.$touched && bookingForm.cardCvc.$invalid || bookingForm.$submitted && bookingForm.cardCvc.$invalid}" name="cardCvc" />
+                                            <label class="font12" style="color: red; display: none; " id="lblCVCCodeError">Invalid CVC Code</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear mb20"></div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group form-group-cc-name">
+                                            <label class="font12" id="lblNameOntheCard" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblNameOntheCard'">{{value.TextMessage}}</label>
+                                            <input required class="form-control" ng-model="vm.profileCarddetails.NameOnCreditCard" type="text" id="txtNameOntheCard" ng-class="{'inputError':bookingForm.cardHolderName.$touched && bookingForm.cardHolderName.$invalid || bookingForm.$submitted && bookingForm.cardHolderName.$invalid}" name="cardHolderName" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group form-group-cc-date">
+                                            <label class="font12" id="lblExpirationDate" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblExpirationDate'">{{value.TextMessage}}</label>
+                                            <div class="row gap-10">
+                                                <div class="col-xs-6 col-sm-6">
+                                                    <select class="form-control" ng-model="vm.profileCarddetails.cardMonth" required id="SelectTypeMonth" ng-class="{'inputError':bookingForm.cardExpMonth.$touched && bookingForm.cardExpMonth.$invalid || bookingForm.$submitted && bookingForm.cardExpMonth.$invalid}" name="cardExpMonth">
+                                                        <option selected="selected" value="">Select</option>
+                                                        <option value="1">January</option>
+                                                        <option value="2">February</option>
+                                                        <option value="3">March</option>
+                                                        <option value="4">April</option>
+                                                        <option value="5">May</option>
+                                                        <option value="6">June</option>
+                                                        <option value="7">July</option>
+                                                        <option value="8">August</option>
+                                                        <option value="9">September</option>
+                                                        <option value="10">October</option>
+                                                        <option value="11">November</option>
+                                                        <option value="12">December</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-xs-6 col-sm-6">
+                                                    <select class="form-control" ng-model="vm.profileCarddetails.Year" id="SelectTypeYear" ng-options="year as year.DisplayYear for year in vm.years">
+                                                        <option value="" selected="selected"> Select</option>
+                                                        <!--<option ng-repeat="year in vm.years" value="{{year.id}}">
+                                                            {{year.DisplayYear}}
+                                                        </option>-->
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                            <label class="font12" style="color: red; display: none;" id="lblExpirationError" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblExpirationError'">{{value.TextMessage}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="clearfix">
+                                    <i class="fa fa-thumbs-o-up box-icon-success box-icon-medium box-icon-left"></i>
+                                    <div class="content">
+                                        <h5 class="text-success"><label id="lblBestPrice" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblBestPrice'">{{value.TextMessage}}</label></h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-9">
+                                <div class="checkbox checkbox-small">
+                                    <label>
+                                        <input ng-model="vm.book.TermsAndConditions" class="i-check" id="chkAgreee" type="checkbox" />
+                                        <span ng-click="vm.showTermsPopup();" id="lblreservationAgreement" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblreservationAgreement'" ng-bind-html="value.TextMessage | trust"></span>
+                                    </label>
+                                    <br />
+                                    <a class="popupnew hidden">
+                                        <label class="font12" style="color:red;" id="lblTermsCheckError" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblTermsCheckError'">{{value.TextMessage}}</label>
+                                    </a>
+                                </div>
+                                <input type="submit" class="btn btn-primary" value="{{value.TextMessage}}" id="btnbooknowReservation" ng-disabled="vm.isDisabled" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'btnbooknowReservation'" />
+                                <img id="ImgAjaxLoader" style="width:30px;" ng-src=" {{vm.isDisabled? '/Images/ajax-loaderBlue.gif':''}}" ng-class="{'hidden':vm.isDisabled == false}" />
+                                <p class="mb0 font12 font-italic"><label id="lblInstantConformation" ng-repeat="(key, value) in vm.bookinglabel | objectByKeyValFilter:'LblId':'lblInstantConformation'">{{value.TextMessage}}</label></p>
+                                <div class="mb10"></div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="mb30"></div>
+                </fieldset>
+</div>
+        </div>
+    </div>
+</div> 
+    <style>
+        .modal-dialog {
+            z-index: 99999 !important;
+        }
+
+        .card-select.alt > li {
+            padding: 7px;
+            width: auto;
+            float: left;
+            margin-right: 10px;
+        }
+
+        .card-select .card-select-img {
+            margin-right: 0px !important;
+        }
+
+        .modal-backdrop.in {
+            opacity: 0.5 !important;
+        }
+    </style>
+
+    <!--<script>
+        Stripe.setPublishableKey('pk_live_mckZ5TDKniyjDlSSuwGpGX5g')
+    </script>-->

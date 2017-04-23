@@ -1,0 +1,63 @@
+﻿<div class="container">
+
+    <div class="mb20"></div>
+
+    <h2 class="lh1em ">
+        <label id="lbltrvaletype"></label>
+    </h2>
+
+    <div class="mb20"></div>
+
+    <div class="row">
+        
+        <div class="col-md-9">
+
+            <ul class="booking-list booking-list-wishlist" id="userprofilewhislist">
+                <li ng-repeat="wish in vm.mywishlist">
+                    <span class="booking-item-wishlist-title"><i class="fa fa-building-o"></i> {{wish.Hotel}} <span>{{wish.addedon}} {{wish.CreatedDate}}</span></span>
+                    <a class="fa fa-times booking-item-wishlist-remove notification-close" ng-click="vm.remove(wish.Id,wish.Name);" rel="tooltip" data-placement="top" title="{{wish.Remove}}"></a>
+                    <a class="booking-item" target="_blank" ng-href="{{wish.NavigateURL}}">
+                        <div class="row">
+                            <div class="col-md-3">
+
+                                <div class="booking-item-img-wrap">
+
+                                    <img ng-src="{{wish.MainPhotoName}}" alt="Image Alternative text" title="hotel 1" style="width:176px;height:116px" />
+                                    <div class="booking-item-img-num"><i class="fa fa-picture-o"></i></div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="booking-item-rating">
+
+                                    <span class="ratings"><span style="color:#F9A80B" ng-bind-html="wish.HotelClass | trust"></span></span>
+
+                                    <span class="booking-item-rating-number"><b>{{wish.count}}</b> of 10</span><small>({{wish.ReviewCount}} {{wish.Reviews}})</small>
+
+                                </div>
+                                <h5 class="booking-item-title">{{wish.Name}}</h5>
+                                <p class="booking-item-address"><i class="fa fa-map-marker"></i> {{wish.RegionName}}</p>
+                                <p class="booking-item-description">{{wish.Description}}</p>
+
+
+                            </div>
+                            <div class="col-md-3">
+
+                                <span class="booking-item-price-from">{{wish.from}}</span><span class="booking-item-price">{{wish.CurrencySymbol}} {{wish.MinimumRoomPrice}}</span><span>/{{wish.night}}</span>
+                                <span class="btn btn-primary">{{wish.Booknow}} </span>
+
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+           
+
+        </div>
+    </div>
+
+    <div class="mb30"></div>
+
+</div>

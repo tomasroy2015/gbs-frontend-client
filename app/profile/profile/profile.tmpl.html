@@ -1,0 +1,86 @@
+﻿
+            <div class="row gap-20">
+                <div class="col-md-6 mb10">
+                    <h4 class="mb0">
+                        <span ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblHello'">{{value.TextMessage}}</span>
+                     <span id="spnUserName1">{{userDashboard.Name}}</span>
+                    
+                    </h4>
+                </div>
+                <br />
+                <br />
+                <h4><label id="lblTotalTraveled" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblTotalTraveled'">{{value.TextMessage}}</label></h4>
+                <ul class="list list-inline user-profile-statictics mb30">
+                    <li>
+                        <i class="fa fa-building-o user-profile-statictics-icon"></i>
+                        <h5><span id="spanCitycount">{{userDashboard.CityCount}}</span></h5>
+                        <p><label id="lblCity" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblCity'">{{value.TextMessage}}</label></p>
+                    </li>
+                    <li>
+                        <i class="fa fa-flag-o user-profile-statictics-icon"></i>
+                        <h5><span id="spanCountrycount">{{userDashboard.CountryCount}}</span></h5>
+                        <p><label id="lblCountry" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblCountry'">{{value.TextMessage}}</label></p>
+                    </li>
+                    <li>
+                        <i class="fa fa-plane user-profile-statictics-icon"></i>
+                        <h5><span id="spanCTripcount">{{userDashboard.TripCount}}</span></h5>
+                        <p><label id="lblTrips" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblTrips'">{{value.TextMessage}}</label></p>
+                    </li>
+                </ul>
+               
+
+                <h4>
+                    <label ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblRecentlyActive'">{{value.TextMessage}}</label>
+                </h4>
+
+                <table class="table table-bordered table-striped table-booking-history mb30">
+                    <thead>
+                        <tr>
+                            <th><span id="lblReservationID" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblReservationID'">{{value.TextMessage}}</span></th>
+                            <th><span id="lblProperty" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblProperty'">{{value.TextMessage}}</span></th>
+                            <th><span id="lblTotalRoomPrice" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblTotalRoomPrice'">{{value.TextMessage}}</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblRecentlyActive">
+                        <tr ng-repeat="recentActiveReservation in vm.listRecentActiveReservation">
+                            <td>{{recentActiveReservation.ReservationId}}</td>
+                            <td>{{recentActiveReservation.Property}}</td>
+                            <td>{{recentActiveReservation.Amount}}</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+
+                <h4><label id="lblYourList" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblYourList'">{{value.TextMessage}}</label></h4>
+
+                <table class="table table-bordered table-striped table-booking-history mb10">
+                    <thead>
+                        <tr>
+                            <th><span id="lblReservationID1" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblReservationID1'">{{value.TextMessage}}</span></th>
+                            <th><span id="lblPinCode" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblPinCode'">{{value.TextMessage}}</span></th>
+                            <th><span id="lblReservationDate" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblReservationDate'">{{value.TextMessage}}</span></th>
+                            <th><span id="lblProperty1" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblProperty1'">{{value.TextMessage}}</span></th>
+                            <th><span id="lblCheckInDate" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblCheckInDate'">{{value.TextMessage}}</span></th>
+                            <th><span id="lblCheckOutDate" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblCheckOutDate'">{{value.TextMessage}}</span></th>
+                            <th><span id="lblPayableAmount" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblPayableAmount'">{{value.TextMessage}}</span></th>
+                            <th><span id="lblStatus" ng-repeat="(key, value) in vm.profilelabel | objectByKeyValFilter:'LblId':'lblStatus'">{{value.TextMessage}}</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblYourList">
+                        <tr ng-repeat="reservation in vm.listYourReservation">
+                            <td>{{reservation.ReservationId}}</td>
+                            <td>{{reservation.PinCode}}</td>
+                            <td>{{reservation.ReservationDate}}</td>
+                            <td>{{reservation.Property}}</td>
+                            <td>{{reservation.CheckInDate}}</td>
+                            <td>{{reservation.CheckOutDate}}</td>
+                            <td>{{reservation.PayableAmount}}</td>
+                            <td>{{reservation.Status}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        
+        <div class="mb30"></div>
+    

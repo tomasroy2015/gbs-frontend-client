@@ -1,0 +1,119 @@
+﻿ 
+<div class="row row-wrap" id="usercreditdetails">
+    <div class="col-md-4 box-to-close-{{creditcard.ID}}" ng-repeat="creditcard in vm.userCreditCard">
+
+        <div class="card-thumb">
+            <ul class="card-thumb-actions">
+                <li>
+                    <a class="fa fa-pencil popup-text" data-placement="top" title="edit" data-effect="mfp-zoom-out" ng-click="vm.editCard(creditcard.ID)"></a>
+                </li>
+                <li>
+                    <a class="fa fa-times box-close" data-placement="top" title="remove" ng-click="vm.confirmRemove(creditcard.ID,creditcard.NameOnCreditCard)"></a>
+                </li>
+
+            </ul>
+            <p class="card-thumb-number">XXXX XXX XXXX {{creditcard.CreditCardNumber}}</p>
+            <p class="card-thumb-valid">
+                {{creditcard.validthru}}<span>{{creditcard.ExpiryDate}}</span>
+            </p>
+            <img ng-if="creditcard.CreditCardProviderID=='1'" class="card-thumb-type" src="/Images/Card/visa-curved-64px.png" style="width:52px;height:32px" alt="Image Alternative text" title="Image Title" />
+            <img ng-if="creditcard.CreditCardProviderID=='2'" class="card-thumb-type" src="/Images/Card/mastercard-curved-64px.png" style="width:52px;height:32px" alt="Image Alternative text" title="Image Title" />
+            <img ng-if="creditcard.CreditCardProviderID=='3'" class="card-thumb-type" src="/Images/Card/american-express-curved-64px.png" style="width:52px;height:32px" alt="Image Alternative text" title="Image Title" />
+            <img ng-if="creditcard.CreditCardProviderID=='4'" class="card-thumb-type" src="/Images/Card/diners_club_64.png" style="width:52px;height:32px" alt="Image Alternative text" title="Image Title" />
+            <img ng-if="creditcard.CreditCardProviderID=='5'" class="card-thumb-type" src="/Images/Card/jcb_card_payment-128.png" style="width:52px;height:32px" alt="Image Alternative text" title="Image Title" />
+            <img ng-if="creditcard.CreditCardProviderID=='6'" class="card-thumb-type" src="/Images/Card/maestro-curved-64px.png" style="width:52px;height:32px" alt="Image Alternative text" title="Image Title" />
+            <img ng-if="creditcard.CreditCardProviderID=='7'" class="card-thumb-type" src="/Images/Card/discover-curved-64px.png" style="width:52px;height:32px" alt="Image Alternative text" title="Image Title" />
+            <small>{{creditcard.cardholder}}</small><h5 class="uc">{{creditcard.NameOnCreditCard}}</h5>
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+        <a class="card-thumb popup-text" ng-click="vm.showAddCardPopup()">
+            <i class="fa fa-plus card-thumb-new"></i>
+            <p id="lbladdcard">Add a card</p>
+        </a>
+    </div>
+</div>
+
+
+
+
+<div class="mfp-bg mfp-zoom-out mfp-hide" id="card-dialog">
+    <div class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-zoom-out mfp-ready" tabindex="-1" style="overflow-x: hidden; overflow-y: auto;">
+        <div class="mfp-container mfp-s-ready mfp-inline-holder" style="height:50px;">
+            <div class="mfp-content">
+                <div class="mfp-with-anim mfp-dialog mfp-dialog" id="edit-card-dialog">
+                    <h3 class="mb0" id="lbleditcard1">Edit Card</h3>
+                    <form class="cc-form">
+                        <ul class="card-select alt clearfix mt10" id="cards" onclick="changecard()"></ul>
+                        <p>XXXX XXXX XXXX 1234</p>
+                        <div class="clearfix">
+                            <div class="form-group form-group-cc-number alt-width" style="width:50%">
+                                <label id="lblcardnumber">Card Number</label>
+                                <input class="form-control" placeholder="xxxx xxxx xxxx xxxx" type="text"><span class="cc-card-icon"></span>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="form-group form-group-cc-name alt-width" style="width:50%">
+                                <label id="lblplaceholdername">Cardholder Name</label>
+                                <input class="form-control" id="txtcardname" type="text">
+                            </div>
+                            <div class="form-group form-group-cc-date alt-width" style="width: 45%">
+                                <label id="lblvalidthru1">Valid Thru</label>
+                                <div class="row gap-10">
+
+                                    <div class="col-xs-6 col-sm-6">
+                                        <select class="form-control" id="updatemonth">
+                                            <option selected="selected" value="00">mm</option>
+                                            <option value="1">01</option>
+                                            <option value="2">02</option>
+                                            <option value="3">03</option>
+                                            <option value="4">04</option>
+                                            <option value="5">05</option>
+                                            <option value="6">06</option>
+                                            <option value="7">07</option>
+                                            <option value="8">08</option>
+                                            <option value="9">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-6">
+                                        <select class="form-control" id="updateyear">
+                                            <option selected="selected" value="00">yyyy</option>
+                                            <option value="2015">2015</option>
+                                            <option value="2016">2016</option>
+                                            <option value="2017">2017</option>
+                                            <option value="2018">2018</option>
+                                            <option value="2019">2019</option>
+                                            <option value="2020">2020</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2024">2024</option>
+                                            <option value="2025">2025</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="list-inline">
+                            <li>
+                                <input class="btn btn-primary" type="button" id="btnupdate" onclick="updatecreditcards()">
+                            </li>
+                            <li>
+                                <button class="btn btn-primary" onclick="Remove()"><i class="fa fa-times"></i><span id="lblremovecard"></span></button>
+                            </li>
+                        </ul>
+
+                    </form>
+                    <button title="Close (Esc)" type="button" class="mfp-close" onclick="closepopup()">×</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

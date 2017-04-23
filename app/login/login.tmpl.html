@@ -1,0 +1,231 @@
+﻿
+<div class="" role="document">
+    <div class="modal-content">
+        <!--role="dialog"-->
+
+        <div class="modal-body">
+            <button type="button" class="close" ng-click="vm.closePopup()">&times;</button>
+            <div id="Logindisp" class="tabbable">
+                <div id="DivTabs">
+
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" data-target="#tabSignIn">Login</a></li>
+                        <li><a data-toggle="tab" data-target="#tabNewAccount">Register</a></li>
+
+                    </ul>
+                </div>
+
+                <div class=" tab-content">
+                    <div id="tabSignIn" class="tab-pane fade in active">
+                        <div class="tab-content">
+
+
+                            <div class="row">
+                                <form class="mt20" ng-submit="vm.lAction()">
+                                    <div class="col-sm-12">
+                                        <div class="form-group form-group-icon-left">
+                                            <i class="fa fa-user input-icon input-icon-show"></i>
+                                            <label class="font12" id="lblUserNameOrEmail">Username or email</label>
+                                            <input class="form-control" ng-model="vm.username" placeholder="Email Address" type="text">
+                                            <label id="lblreg1" style="display:none; color :red; text-align:center;font-size:12px">Invalid EmailId</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group form-group-icon-left">
+                                            <i class="fa fa-lock input-icon input-icon-show"></i>
+                                            <label class="font12" id="lblPassword">Password</label>
+                                            <input class="form-control" type="password" ng-model="vm.password" placeholder="Password">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="row gap-10">
+                                            <div>
+                                                <a href="javascript:void(0);" class="font12" id="aForgetPassword" ng-click="vm.openForgetPassword();">Forgot my Password</a>
+                                            </div>
+                                        </div>
+                                        <span class="btn btn-primary btn-sm btn-block" id="btnSigninLogin" ng-click="vm.login()"><span id="spanLogin">Login</span></span>
+                                        <!--<div class="or-box">
+                                            <span class="line"></span>
+                                            <span class="text" id="txtOr"></span>
+                                        </div>-->
+                                    </div>
+                                </form>
+                                <div class="clear"></div>
+                                <form class="mt20" ng-submit="loginToggle()">
+                                    <div class="clear"></div>
+                                    <div class="col-sm-12" style="padding-top:5px;">
+
+                                        <button ng-click="loginToggle()" class="btn btn-facebook btn-sm btn-block"><i class="fa fa-facebook"></i><span id="RegisterFBReg">Register with Facebook</span></button>
+                                        <!--vm.facebookID-->
+                                        <div id="mySignIn" style="padding-top:5px;">
+                                            <google-plus-signin clientid="{{vm.googleID}}" customtargetid="gbsgoo1" autorender="false">
+                                                <div id="gbsgoo1"> <button class="btn btn-google-plus btn-sm btn-block" id="gmailimage"><i class="fa fa-google-plus"></i><span id="RegisterGoogleReg">Register with Google Plus</span></button></div>
+                                            </google-plus-signin>
+                                        </div>
+                                    </div>
+                                </form>
+                                    <!--<label id="lblsuccess1" style="display:none; color:green; text-align:center;font-size:12px">Inserted SuccessFully</label>
+        <label id="lblNotSuccess" style="display:none; color:red; text-align:center;font-size:12px"></label>-->
+
+</div> 
+                        </div>
+                    </div>
+
+                    <div id="tabNewAccount" class="tab-pane fade">
+                        <div class="tab-content">
+                            <!--<div class="tab-pane fade" id="tabSignIn">
+                                <form class="mt20">
+                                    <div class="row">
+
+                                        <div class="col-sm-12">
+
+                                            <div class="form-group form-group-icon-left">
+                                                <i class="fa fa-user input-icon input-icon-show"></i>
+                                                <label class="font12" id="lblUserNameOrEmail">Username or email</label>
+                                                <input class="form-control" id="txtEmailLogin" placeholder="Email Address" type="text">
+                                                <label id="lblreg1" style="display:none; color :red; text-align:center;font-size:12px">Invalid EmailId</label>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-12">
+
+                                            <div class="form-group form-group-icon-left">
+                                                <i class="fa fa-lock input-icon input-icon-show"></i>
+                                                <label class="font12" id="lblPassword">Password</label>
+                                                <input class="form-control" type="password" id="txtPasswordLogin" placeholder="Password">
+                                                <a class="glyphicon" id="ShowpwdLogin" onclick="Showpassword()" style="text-decoration: none; color: black; font-size: 14px;cursor:pointer"></a>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="row gap-10">
+                                                <div>
+                                                    <a href="#" class="font12" id="aForgetPassword" onclick="Forgetpassword();">Forgot my Password</a>
+                                                </div>
+                                            </div>
+                                            <span class="btn btn-primary btn-sm btn-block" id="btnSigninLogin" onclick="LoginFunction()"><span id="spanLogin">Login</span></span>
+                                            <div class="or-box">
+                                                <span class="line"></span>
+                                                <span class="text" id="txtOr"></span>
+                                            </div>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="col-sm-12" style="padding-top:5px;">
+
+
+                                            <button ng-click="loginToggle()" class="btn btn-facebook btn-sm btn-block"><i class="fa fa-facebook"></i><span id="RegisterFBReg">Register with Facebook</span></button>
+
+                                            <div id="mySignIn" style="padding-top:5px;">
+                                                <google-plus-signin clientid="{{vm.googleID}}" customtargetid="gbsgoo1" autorender="false">
+                                                    <div id="gbsgoo1"> <button class="btn btn-google-plus btn-sm btn-block" id="gmailimage"><i class="fa fa-google-plus"></i><span id="RegisterGoogleReg">Register with Google Plus</span></button></div>
+                                                </google-plus-signin>
+                                            </div>
+
+                                        </div>
+                                        <label id="lblsuccess1" style="display:none; color:green; text-align:center;font-size:12px">Inserted SuccessFully</label>
+                                        <label id="lblNotSuccess" style="display:none; color:red; text-align:center;font-size:12px"></label>
+                                    </div>
+                                </form>
+                            </div>-->
+
+                            <div class="tab-pane fade active in" id="tabNewAccount">
+                                <form class="mt20">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group form-group-icon-left">
+                                                <i class="fa fa-user input-icon input-icon-show"></i>
+                                                <label class="font12" id="lblusername">User Name</label>
+                                                <input class="form-control" ng-model="vm.registerUserName" placeholder="User Name" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group form-group-icon-left">
+                                                <i class="fa fa-lock input-icon input-icon-show"></i>
+                                                <label class="font12" id="lblemail">E-Mail</label>
+                                                <input class="form-control" ng-model="vm.registerEmail" type="email" id="txtEmailNew" placeholder="Email Address">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group form-group-icon-left">
+                                                <i class="fa fa-lock input-icon input-icon-show"></i>
+                                                <label class="font12" id="lblpassword">Password</label>
+                                                <input class="form-control" type="password" ng-model="vm.registerPassword" placeholder="Password">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="checkbox checkbox-small" style="display:none">
+                                                <label id="lblagreeterms">
+                                                    <input class="i-check" type="checkbox" checked="">
+                                                    <span id="txtgbshotel"></span>
+                                                    <span id="txtTermAndCond"></span>
+                                                </label>
+                                            </div>
+                                            <span class="btn btn-primary btn-sm btn-block" id="btnCreateAccount" ng-click="vm.register()"><span id="spanloginReg">Register</span></span>
+                                            <img style="display:none;margin-top:10px;width:10%;" id="loderimage" src="/Images/ajax-loader.gif">
+                                            <label id="lblreg" style="display:none; color :red; text-align:center;font-size:12px">Invalid EmailId</label>
+                                            <label id="lbluncheck" style=" display:none;color:red; text-align:center;font-size:12px">UserName UnAvailable</label>
+                                            <label id="lblcheck" style="display:none; color:green; text-align:center;font-size:12px">UserName Available</label>
+                                            <label id="lblsuccess" style="display:none; color:green; text-align:center;font-size:12px">Inserted SuccessFully</label>
+                                            <label id="lblExit" style="display:none; color:red; text-align:center;font-size:12px">EmailId Was Already Exit</label>
+                                            <!--<div class="or-box">
+                                                <span class="line"></span>
+                                                <span class="text" id="orreg">or</span>
+                                            </div>-->
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="col-sm-12">
+                                            <!--<button ng-click="vm.authenticate('facebook')"  class="btn btn-facebook btn-sm btn-block"><i class="fa fa-facebook"></i><span id="RegisterFBReg">Register with Facebook</span></button>-->
+                                            <button ng-click="loginToggle()" class="btn btn-facebook btn-sm btn-block"><i class="fa fa-facebook"></i><span id="RegisterFBReg">Register with Facebook</span></button>
+                                            <!--vm.facebookID-->
+                                            <div style="padding-top:5px;">
+                                                <google-plus-signin clientid="{{vm.googleID}}" customtargetid="gbsgoo" autorender="false">
+                                                    <div id="gbsgoo"> <button class="btn btn-google-plus btn-sm btn-block"><i class="fa fa-google-plus"></i><span id="RegisterGoogleReg">Register with Google Plus</span></button></div>
+                                                </google-plus-signin>
+                                            </div>
+                                            <!--<button ng-click="vm.authenticate('google')"  class="btn btn-google-plus btn-sm btn-block"><i class="fa fa-google-plus"></i><span id="RegisterGoogleReg">Register with Google Plus</span></button>-->
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div id="ForgetPassdisp" class="" style="display: none;">
+                                <h3 id="ForgetPasswordpage"></h3>
+                                <label style="padding-bottom:20px;text-align:center" id="lblForgotPassword">Forgot my Password</label>
+                                <input type="text" id="txtFgetEmail" class="form-control" style="padding-top:10px;">
+                                <div style="padding-top: 25px;" align="center">
+                                    <input type="button" id="btnSubmit" class="btn btn-primary btn-sm" style="width:100px" ng-click="vm.login()" value="Submit"><br><br><img style="display: none;width:10%;" id="imageloading" src="/Images/ajax-loader.gif">
+                                </div>
+                                <label id="lblreg2" style="display:none; color :red; text-align:center;">Invalid EmailId</label>
+                                <label id="lblCheckEmail1" style="display:none;color:green;text-align:center"></label>
+                                <label id="lblServerdown" style="display: none; color: red; text-align: center"></label>
+                            </div>
+
+                            <div id="ResetPassword" style="display:none;" class="tab-pane fade">
+                                <div style="">
+                                    <h3 style="text-align:center;font-size:20px;" id="lblResetPassword">Reset Password</h3>
+                                </div>
+                                <div style="padding-top: 25px;">
+                                    <input type="password" id="txtresetpassword" placeholder="New Password" class="form-control">
+                                    <br>
+                                    <input type="password" id="txtresetConfirmpassword" placeholder="Confirm password" class="form-control">
+                                    <div style="padding-top: 25px;" align="center">
+                                        <input id="btnSubmit1" type="button" class="btn btn-primary btn-sm" style="width:100px" onclick="resetPassword();" value="Submit">
+                                    </div>
+                                    <div style="padding-top: 25px;" align="center">
+                                        <input id="btnloginre" type="button" class="btn btn-primary btn-sm" style="width:100px" onclick="OpenLogins();" value="Login">
+                                    </div>
+                                    <label id="lblresetpass" style="display:none; color :green; text-align:center;font-size:12px">Reset Password</label><br>
+                                    <label id="lblsamepass" style="display:none; color :red; text-align:center;font-size:12px">Password does not match</label><br><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,1016 @@
+﻿<!--show loader-->
+<div ng-if="isShowLoader">
+    <div class=" pt-spinner-overlay">
+        <div class="cs-loader">
+            <div class="cs-loader-title">
+                Welcome to {{hotelname}}
+            </div><div class="cs-loader-inner">
+                <label>	<i class="fa fa-star" aria-hidden="true"></i></label>
+                <label>	<i class="fa fa-star" aria-hidden="true"></i></label>
+                <label>	<i class="fa fa-star" aria-hidden="true"></i></label>
+                <label>	<i class="fa fa-star" aria-hidden="true"></i></label>
+                <label>	<i class="fa fa-star" aria-hidden="true"></i></label>
+                <label>	<i class="fa fa-star" aria-hidden="true"></i></label>
+            </div>
+        </div>
+    </div>
+</div>
+<!--show loader-->
+<div class="container" ng-repeat="hoteldetail in vm.hotelInfo">
+
+    <ul class="breadcrumb alt clearfix">
+        <li>
+            <a href="/">
+                <i class="fa fa-home"></i>
+                <label id="lblHome" style="cursor: pointer; "></label>
+            </a>
+        </li>
+        <li style="cursor: pointer">
+            <a ui-sref="master.gbs.hotelCountry({'regionId': hoteldetail.CountryID})" id="lblCountryName">{{hoteldetail.CountryName}}</a>
+            <span style="display: flex;">
+                <label style="margin-bottom: 0px; font-size: 10px; color: gray; margin-bottom: 0px;" id="lblproperties1">{{hoteldetail.Properties1}}</label> &nbsp;
+                <label style="font-size: 10px; color: gray; margin-bottom: 0px;" id="lblprpoerties1" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblprpoerties1'">{{value.TextMessage}}</label>
+            </span>
+
+        </li>
+        <li style="cursor: pointer">
+            <a ui-sref="master.gbs.hotelRegion({'cityId': hoteldetail.CityID,'city':hoteldetail.RoutingName})" id="lblCityName">{{hoteldetail.CityName}}</a>
+            <span style="display: flex;">
+                <label style="margin-bottom: 0px; font-size: 10px; color: gray; margin-bottom: 0px;" id="lblproperties2">{{hoteldetail.Properties}}</label> &nbsp;
+                <label style="font-size: 10px; color: gray; margin-bottom: 0px;" id="lblprpoerties2--" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblprpoerties2'">{{value.TextMessage}}</label>
+            </span>
+
+        </li>
+        <li class="active" id="li_HotelName">{{hoteldetail.RoutingName}}</li>
+    </ul>
+
+
+    <div class="booking-item-details">
+        <header class="booking-item-header">
+            <div class="row">
+                <div class="col-md-9">
+                    <h2 class="lh1em inline-rating-stars">
+                        {{hoteldetail.RoutingName}}
+                        <ul class="icon-list icon-group booking-item-rating-stars text-color">
+                            <li style="margin-right: 10px;" ng-if="hoteldetail.IsPreferred=='True'"><img style="width: 16px;" src="/Images/preferred.png" /></li>
+                            <li ng-if="hoteldetail.HotelClassValue=='OneStar'"><i class="fa fa-star"></i></li>
+                            <li ng-if="hoteldetail.HotelClassValue=='TwoStar'"><i class="fa fa-star"></i><i class="fa fa-star"></i></li>
+                            <li ng-if="hoteldetail.HotelClassValue=='ThreeStar'"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></li>
+                            <li ng-if="hoteldetail.HotelClassValue=='FourStar'"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></li>
+                            <li ng-if="hoteldetail.HotelClassValue=='FiveStar'"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></li>
+                            <li ng-if="hoteldetail.HotelClassValue=='Unrated'">Unrated</li>
+                        </ul>
+                    </h2>
+                    <p class="lh1em text-small"><i class="fa fa-map-marker"></i> {{hoteldetail.Address}}</p>
+                </div>
+                <div class="col-md-3">
+                    <input type="button" id="btnbooknowHI" ng-click="vm.HotelRoomBook();" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'btnbooknowHI'" class="btn btn-primary ml10" style="color: white" value="{{value.TextMessage}}" />
+                </div>
+            </div>
+        </header>
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="booking-item-meta">
+                    <div style="margin-bottom: 5%;cursor:crosshair" class="border-wishlist-box" id="btncircleWishlist">
+                        <div style="cursor: pointer;display:flex;" ng-click="vm.addtoWishlist($event)">
+                            <i class="fa" ng-class="vm.iswishlisted? 'fa-heart gb_orange' :'fa-heart-o' " id="spanHeartglyphicon"></i>
+                            <label class="gb_h2"  id="lblmylist" style="margin: -3px 0 0 10px;cursor: pointer;" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblmylist'">{{value.TextMessage}}</label>
+                        </div>
+                        <p style="color:#565656;font-size:15px;padding-top: 8px;">{{hoteldetail.WishListAdded}}</p>
+                    </div>
+                    <img style="display: none; width: 30px" id="imgLoaderAddMishList" src="/Images/ajax-loaderBlackBg.gif">
+                    <label id="lbladdedtowishlist" style="color: green; font-size: 13px; display: none"></label>
+                    <label id="lblRemovedtowishlist" style="display: none; color: green; font-size: 13px;"></label>
+
+                    <div class="row gap-10 location-gap" ng-if="hoteldetail.ReviewCount != '0'">
+                        <div class="loader">
+                            <div class="loader-bg">
+                                <div class="text">{{hoteldetail.AverageReviewPoint}}</div>
+                            </div>
+                            <div class="spiner-holder-one animate-0-25-a">
+                                <div class="spiner-holder-two animate-0-25-b">
+                                    <div class="loader-spiner" style=""></div>
+                                </div>
+                            </div>
+                            <div class="spiner-holder-one animate-25-50-a">
+                                <div class="spiner-holder-two animate-25-50-b">
+                                    <div class="loader-spiner"></div>
+                                </div>
+                            </div>
+                            <div class="spiner-holder-one animate-50-75-a">
+                                <div class="spiner-holder-two animate-50-75-b">
+                                    <div class="loader-spiner"></div>
+                                </div>
+                            </div>
+                            <div class="spiner-holder-one animate-75-100-a">
+                                <div class="spiner-holder-two animate-75-100-b">
+                                    <div class="loader-spiner"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-9 col-md-9">
+                            <h4 class="lh1em mb5 eval-rev-name">{{hoteldetail.ReviewEvaluationName}} !</h4>
+                        </div>
+                        <div class="col-xs-8 col-md-8">
+                            <h5 class="lh1em mb5 eval-descrp">
+                                <a ng-click="vm.scrolltoHref($event);" href="javascript:void(0);" data-href="#detail-content-sticky-nav-04">
+                                    {{hoteldetail.ReviewCount}} hotel evaluations
+                                </a>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+
+                <h4><label id="lblLocationMap" class="gb_h2" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblLocationMap'"> {{value.TextMessage}}</label></h4>
+
+                <ng-map default-style="false" class="hregionMap" pan-control="true" scrollwheel=false zoom-control="false"
+                        max-zoom="11" min-zoom="11" zoom="15" ng-repeat="reg in vm.hotelcordinate" center="{{reg.Latitude}}, {{reg.Longitude}}">
+                    <marker on-click="map.showInfoWindow(event, 'address-iw')" ng-repeat=" hot in vm.hotelcordinate" position="[{{hot.Latitude}}, {{hot.Longitude}}]"></marker>
+                    <info-window id="address-iw" ng-repeat=" hot in vm.hotelcordinate" style="display: inline-block; overflow: visible; ">
+                        <div ng-non-bindable="">
+                            <div class="desc-container">
+                                <div class="block-title"> {{hot.Name}}</div>
+                                <a class="preview" ng-href="{{hot.MainPhotoName}}">
+                                    <img ng-src="{{hot.MainPhotoName}}" height="80" class="thumb" />
+                                </a>
+                                Address:  {{hot.Address}}
+                                <br>
+                                <a>Learn More</a>
+                                <br>
+                                <span class="add"> {{hot.Address}}</span>
+                                <br>
+                            </div>
+                        </div>
+                    </info-window>
+                </ng-map>
+
+
+
+                <h4 style="margin-top: 10px;"><label id="lblSpecification" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblSpecification'">{{value.TextMessage}}</label></h4>
+                <ul class="booking-list">
+                    <li ng-repeat="Specification in vm.hotelSpecification">
+                        <a class="booking-item booking-item-small" ng-click="vm.showHotelPhotos(Specification);">
+                            <div class="row gap-15">
+                                <div class="col-xs-4 col-md-4">
+                                    <img ng-src="{{Specification.HotelImage}}" />
+                                </div>
+                                <div class="col-xs-8 col-md-8">
+                                    <h5 class="booking-item-title"><label style="cursor: pointer;" id="lblName_{{Specification.HotelRoomID}}">{{Specification.Name}}</label></h5>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+
+                <h4><span id="lblCustomerlikethis"></span> </h4>
+                <ul class="booking-list before-last">
+                    <li>
+                        <div class="booking-item booking-item-small">
+                            <h5 class="booking-item-title"><i class="fa fa-plane text-color mr5"></i><span class="gb_h2" id="lblDistancetoAirport" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblDistancetoAirport'">{{value.TextMessage}}</span> </h5>
+                            <p class="lh1em text-small mb5">{{hoteldetail.ClosestAirportName}} ({{hoteldetail.ClosestAirportDistance}} Km)</p>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="booking-list before-last">
+                    <li>
+                        <div class="booking-item booking-item-small">
+                            <h5 class="booking-item-title"><i class="fa fa-flag-checkered text-color mr5"></i><span class="gb_h2" id="lblmainregions" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblmainregions'">{{value.TextMessage}}</span> </h5>
+                            <p class="lh1em text-small mb5" ng-repeat="dis in vm.distance">{{dis.Name}}</p>
+                        </div>
+                    </li>
+                </ul>
+                <!--Added below to noty popup-->
+                <h4><label class="gb_h2" id="lblmyViewdHotel" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblmyViewdHotel'">{{value.TextMessage}}</label></h4>
+                <ul id="recentseen1" class="booking-list">
+                    <li class="relative" ng-repeat="val in vm.recentlyViewedHotel">
+                        <a target="_blank" ui-sref="master.gbs.hoteldetail({'hotelId': val.Id,'hotelname':val.Name})" class="booking-item booking-item-small alt-booking-item-title">
+                            <div class="row gap-15">
+                                <div class="col-xs-4 col-md-4">
+                                    <img ng-src="{{val.MainPhotoName}}">
+                                </div>
+                                <div class="col-xs-8 col-md-8">
+                                    <ul class="icon-group booking-item-rating-stars">
+                                        <li ng-if="val.IsPreferred=='True'"><img src="/Images/preferred.png"></li>
+                                        <li ng-bind-html="val.HotelClass | trust">
+                                        </li>
+                                    </ul>
+                                    <h5 class="booking-item-title">{{val.Name}}</h5><p class="thumb-location">
+                                        <span class="font700"><i class="fa fa-map-marker"></i> {{val.CityName}} </span> -  {{val.ClosestAirportDistance}} Km From {{val.ClosestAirportName}}
+                                    </p>
+
+                                    <p class="font-italic" ng-if="val.AverageReviewPoint">
+                                        <span class="booking-item-rating-number">
+                                            {{val.ReviewTypeScaleName}}  {{val.ReviewValue}}
+                                        </span> - <small>({{val.ReviewCount}}  {{val.Reviews}})</small>
+                                    </p>
+
+                                </div>
+                            </div>
+                        </a>
+                        <a ng-click="vm.DeleteMyViewedHotels(val.SearchId)" class="notification-close"><i class="fa fa-times"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="col-md-8" id="hotel_detail">
+                <div class="followWrap" style="height: 42px; background: #fff">
+
+                    <div class="multiple-sticky" fsm-sticky-header scroll-body="#hotel_detail" scroll-stop='0'>
+                        <div class="multiple-sticky-inner">
+                            <div class="multiple-sticky-container">
+                                <div class="multiple-sticky-item clearfix">
+                                    <ul id="scrollspy-nav" class="nav nav-tabs clearfix hidden-xs">
+                                        <li>
+                                            <a href="javascript:void(0);" ng-click="vm.scrolltoHref($event);" data-href="#detail-content-sticky-nav-01" id="divAvailableRooms" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'divAvailableRooms'"><i class="fa fa-bed"></i>&nbsp; {{value.TextMessage}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" ng-click="vm.scrolltoHref($event);" data-href="#detail-content-sticky-nav-02" id="divFacilities" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'divFacilities'"><i class="fa fa-arrows"></i>&nbsp; {{value.TextMessage}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" ng-click="vm.scrolltoHref($event);" data-href="#detail-content-sticky-nav-03" id="divConditions" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'divConditions'"><i class="fa fa-signal"></i>&nbsp; {{value.TextMessage}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" ng-click="vm.scrolltoHref($event);" data-href="#detail-content-sticky-nav-04" id="lblAllReviewsTab" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblAllReviewsTab'"><i class="fa fa-comments"></i>&nbsp; {{value.TextMessage}}</a>
+                                        </li>
+                                    <!--<li>
+                                            <a ng-click="vm.scrolltoHref($event);" data-href="#detail-content-sticky-nav-05" id="lblLocationTab" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblLocationTab'">&nbsp; {{value.TextMessage}}</a>
+                                        </li>
+                                        <li>
+                                            <a ng-click="vm.scrolltoHref($event);" data-href="#detail-content-sticky-nav-06" id="lblReviewsab" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblReviewsab'" style="display: none">{{value.TextMessage}}</a>
+                                        </li>-->
+                                    </ul>
+
+                                    <div class="clear mb10"></div>
+                                    <div class="pull-right" id="divRoomCountPlusPrice" ng-if="vm.selectedRooms>0" >
+                                        <span id="lblSelectedRoomText1" style="display: none"></span>
+                                        <span> <span class="bb-primary pb" id="lblSelectedRoomText">You have selected {{vm.selectedRooms}} rooms. Total price is </span> <strong><span class="text-lg blink" id="lblSelectedRoomPrice">{{vm.selectedRoomsCurrencySymbol}} {{vm.selectedRoomsPrice}}</span></strong>  </span>
+                                        <!--<button class="btn btn-primary ml10">Book Now</button>-->
+
+                                        <input type="button" id="btnbooknowHI3" ng-click="vm.hotelBooking();" class="btn btn-primary ml10" style="color: white" value="Book Now" />
+                                        <img id="AjaxLoaderBookNow" style="margin-left: 1px; width: 20px; display: none;" src="/Images/ajax-loaderBlue.gif">
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--added new directive "item-pop-up-slick" to bind gallary on promis-->
+                <div class="slick-gallery-slideshow mt10 mb10" item-pop-up-slick>
+                    <div class="slider gallery-slideshow" ng-class="{ 'opacity-0' : !showslick }">
+                        <div ng-repeat="hotimage in vm.hotelImage">
+                            <div class="image">
+                                <!--<img class="img_slideShow" ng-src="{{hotimage.HotelImage}}" />-->
+                                <div class="afkl-lazy-wrapper afkl-img-ratio-1-1 img_slideShow" afkl-lazy-image="{{hotimage.HotelImage}}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slider gallery-nav" ng-class="{ 'opacity-0' : !showslick }">
+                        <div ng-repeat="hotimage in vm.hotelImage">
+                            <div class="image">
+                                <img class="img_Thump" ng-src="{{hotimage.HotelImage}}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+
+                <p class="gb_htd_p" ng-bind-html="hoteldetail.Description | trust"></p>
+
+                <div class="clear mt20"></div>
+
+                <div id="detail-content-sticky-nav-01" class="mb20">
+                    <h2 class="facilitiesChecklist" style="border-bottom:0px">
+                        <label id="lblenterDates" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblenterDates'">{{value.TextMessage}}</label>
+                    </h2>
+
+                    <div class="row gap-10">
+                        <div class="col-xs-12 col-md-9">
+                            <div class="featured-icon-box" id="divBookingAvailabilityMessage" ng-if="vm.hotelAvaibility.length >0">
+                                <div class="icon text-color">
+                                    <i class="fa fa-lock"></i>
+                                </div>
+                                <div class="content">
+                                    <h4 class="text-color"><label id="lblFantasticPrice" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblFantasticPrice'">{{value.TextMessage}}</label></h4>
+                                    <p class="font12 lh1-2em"><label id="lblBookLaterWarning" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblBookLaterWarning'">{{value.TextMessage}}</label></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-xs-12 col-md-3">
+                            <div class="detail-rate-price" style="display: flex; margin-bottom: 10px;">
+                                <p class="mb0" id="lbldisplayratein" style="margin-right: 10px;" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lbldisplayratein'">{{value.TextMessage}}</p>
+                                <ul class="top-user-area-list list list-horizontal list-border">
+                                    <li uib-dropdown keyboard-nav class="boot-drop boot-drop-longer inline=block booking-sort" id="divSort" style="pointer-events: initial;display:table">
+                                        <a id="lblDefaultCurrencyHi" style="font-size:1.3em" uib-dropdown-toggle>{{vm.currentCurrency.CurrencySymbol}}</a>
+                                        <i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i>
+                                        <ul class="list nav-drop-menu" uib-dropdown-menu id="ulCurrencylist" style="width: 607px; margin-top: 8px; margin-left: -550px;">
+                                            <li ng-repeat="Currency in vm.currency" style="width:200px;display:inline" ng-click="vm.changecurrency(Currency)">
+                                                <a class="horizontalNews" style="text-align: left;" href="javascript:void();"> <span class="right">{{Currency.CurrencyName}}</span>{{Currency.CurrencySymbol}}</a>
+                                            </li> 
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>-->
+                    </div>
+
+                    <div class="booking-item-dates-change">
+                        <form>
+                            <div class="input-daterange" data-date-format="MM d, DD">
+                                <div class="row gap-20">
+                                    <div class="col-sm-6 col-md-6">
+
+                                        <div class="form-group form-group-icon-left">
+                                            <a class="dropdown-toggle my-toggle-select" id="lblCheckInDate1" role="button" data-toggle="dropdown" href="">
+                                                <div class="input-append">
+                                                    <i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                                    <label id="lblCheckIn1" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblCheckIn1'">{{value.TextMessage}}</label>
+                                                    <input id="txtCheckInDate1" class="form-control" name="start" type="text" data-ng-model="vm.CheckInDate1.date | date:'MMMM d, EEEE' " />
+                                                </div>
+                                            </a>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                <datetimepicker data-ng-model="vm.CheckInDate1.date" data-before-render="vm.beforeRender($view, $dates, $leftDate, $upDate, $rightDate);" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' ,startView:'day', minView:'day'}"></datetimepicker>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+
+                                        <div class="form-group form-group-icon-left">
+                                            <a class="dropdown-toggle my-toggle-select" id="lblCheckOutDate1" role="button" data-toggle="dropdown">
+                                                <div class="input-append">
+                                                    <i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                                    <label id="lblCheckOut1" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblCheckOut1'">{{value.TextMessage}}</label>
+                                                    <input id="txtCheckOutDate1" class="form-control" name="end" type="text" data-ng-model="vm.CheckOutDate1.date | date:'MMMM d, EEEE' " />
+                                                </div>
+                                            </a>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                <datetimepicker data-ng-model="vm.CheckOutDate1.date" data-before-render="vm.beforeRender_CheckOutDate($view, $dates, $leftDate, $upDate, $rightDate);" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' ,startView:'day', minView:'day'}"></datetimepicker>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row gap-20"></div>
+
+                            <div class="text-right">
+                                <input type="button" id="btnCheckAvailability" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'btnCheckAvailability'" value="{{value.TextMessage}}" class="btn btn-primary" ng-click="vm.checkRoomAvailability(); " />
+                                <img id="ImgAjaxLoader" style="margin-left: 1px; display: none; width: 20px;" src="/Images/ajax-loaderBlue.gif">
+                            </div>
+                            <div id="divNotFoundrooms" align="center" style="background-color: #FFB2B2; margin-top: 10px; display: none">
+
+                                <label style="margin-top: 4px;" id="lblRoomNotFound"></label>
+                            </div>
+                            <div id="DivMoreThan30Days" align="center" style="background-color: #FFB2B2; margin-top: 10px; display: none">
+
+                                <label id="lbldatediffWarning" style="margin-top: 4px; color: red"> </label>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <ul id="tblRoomAvailabilityBody" class="booking-list mt20 mb0 clearfix">
+                        <li ng-repeat="hotelmain in vm.hotelAvaibility">
+                            <div class="booking-item">
+                                <div class="row">
+                                     
+                                    <div class="col-md-8 nopadding" ng-repeat="hotel in hotelmain.room" ng-if="$index ==0 ">
+                                        <div class="col-md-3">
+                                            <img ng-src="{{hotel.RoomPhotoName}}">
+                                        </div>
+                                        <div class="col-md-9">
+                                            <h5 class="booking-item-title">{{hotel.HotelTypeName}}</h5>
+                                            <p class="text-small">{{hotel.HotelRoomDescription}}</p>
+                                            <div style="direction: rtl;" class="room-discount" ng-if="hotel.ConvertedRoomPriceHistry > 0"> 
+                                                {{hotel.PromotionPercentage}}
+                                            </div>
+                                            <span style="display:flex;align-items: flex-end;">
+                                                <img class="anchorInfoImage" src="/Images/Icons/bed.png" style="height:31px;width:35px; margin-left: 3px;">
+                                                <label style="font-weight: normal; margin-top: 8px;margin-left: 3px;" ng-bind-html="hotel.RoomBedInfo | trust"> </label>
+                                            </span>
+                                            <br>
+                                            <ul class="booking-item-features booking-item-features-sign clearfix">
+                                                <li rel="tooltip" data-placement="top" title="" uib-tooltip="Adults Occupancy"><i class="fa fa-male"></i><span class="booking-item-feature-sign">x {{hotel.MaxPeopleCountval}}</span></li>
+                                                <li rel="tooltip" data-placement="top" uib-tooltip="Child Occupancy"><i class="fa fa-child"></i><span class="booking-item-feature-sign">x {{hotel.MaxChildrenCount}}</span></li>
+                                                <li rel="tooltip" data-placement="top" title="" uib-tooltip="Room footage (M2)"><i class="fa fa-home"></i><span class="booking-item-feature-sign">{{hotel.RoomSize}}</span></li>
+                                            </ul>
+                                            <ul class="booking-item-features booking-item-fac clearfix">
+                                                <li ng-repeat="imge in hotel.HotelRoomIcons" uib-tooltip="{{imge.FacilityName}}">
+                                                    <div ng-bind-html="imge.Icon | trust"></div>
+                                                    <div ng-bind-html="imge.FacilityName | trust"></div>
+                                                </li>
+                                            </ul>
+                                            <div class="sub-booking-item-note" style="margin-top: 15px;">
+                                                <p>{{hotel.RoomPriceWarning}}</p>
+                                                <p><span class="font700">{{hotel.Included}}: </span>VAT (%{{hotel.VAT}})
+                                                    <br /><div ng-if="hotelmain.room[0].CityTax">
+                                                                <span class="font700">
+                                                                    Not Included:
+                                                                </span>
+                                                            <span class="pull-right"><!--{{hotelmain.room[0].NewCurrencySymbol}}-->  {{hotelmain.room[0].CityTax}}.</span>
+                                                        </div>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                       
+                                        <div class="sub-booking-item" ng-repeat="hotelsub in hotelmain.room">
+                                             
+                                            <p class="text">
+                                                <label>
+                                                    <i class="fa fa-check"></i> {{hotelsub.RoomMaxPeopleCount}}
+                                                    <i class="fa fa-male"></i><i class="fa fa-male"></i>
+                                                </label>
+                                                <label>
+                                                    <i class="fa fa-check"></i> {{hotelsub.PricePolicyTypeName}}
+                                                    <i class="fa fa-question-circle" rel="tooltip" data-placement="left" uib-tooltip="{{hotelsub.RoomTypeInfo}}"></i>
+                                                </label>
+                                                <label>
+                                                    <i class="fa fa-check"></i> {{hotelsub.AccommodationTypeName}}
+                                                    <i class="fa fa-question-circle" rel="tooltip" data-placement="left" uib-tooltip="{{hotelsub.AccommodationTypeDescription}}"></i>
+                                                </label>
+                                                <label ng-if="hotelsub.BreakfastText">
+                                                    <i class="fa fa-check"></i>{{hotelsub.BreakfastText}}
+                                                </label>
+                                            </p>
+                                            <div class="row gap-10">
+                                                <div class="col-sm-7 col-md-7">
+                                                    <div class="form-group form-group-select-plus">
+                                                        <label class="font13">Rooms</label>
+                                                        <!--<div id="dvRoolselection" class="btn-group btn-group-select-num" ng-bind-html="hotelsub.RoomCountRadioStyle | trust">
+                                                        </div>-->
+                                                        <div id="dvRoomselection_{{hotelsub.HotelRoomID}}_{{$index}}" data-rel="{{hotelsub.HotelRoomID}}_{{$index}}" data-uniq="{{hotelsub.UniqueID}}">
+                                                            <div class="btn-group btn-group-select-num" id="dvRoomradio_{{hotelsub.HotelRoomID}}_{{$index}}">
+
+                                                                <label class="btn btn-primary" ng-if="hotelsub.RoomCount>0"  id="roomCount1_{{hotelsub.HotelRoomID}}_{{$index}}"> <!--ng-class="{active: vm.initRoomObj=='{{hotelsub.HotelRoomID}}_{{$index}}' }"-->
+                                                                    <input type="radio" name="RoomOptions" ng-click="vm.UpdateRoomCountListsRadio($event)" data-uniq="{{hotelsub.UniqueID}}" data-rel="{{hotelsub.HotelRoomID}}_{{$index}}" style="display:none" checked="checked" class="RoomOptions" value="1" />1
+                                                                </label>
+                                                                <label class="btn btn-primary" ng-if="hotelsub.RoomCount>1" id="roomCount2_{{hotelsub.HotelRoomID}}_{{$index}}" >
+                                                                    <input type="radio" name="RoomOptions" ng-click="vm.UpdateRoomCountListsRadio($event)" data-uniq="{{hotelsub.UniqueID}}" data-rel="{{hotelsub.HotelRoomID}}_{{$index}}" style="display:none" class="RoomOptions" value="2" />2
+                                                                </label>
+                                                                <label class="btn btn-primary" ng-if="hotelsub.RoomCount>2" id="roomCount3_{{hotelsub.HotelRoomID}}_{{$index}}">
+                                                                    <input type="radio" name="RoomOptions" ng-click="vm.UpdateRoomCountListsRadio($event)" data-uniq="{{hotelsub.UniqueID}}" data-rel="{{hotelsub.HotelRoomID}}_{{$index}}" style="display:none" class="RoomOptions" value="3" />3
+                                                                </label>
+                                                                <label class="btn btn-primary" ng-if="hotelsub.RoomCount>3">
+                                                                    <input ng-click="vm.showDropdown($event);" data-rel="{{hotelsub.HotelRoomID}}_{{$index}}" data-uniq="{{hotelsub.UniqueID}}"
+                                                                           ng-model="vm.bookRoomCount[$index][hotelsub.HotelRoomID]" style="display:none" type="radio" name="RoomOptions{{$index}}_{{hotelsub.HotelRoomID}}" class="RoomOptions" value="4" />3+
+                                                                </label>
+                                                            </div>
+
+                                                            <select ng-model="vm.bookRoomCount[$index][hotelsub.HotelRoomID]" ng-if="hotelsub.RoomCount>0" ng-init="vm.bookRoomCount[$index][hotelsub.HotelRoomID]='4'" class="form-control hidden" ng-bind-html="hotelsub.OptionRoomCount | trust"
+                                                                    style="margin: 0px auto;" hotelroomid="{{hotelsub.HotelRoomID}}"
+                                                                    roomcount="{{hotelsub.RoomCount}}" pricecurrency="{{hotelsub.NewCurrencySymbol}}" data-uniq="{{hotelsub.UniqueID}}"
+                                                                    data-roomprice="{{hotelsub.ConvertedRoomPrice}}" ng-change="vm.UpdateRoomCountLists('dropRoomcount_{{hotelsub.HotelRoomID}}_{{$index}}')"
+                                                                    id="dropRoomcount_{{hotelsub.HotelRoomID}}_{{$index}}" data-rel="{{hotelsub.HotelRoomID}}_{{$index}}"></select>
+                                                        </div>
+                                                        </div>
+                                                </div><div class="col-sm-5 col-md-5">
+                                                    <div class="price">
+                                                        <div>
+                                                            <label class="block text-color price-number" style="font-size: 20px;font-weight: bold;" id="lblroomPriceDesign0"> {{hotelsub.NewCurrencySymbol}} {{hotelsub.ConvertedRoomPrice}}</label>
+                                                        </div>
+                                                        <span> {{hotelsub.For1RoomText}}</span><div align="center"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" ng-model="vm.subcounts" value="{{vm.subcount+1}}"  />
+                                        </div>
+                                        <!--<div id="sub-booking-item{{hotel.HotelRoomID}}">
+                                            <div class="sub-booking-item">
+                                                <p class="text">
+                                                    <label>
+                                                        <i class="fa fa-check"></i> {{hotel.RoomMaxPeopleCount}}
+                                                        <i class="fa fa-male"></i><i class="fa fa-male"></i>
+                                                    </label>
+                                                    <label>
+                                                        <i class="fa fa-check"></i> {{hotel.PricePolicyTypeName}}  <i class="fa fa-question-circle" rel="tooltip" data-placement="left" uib-tooltip="{{hotel.RoomTypeInfo}}"></i>
+                                                    </label>
+                                                    <label>
+                                                        <i class="fa fa-check"></i> {{hotel.AccommodationTypeName}}  <i class="fa fa-question-circle" rel="tooltip" data-placement="left" uib-tooltip="{{hotel.AccommodationTypeDescription}}"></i>
+                                                    </label>
+                                                    <label>
+                                                        <i class="fa fa-check">{{hotel.BreakfastText}}</i>
+                                                    </label>
+                                                </p>
+                                                <div class="row gap-10">
+                                                    <div class="col-sm-7 col-md-7">
+                                                        <div class="form-group form-group-select-plus">
+                                                            <label class="font13">Rooms</label>
+                                                            <div class="btn-group btn-group-select-num" data-toggle="buttons" ng-bind-html="hotel.RoomCountRadioStyle | trust">
+
+                                                            </div>
+                                                            <select id="dropRoomcount{{hotel.HotelRoomID}}" ng-bind-html="hotel.OptionRoomCount | trust" style="margin: 0px auto;" class="form-control hidden" hotelroomid="{{hotel.HotelRoomID}}" roomcount="{{hotel.RoomCount}}" pricecurrency="{{hotel.NewCurrencySymbol}}" roomprice="{{hotel.ConvertedRoomPrice}}" ng-change="vm.UpdateRoomCountLists(this);"></select>
+                                                        </div>
+                                                    </div><div class="col-sm-5 col-md-5">
+                                                        <div class="price">
+                                                            <div>
+                                                                <label class="block text-color price-number" style="font-size: 20px;font-weight: bold;" id="lblroomPriceDesign1"> {{hotel.NewCurrencySymbol}} {{hotel.ConvertedRoomPrice}}</label>
+                                                            </div><span> {{hotel.For1RoomText}}</span><div align="center"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                      
+                    </ul> 
+                    <div class="container-fluid" ng-if="vm.hotelAvaibility.length == 0">
+                        <div class="row">
+                            <label class="noroom" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblRoomNotFound'">
+                                {{value.TextMessage}}
+                            </label>
+                        </div>
+                    </div>
+ 
+                    <div style="float:right">
+                        <input type="button" id="btnbooknowHI1" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'btnbooknowHI1'" value="{{value.TextMessage}}" onclick="HotelRoomBook()" class="btn btn-primary ml10" style="color:white" />
+                    </div>
+
+                </div>
+
+
+                <div id="detail-content-sticky-nav-02" class="mb20">
+                    <div class="facility-block-wrapper">
+                        <h2 class="facilitiesChecklist">
+                            <label name="HotelFacilities" id="lblFacilities">
+                                {{hoteldetail.Facilitiesof}}  {{hoteldetail.RoutingName}}
+                            </label>
+                        </h2>
+                        <div class="facilitiesChecklist" id="hp_facilities_box">
+                            <div class="facilitiesChecklistSection" ng-repeat="room in vm.hotelRoomAvailability.HotelRoomCondition">
+                                <h5 ng-repeat="roomfac in room.HotelRoomCondition | filter:{AttributeTypeID:1} | limitTo:1">
+                                    <span class="facilityGroupIcon">
+                                        <!--<i class="bicon bicon-airconditioning"></i>-->
+                                    </span>
+                                    {{room.AttributeHeaderID}}
+                                </h5>
+                                <ul>
+                                    <li ng-repeat="roomfac in room.HotelRoomCondition | filter:{AttributeTypeID:1}">
+                                        <span data-name-en="{{roomfac.AttributeName}}">
+                                            <img style="width:30px;" ng-src="{{roomfac.icons}}" />
+                                        </span>
+                                        <span class="attr_txt">{{roomfac.AttributeName}} </span>
+                                    </li>
+                                </ul>
+                            </div>
+                           
+                            <div style="clear:left;"></div>
+                        </div>
+                    </div>
+                     
+
+                </div>
+
+
+                <div id="detail-content-sticky-nav-03" class="mb20" >
+                    
+                    <h2 class="facilitiesChecklist"><label id="lblPolicies">{{hoteldetail.Policiesof}}  {{hoteldetail.RoutingName}}</label></h2>
+                    <!--<ul class="booking-item-features booking-item-features-expand mb0 clearfix" id="divnewpol">
+                        <li ng-repeat="pol in vm.newpolicy" style="line-height: 20px">
+                            <img ng-src="{{pol.Icons}}" style="width:30px;" alt="" /> <span class="booking-item-feature-title"> {{pol.Description}}</span>
+                        </li>
+                    </ul>-->
+                    <div class="row mt10">
+                       
+                        <div class="descriptionsContainer clearfix fac-section" id="hotelPoliciesInc">
+                             
+                            <div class="description" id="checkin_policy" ng-repeat="room in vm.hotelRoomAvailability.HotelRoomAvailability | limitTo:1">
+                                <p class="policy_name">
+                                    <span>{{room.Checkin}}</span>
+                                </p>
+                                <p>
+                                    {{room.CheckinStart}}
+                                </p>
+                            </div>
+                            <div class="description" id="checkout_policy" ng-repeat="room in vm.hotelRoomAvailability.HotelRoomAvailability | limitTo:1">
+                                <p class="policy_name">
+                                    <span>{{room.Checkout}}</span>
+                                </p>
+                                <p>
+                                    {{room.CheckoutStart}}
+                                </p>
+                            </div>
+                            <div class="description" ng-repeat="rp in vm.hotelPolicy">
+                                <p class="policy_name">
+                                    <span>
+                                        {{rp.AttributeHeaderID}}
+                                    </span>
+                                </p>
+                                <div style="padding:3px 0" ng-repeat="roomfac in rp.HotelRoomCondition">
+                                    <img style="width:30px;" ng-src="{{roomfac.icons}}" /> 
+                                    {{roomfac.AttributeName}} 
+                                </div>
+                            </div>
+
+                            <div class="description" ng-repeat="roomcard in vm.hotelRoomAvailability.HotelCard">
+                                <p class="policy_name">
+                                    <span>
+                                        Cards accepted at this property
+                                    </span>
+                                </p>
+                                <p>
+                                    <span class="creditcard {{card.CardName}}" ng-repeat="card in roomcard.HotelCreditCardImage">
+                                        <img class="card-select-img" ng-src="/Images/Card/{{card.CardImage}}" alt="{{card.CardName}}" title="{{card.CardName}}">
+                                        {{room.CreditCardTypeName}}
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="description">
+                                <div ng-repeat="cancel in vm.hotelRoomAvailability.HotelCancllaton">
+                                    <p class="policy_name">
+                                        <span>{{cancel.HotelCancelPolicy}}</span>
+                                    </p>
+                                    <p>{{cancel.CancelPolicyWarning}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="detail-content-sticky-nav-04" class="mb20">
+                    <h2 class="facilitiesChecklist"><span id="lblReviews" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblReviews'">{{value.TextMessage}}</span></h2>
+                    <div class="mt20">
+                        <div class="row">
+                            <div class="col-md-7 col-sm-12 col-xs-12">
+                                <h4 class="lhem"><span id="lblTravelerrating" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblTravelerrating'">{{value.TextMessage}}</span></h4>
+                                <div class="col-md-3 col-sm-3 col-xs-4" style="padding: 0px;">
+                                    <ul class="list booking-item-raiting-list book_align" id="tblReviewScale">
+                                        <li ng-repeat=" reviewscale in vm.hotelReservationReviews">
+                                            <div class="booking-item-raiting-list-title">{{reviewscale.ReviewScale}} </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-9 col-sm-6 col-xs-7">
+                                    <ul class="list booking-item-raiting-list book_align" id="tblReviewScale1">
+                                        <li ng-repeat=" reviewscale in vm.hotelReservationReviews">
+                                            <div class="booking-item-raiting-list-bar"><div ng-style=" {'width':reviewscale.ExcellantWidth}"></div></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-12 col-xs-12">
+                                <h4 class="lhem"><span id="lblSummary" ng-repeat="(key, value) in vm.hoteldetaillabel | objectByKeyValFilter:'LblId':'lblSummary'">{{value.TextMessage}}</span></h4>
+                                <div class="col-md-6 col-sm-3 col-xs-4" style="padding: 0px;">
+                                    <ul class="list booking-item-raiting-summary-list book_align" id="tblReviewType">
+                                        <li ng-repeat="summary in vm.hotelSummary">{{summary.ReviewScaleType}}<br /></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 col-sm-4 col-xs-7" id="tblReviewType1">
+                                    <ul class="icon-group booking-item-rating-stars book_align">
+                                        <li ng-repeat="val in vm.hotelSummary">
+                                            <span ng-bind-html="val.ExcellantWidth | trust"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!--<div class="row">
+                            <div class="col-sm-8 col-md-8">
+                                <h4 class="lhem"><span id="lblTravelreview"></span></h4>
+                            </div>
+                            <div class="col-sm-8 col-md-4" id="divWriteReview" style="display: none">
+                                <div class="text-right mb20"><a class="btn btn-primary" href="#"><span id="lblWritereview" style="display: none" onclick="showWriteReview()"></span></a></div>
+                            </div>
+                        </div>-->
+                        <ul class="booking-item-reviews list">
+                            <li ng-repeat="review in vm.hotelAllReview">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="booking-item-review-person">
+                                            <a class="booking-item-review-person-avatar round" href="javascript:void(0)">
+                                                <img ng-src="{{review.UserPhoto}}" />
+                                            </a>
+                                            <p class="booking-item-review-person-name">
+                                                <a>{{review.UserFullName}}</a>
+                                            </p>
+                                            <p class="booking-item-review-person-loc">{{review.City}},  {{review.CountryName}}</p><small><a href="javascript:void(0)"></a></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="booking-item-review-content">
+                                            <h5>{{review.TravelerTypeName}}</h5>
+                                            <ul class="icon-group booking-item-rating-stars">
+                                                <li ng-if="review.AveragePoint =='10.00'">
+                                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                                </li>
+                                                <li ng-if="review.AveragePoint =='7.50'">
+                                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                                </li>
+                                                <li ng-if="review.AveragePoint =='5.00'">
+                                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                                </li>
+                                                <li ng-if="review.AveragePoint =='2.50'">
+                                                    <i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                                </li>
+                                                <li ng-if="review.AveragePoint =='0.00'">
+                                                    <i class="fa fa-star"></i>
+                                                </li>
+                                            </ul>
+                                            <p>
+                                                <i style="color: green" class="fa fa-circle"></i>  {{review.ReviewPositive}}
+                                            </p>
+                                            <p>
+                                                <i style="color: red" class="fa fa-circle"></i>  {{review.ReviewNegative}}
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                        <div class="text-right mt10">
+                            <a style="display: none" class="btn btn-primary" href="#"><span id="lblWritereview1"></span></a>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!--<div id="detail-content-sticky-nav-06" class="mb20" style="display: none">
+
+                    <div class="row">
+
+                        <div class="col-sm-12">
+
+                            <div class="mb20"></div>
+
+                            <form>
+
+                                <h4>Review for: Hilton Phuket Beach</h4>
+
+                                <div class="add-property-box">
+
+                                    <div class="form-horizontal">
+
+                                        <div class="form-group gap-20 mb5" style="display: none;">
+                                            <label class="col-sm-3 control-label">Reservation ID</label>
+                                            <div class="col-sm-9">
+                                                <div class="text-mt">1030015</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group gap-20 mb5" style="display: none;">
+                                            <label class="col-sm-3 control-label">Reservation Info</label>
+                                            <div class="col-sm-9">
+                                                <div class="text-mt">Residhome Paris Opera  (25 December 2015 - 27 December 2015)</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group gap-20 mb5">
+                                            <label class="col-sm-3 control-label" id="lbltrveltype">Traveler Profile</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control form-control-sm" id="travelertype">
+                                                    <option id="drptrvelertype" value="{{item.ID}}" style="color: darkgray;">@item.travelertype</option>
+                                                    <option selected="selected" value="">Select...</option>
+                                                    <option value="">Option 1</option>
+                                                    <option value="">Option 2</option>
+                                                    <option value="">Option 3</option>
+                                                    <option value="">Option 4</option>*
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mb5">
+                                            <div class="col-sm-11 col-sm-offset-1">
+
+                                                <div class="checkbox checkbox-small">
+                                                    <label>
+                                                        <input class="i-check" id="chkmyname" type="checkbox" />
+                                                        <span id="spanMynameReview"></span>
+                                                    </label>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <hr />
+                                        <div class="clear"></div>
+                                        <div class="form-group gap-20 mb5">
+                                            <div class="input-daterange" data-date-format="MM d, DD">
+                                                <div class="row gap-20">
+                                                    <div class="col-sm-6 col-md-6" style="margin-left: 63px;">
+                                                        <div class="col-md-4">
+
+                                                            <label id="lbldate">Traveler Date:</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                                            <input id="datepicker" class="form-control" style="width: 70%;" name="start" type="text" />
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr />
+
+                                        <div class="col-sm-5 col-sm-offset-1">
+
+
+
+
+                                            <p id="lbldate" style="display: -webkit-inline-box;">traveler Date:</p><input style="margin-top: 20px; margin-bottom: 20px;" type="text" id="datepicker">
+
+                                            <ul id="ullistid" class="list booking-item-raiting-summary-list stats-list-select alt mb0">
+
+
+
+                                                <li ng-repeat="item in vm.hotelReviewType">
+
+                                                    <div class="booking-item-raiting-list-title">{{item.TypeReview}}</div>
+                                                    <ul id="{{item.ID}}" class="icon-group booking-item-rating-stars">
+                                                        <li id="{{item.Name}},{{item.ID}}" class="{{item.ID}}" value="2" onclick=" getPaging(this.value, this.id) ">
+                                                            <i class="fa fa-smile-o" value="2" name="{{item.Name}}"></i>
+                                                        </li>
+                                                        <li id="{{item.Name}},{{item.ID}}" class="{{item.ID}}" value="4" onclick=" getPaging(this.value, this.id) ">
+                                                            <i class="fa fa-smile-o" value="4" name="{{item.Name}}"></i>
+                                                        </li>
+                                                        <li id="{{item.Name}},{{item.ID}}" class="{{item.ID}}" value="6" onclick=" getPaging(this.value, this.id) ">
+                                                            <i class="fa fa-smile-o" value="6" name="{{item.Name}}"></i>
+                                                        </li>
+                                                        <li id="{{item.Name}},{{item.ID}}" class="{{item.ID}}" value="8" onclick=" getPaging(this.value, this.id) ">
+                                                            <i class="fa fa-smile-o" value="8" name="{{item.Name}}"></i>
+                                                        </li>
+                                                        <li id="{{item.Name}},{{item.ID}}" class="{{item.ID}}" value="5" onclick=" getPaging(this.value, this.id) ">
+                                                            <i class="fa fa-smile-o" value="10" name="{{item.Name}}"></i>
+                                                        </li>
+
+                                                    </ul>
+
+                                                </li>
+
+
+
+                                            </ul>
+
+                                        </div>
+                                        <div class="clear"></div>
+
+                                        <hr />
+
+                                        <div class="form-group mb5 gap-20">
+                                            <label class="col-sm-3 control-label"><i class="fa fa-circle mr5 text-success" rel="tooltip" data-placement="top" uib-tooltip="positive review"></i><span id="positiveFeedback"></span></label>
+                                            <div class="col-sm-7">
+                                                <textarea class="form-control form-control-sm" id="txtpositive" rows="5"></textarea>
+
+
+                                            </div>
+                                            <label for="tc-3" id="lblpositive"></label>
+                                            <div style="margin-top: 20px; color: darkgray;"><label id="lblex2"></label></div>
+                                        </div>
+
+                                        <div class="form-group mb5 gap-20">
+                                            <label class="col-sm-3 control-label"><i class="fa fa-circle mr5 text-danger" rel="tooltip" data-placement="top" uib-tooltip="negative review"></i><span id="negativeFeedback"></span> </label>
+                                            <div class="col-sm-7">
+                                                <textarea class="form-control form-control-sm" id="txtnegative" rows="5"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <hr />
+
+                                        <div class="form-group mb5 gap-20">
+                                            <div align="center" class="col-md-12">
+
+                                                <input type="text" class="form-control" style="width: 70%;" id="txtfYourName" placeholder="" />
+                                            </div>
+                                        </div><br />
+                                        <div class="form-group mb5 gap-20">
+                                            <div align="center" class="col-md-12">
+
+                                                <input type="text" class="form-control" style="width: 70%;" id="txtemail" placeholder="" />
+                                            </div>
+                                            <label style="font-size: 10px; color: darkgray;" id="lblprivacy"></label>
+                                        </div><br />
+                                        <div class="form-group mb5 gap-20">
+                                            <div align="center" class="col-md-12">
+
+                                                <input type="text" class="form-control" style="width: 70%;" id="txtlocation" placeholder="" />
+                                            </div>
+                                            <label style="font-size: 10px; color: darkgray;" id="lblex3"></label>
+                                        </div><br />
+
+
+
+                                    </div>
+
+                                </div>
+                                <input type="button" class="btn btn-primary" id="btnsave" onclick=" insertreview() " />
+
+                                <label style="color: red; display: none;" id="lblselectscore"></label>
+
+                                <input type="button" class="btn btn-primary" id="btnback" onclick=" Cancelreview() " />
+
+
+
+                                <div class="mb10"></div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                    <div class="mb30"></div>
+
+
+                </div>-->
+            </div>
+        </div>
+    </div>
+    <div class="gap gap-small"></div>
+    <div class="multiple-sticky"></div>
+</div> 
+<style>
+    .hregionMap {
+        width: 100%;
+    }
+
+    .ng-map-info-window {
+        /*right: auto !important;
+        left: auto !important;*/
+        height: 300px !important;
+    }
+
+    .map-wrapper a.preview img {
+        width: 100% !important;
+    }
+
+    .horizontalNews {
+        display: inline-block;
+        float: left;
+        width: 200px;
+    }
+
+    /*.nav-drop > .nav-drop-menu > li:first-child > a:before {
+        left: 450px !important;
+    }*/
+    .multiple-sticky hidden-xs fixed {
+        top: 3000px !important;
+    }
+
+    .detail-rate-price {
+        font-size: 12px !important;
+        position: relative !important;
+    }
+
+    .nav-drop > .nav-drop-menu > li > a:hover {
+        background: #404040 !important;
+    }
+
+    #ulCurrencylist > li:first-child > a:before {
+        left: 550px !important;
+        position: absolute;
+    }
+
+    #lirecentlySeenSlidingDiv > li:first-child > a:before {
+        left: 265px !important;
+    }
+
+    @media (max-width: 500px), (max-width: 764px) {
+        #ulCurrencylist > li:first-child > a:before {
+            left: 170px !important;
+        }
+    }
+
+
+    /*ul#summer-drinks li.favorite*/
+    @media (max-width: 500px) {
+        #lirecentlySeenSlidingDiv > li:first-child > a:before {
+            left: 90px !important;
+        }
+    }
+
+    /*.nav-drop > .nav-drop-menu > li:first-child > a:before {
+        position: absolute;
+        
+    }*/
+    .nav-drop > .nav-drop-menu > li > a:hover {
+        background: #404040 !important;
+    } 
+    .card-select.alt > li {
+        padding: 7px;
+        width: auto;
+        float: left;
+        margin-right: 10px;
+    }
+
+    .card-select .card-select-img {
+        margin-right: 0px !important;
+    }
+</style>

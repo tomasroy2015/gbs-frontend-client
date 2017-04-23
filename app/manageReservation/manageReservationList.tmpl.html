@@ -1,0 +1,709 @@
+﻿<div class="container">
+
+    <table class="table table-striped" style="margin-top: 20px;">
+        <thead>
+            <tr style="background-color: #f2efe2">
+                <th> <span id="lblreservationidsds" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'lblreservationidsds'">{{value.TextMessage}}</span></th>
+                <th> <span id="lblpincodesds" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'lblpincodesds'">{{value.TextMessage}}</span></th>
+                <th> <span id="lblreservationdateds" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'lblreservationdateds'">{{value.TextMessage}}</span></th>
+                <th> <span id="lblpropertynameds" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'lblpropertynameds'">{{value.TextMessage}}</span></th>
+                <th> <span id="lblcheckindatesds" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'lblcheckindatesds'">{{value.TextMessage}}</span></th>
+                <th> <span id="lblcheckoutdatesds" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'lblcheckoutdatesds'">{{value.TextMessage}}</span></th>
+                <th> <span id="lblpayamountds" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'lblpayamountds'">{{value.TextMessage}}</span></th>
+                <th> <span id="lblreservationstatusds" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'lblreservationstatusds'">{{value.TextMessage}}</span></th>
+                <th> <span id="lblopertaionds" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'lblopertaionds'">{{value.TextMessage}}</span></th>
+            </tr>
+        </thead>
+        <tr ng-repeat="val in vm.reservationResolveData" ng-if="$last">
+            <td>{{val.ID}}</td>
+            <td>{{val.PinCode}}</td>
+            <td>{{val.ReservationDate}}</td>
+            <td>{{val.HotelName}}</td>
+            <td>{{val.CheckInDate}}</td>
+            <td>{{val.CheckOutDate}}</td>
+            <td><span>{{val.CurrencySymbol}}</span><span>{{val.PayableAmount}}</span></td>
+            <td>{{val.Status}}</td>
+            <td>
+                <img src="/Images/goto.png" style="cursor:pointer;width: 23px;" ng-click="vm.showDetail();">
+                <img src="/Images/review.png" ng-if="val.btnreview=='review'" style="cursor:pointer;width: 23px;margin-left:10px" ng-click="vm.showReview();" />
+                <img src="/Image/update.png" ng-if="val.btnupdate == 'update'" style=" cursor:pointer;width: 23px;margin-left:10px;" ng-click="vm.send(val.ID);" />
+                <img title="Print" src="/Images/print.png" style="border-width:0px;margin-left:10px;width: 23px;" ng-click="vm.printDiv('printpreview');" />
+            </td>
+        </tr>
+    </table>
+    <!--ng-if="!vm.isHideDetais"-->
+    <div id="previewdiv" ng-if="vm.IsPreview" style="width: 100%; ">
+        <table id="previewtop" style="background-color: #fff; border: 1px solid #e3dec0; margin-bottom: 20px; margin-top: 20px;  " class="table table-responsive ">
+            <tbody ng-repeat="val in vm.reservationResolveData">
+                <tr>
+                    <td>{{val.ReservationIDs}}</td>
+                    <td>{{val.ID}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.PinCodes}}</td>
+                    <td>{{val.PinCode}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.Reserver}} </td>
+                    <td> <span> {{val.FullName}} </span>&nbsp;(<span>{{val.SalutationTypeName}}</span>)</td>
+                </tr>
+                <tr>
+                    <td>{{val.ReservationDates}} </td>
+                    <td>{{val.ReservationDate}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.Propertys}}</td>
+                    <td>{{val.HotelName}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.HotelAddresss}}</td>
+                    <td>{{val.Address}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.HotelContact}}</td>
+                    <td>{{val.Phone}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.ReservationStatuss}}</td>
+                    <td>{{val.HotelReservationStatusName}}</td>
+                <tr>
+                    <td>{{val.CheckInDates}}</td>
+                    <td>{{val.CheckInDate}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.CheckOutDates}}</td>
+                    <td>{{val.CheckOutDate}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.NightCounts}}</td>
+                    <td>{{val.NightCount}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.Emails}}</td>
+                    <td>{{val.Email}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.Countrys}}</td>
+                    <td>{{val.Country}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.Citys}}</td>
+                    <td>{{val.City}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.Postcodes}}</td>
+                    <td>{{val.PostCode}}</td>
+                </tr>
+
+            </tbody>
+            <tbody ng-repeat="val in vm.reservationResolveData">
+                <tr>
+                    <td>{{val.RoomCounts}}</td>
+                    <td>{{val.totalroomcount}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.PeopleCounts}}</td>
+                    <td>{{val.totalPeopleCounts}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.PayableAmounts}}</td>
+                    <td><span>{{val.CurrencySymbol}}</span><span>{{val.PayableAmount}}</span></td>
+                </tr>
+                <tr>
+                    <td>{{val.HotelConditions}}</td>
+                    <td>
+                        <div ng-bind-html="val.HotelConditionText | trust"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{val.GuestNote}}</td>
+                    <td>{{val.Note}}</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        <table ng-repeat="val in vm.reservationResolveData" class="table table-responsive" style="background-color: #fff; border: 1px solid #e3dec0; margin-bottom: 20px; margin-top: 20px; ">
+            <thead>
+                <tr><th colspan="2"><b>{{val.RoomTypeName}}</b></th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{val.ReservationStatuss}}</td>
+                    <td>{{val.HotelReservationStatusName}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.AccommodationTypes}}</td>
+                    <td>{{val.HotelAccommodationTypeName}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.GuestNames}}</td>
+                    <td>{{val.GuestName}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.PeopleCounts}}</td>
+                    <td>{{val.PeopleCount}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.BedPreferences}}</td>
+                    <td>{{val.BedTypeNameWithCount}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.TotalRoomPrices}}</td>
+                    <td><span>{{val.CurrencySymbol}}</span><span>{{val.Amount}}</span></td>
+                </tr>
+                <tr>
+                    <td>{{val.NightPrice}}</td>
+                    <td>
+                        <div class="row roomrate">
+                            <div class="col-sm-2 form-group NoWrap resTble" ng-repeat="data in val.roomratesinglenight">
+                                <label ng-bind-html="data.tblheader | trust"></label>
+                                <label ng-bind-html="data.tblbobyvalues | trust"></label>
+                            </div>
+                        </div>
+                        <!--<table class="GridTable">
+                            <tbody>
+                                <tr style="border: 1px solid #ABAAA5">
+                                    <td align='center' class='NoWrap' ng-repeat="data in val.roomratesinglenight" ng-bind-html="data.tblheader | trust" style='padding:4px;border-right: 1px solid #ABAAA5'></td>
+                                </tr>
+                                <tr style="border: 1px solid #ABAAA5">
+                                    <td align='center' class='NoWrap' ng-repeat="data in val.roomratesinglenight" ng-bind-html="data.tblbobyvalues | trust" style='padding:4px;border-right: 1px solid #ABAAA5'>
+                                </tr>
+                            </tbody>
+                        </table>-->
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{val.TravellerTypes}}</td>
+                    <td>{{val.TravellerTypeName}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.EstimatedArrivalTimes}}</td>
+                    <td>{{val.EstimatedArrivalTime}}</td>
+                </tr>
+                <tr>
+                    <td>{{val.CancelPolicy}}</td>
+                    <td>
+                        <label style="text-decoration:underline">{{val.HotelCancelTypeName}}</label>
+                        <span>
+                            {{val.RefundableInfotext}}
+                        </span>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="col-md-1 col-sm-1 col-xs-1"></div>
+        <div class="col-md-5 col-sm-5 col-xs-12" style="margin-top:20px;">
+        </div>
+        <div align="center" class="col-md-12 col-sm-12 col-xs-12">
+            <input type="button" id="btnback" style="" ng-click="vm.hideDetail();" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'btnShowBack'" value="{{value.TextMessage}}" class=" btn btn-primary">
+        </div>
+        <div class="col-md-5 col-sm-5 col-xs-12" style="margin-top:20px;">
+        </div>
+    </div>
+
+    <div id="updatereservation" ng-if="vm.updateReservation" style="line-height:30px;width:100%;" align="center">
+        <div ng-repeat="val in vm.reservationResolveData track by $index" ng-if="$last" class="col-md-offset-1 col-md-10 col-sm-10 col-xs-12" style="background-color: #f2efe2; border: 1px solid #e3dec0; margin-bottom: 20px; margin-top: 20px; display: inline-block;" id="preview01">
+            <span id="lblModifyReservation">  </span>
+            <div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12" style="margin-top:20px; color:black; font-size: 14px; font-weight: 200;">
+                    <div>
+                        <label id="lblpropertyname21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left" ng-repeat="(key, value) in vm.HomeManageReservationlabel | objectByKeyValFilter:'LblId':'lblpropertyname21'">{{value.TextMessage}}</label>
+                        <label id="lblprperty21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left;font-weight: 100;">{{val.HotelName}}</label>
+                    </div>
+                    <div>
+                        <label id="lblreservationids21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left" ng-repeat="(key, value) in vm.HomeManageReservationlabel | objectByKeyValFilter:'LblId':'lblreservationids21'">{{value.TextMessage}}</label>
+                        <label id="lblreservationid21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left;font-weight: 100;">{{val.ID}}</label>
+                    </div>
+                    <div>
+                        <label id="lblpincodes21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left" ng-repeat="(key, value) in vm.HomeManageReservationlabel | objectByKeyValFilter:'LblId':'lblpincodes21'">{{value.TextMessage}}</label>
+                        <label id="lblpincode21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left;font-weight: 100;">{{val.PinCode}}</label>
+                    </div>
+
+                    <div>
+                        <label id="lblreservationowner21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left" ng-repeat="(key, value) in vm.HomeManageReservationlabel | objectByKeyValFilter:'LblId':'lblreservationowner21'">{{value.TextMessage}}</label>
+                        <label id="reservationowner21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left;font-weight: 100;">{{val.FullName}}</label>
+                    </div>
+
+
+                    <div>
+                        <label id="lblreservationstatus21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left" ng-repeat="(key, value) in vm.HomeManageReservationlabel | objectByKeyValFilter:'LblId':'lblreservationstatus21'">{{value.TextMessage}} </label>
+                        <label id="lblreservestatus21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left;font-weight: 100;">{{val.HotelReservationStatusName}}</label>
+                    </div>
+                    <div>
+                        <label id="lblcheckindates21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left" ng-repeat="(key, value) in vm.HomeManageReservationlabel | objectByKeyValFilter:'LblId':'lblcheckindates21'">{{value.TextMessage}} </label>
+                        <label id="lblcheckindate21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left;font-weight: 100;">{{val.CheckInDate}}</label>
+                    </div>
+                    <div>
+                        <label id="lblcheckoutdates21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left" ng-repeat="(key, value) in vm.HomeManageReservationlabel | objectByKeyValFilter:'LblId':'lblcheckoutdates21'">{{value.TextMessage}}</label>
+                        <label id="lblcheckoutdate21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left;font-weight: 100;">{{val.CheckOutDate}}</label>
+                    </div>
+                    <div>
+                        <label id="lblnumberofnights21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left" ng-repeat="(key, value) in vm.HomeManageReservationlabel | objectByKeyValFilter:'LblId':'lblnumberofnights21'">{{value.TextMessage}}</label>
+                        <label id="lblnonights21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left;font-weight: 100;">{{val.NightCount}}</label>
+                    </div>
+                    <div>
+                        <label id="lblemails21" class="col-md-6 col-sm-6 col-xs-12" style="text-align: left" ng-repeat="(key, value) in vm.HomeManageReservationlabel | objectByKeyValFilter:'LblId':'lblemails21'">{{value.TextMessage}}</label>
+                        <label id="lblemail21" class="col-md-6 col-sm-6 col-xs-12" style="text-align: left;font-weight: 100;">{{val.Email}}</label>
+                    </div>
+
+                    <div>
+                        <label id="lblroomcounts21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left" ng-repeat="(key, value) in vm.HomeManageReservationlabel | objectByKeyValFilter:'LblId':'lblroomcounts21'">{{value.TextMessage}}</label>
+                        <label id="lblRoomCount21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left;font-weight: 100;">{{val.RoomCount}}</label>
+                    </div>
+                    <div>
+                        <label id="lblpeoplecount21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left" ng-repeat="(key, value) in vm.HomeManageReservationlabel | objectByKeyValFilter:'LblId':'lblpeoplecount21'">{{value.TextMessage}}</label>
+                        <label id="lblpeoplecounts21" class="col-md-6 col-sm-6 col-xs-6" style="text-align: left;font-weight: 100;">{{val.PeopleCount}}</label>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="col-md-1 col-sm-1 col-xs-1"></div>
+
+        </div>
+        <div class="clear"></div>
+         
+        <fieldset ng-disabled="vm.isupdating">
+            <div id="tblupdatepreview" align="center" ng-repeat="val in vm.reservationResolveData track by $index">
+                <table class="table table-responsive" style="width: 83%;background-color: #f2efe2; border: 1px solid #e3dec0; margin-bottom: 20px; margin-top: 20px; display: inline-block;">
+                    <thead>
+                        <tr>
+                            <th colspan="2">
+                                <input ng-if="val.cbxHotelReservation == 1" value="{{val.HotelRoomID}}" ng-disabled="val.cbxHotelReservation != 1" ng-model="vm.chkhotelroomids[$index]" type="checkbox" id="chkhotelroomid{{val.HotelRoomID}}" class="roomchek" /> <span align="center">{{val.RoomTypeName}}</span>
+                                <input type="hidden" ng-model="vm.HotelReservationID[$index]" ng-init="vm.HotelReservationID[$index]=val.HotelReservationID;" value="{{val.HotelReservationID}}" />
+                                <input type="hidden" ng-model="vm.HotelReservationPayableAmount[$index]" ng-init="vm.HotelReservationPayableAmount[$index]=val.HotelReservationPayableAmount;" value="{{val.HotelReservationPayableAmount}}" />
+                                <input type="hidden" ng-model="vm.HotelResActive[$index]" ng-init="vm.HotelResActive[$index]=val.Active;" value="{{val.Active}}" />
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> <label>{{val.ReservationStatuss}}</label></td>
+                            <td> <label>{{val.HotelReservationStatusName}}</label></td>
+                        </tr>
+                        <tr>
+                            <td> <label>{{val.GuestNames}}</label></td>
+                            <td> <input type="text" id="lblGuestName{{val.HotelRoomID}}" class="form-control" ng-model="vm.lblGuestName[$index]" ng-init="vm.lblGuestName[$index]=val.GuestName;" value="{{val.GuestName}}" style="text-align: left;font-weight: 100;width: 35%;" /></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>  {{val.PeopleCounts}}</label>
+                            </td>
+                            <td>
+                                <label>
+                                    {{val.PeopleCount}}
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>
+                                    {{val.BedPreferences}}
+                                </label>
+                            </td>
+                            <td>
+                                <select style="text-align: left;font-weight: 100;width: 35%;" ng-model="vm.drpbed[$index]" ng-init="vm.drpbed[$index]=val.BedOptionNo;" id="drpbed{{val.HotelRoomID}}" class="form-control">
+                                    <option ng-repeat="data in val.beddropdown" id="drptrvelertype" value="{{data.bedoptiontext}}" style="color: darkgray;">{{data.bedoptionvalue}}</option>
+                                </select>
+
+                            </td>
+
+                        </tr>
+                        <tr>
+
+
+                            <td> <label>  {{val.TotalRoomPrices}}  </label></td>
+
+                            <td> <span>  {{val.CurrencySymbol}} </span><span>  {{val.Amount }} </span></td>
+
+                        </tr>
+                        <tr>
+                            <td> <label>  {{val.NightPrice}} </label></td>
+                            <td>
+                                <div class="row roomrate">
+                                    <div class="col-sm-2 form-group NoWrap resTble" ng-repeat="data in val.roomratesinglenight">
+                                        <label ng-bind-html="data.tblheader | trust"></label>
+                                        <label ng-bind-html="data.tblbobyvalues | trust"></label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> <label>{{val.TravellerTypes}}</label></td>
+                            <td>
+                                <select id="drptravellerinfo{{val.HotelRoomID}}" ng-init="vm.drptravellerinfo[$index]=val.TravellerTypeID;" ng-model="vm.drptravellerinfo[$index]" class="form-control" style="text-align: left;font-weight: 100;width: 35%;">
+                                    <option ng-repeat="travel in val.travellerdropdown" value="{{travel.ID}}">{{travel.travelertype}}</option>'
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> <label>  {{val.EstimatedArrivalTimes}}</label></td>
+
+                            <td>
+                                <select style="text-align: left;font-weight: 100;width: 35%;" ng-init="vm.drparaivaltime[$index]=val.EstimatedArrivalTime;" ng-model="vm.drparaivaltime[$index]" id="drparaivaltime{{val.HotelRoomID}}" class="form-control">
+                                    <option value="00">Select</option>
+                                    <option value="00:00">00:00</option>
+                                    <option value="00:30">00:30</option>
+                                    <option value="01:00">01:00</option>
+                                    <option value="01:30">01:30</option>
+                                    <option value="02:00">02:00</option>
+                                    <option value="02:30">02:30</option>
+                                    <option value="03:00">03:00</option>
+                                    <option value="03:30">03:30</option>
+                                    <option value="04:00">04:00</option>
+                                    <option value="04:30">04:30</option>
+                                    <option value="05:00">05:00</option>
+                                    <option value="05:30">05:30</option>
+                                    <option value="06:00">06:00</option>
+                                    <option value="06:30">06:30</option>
+                                    <option value="07:00">07:00</option>
+                                    <option value="07:30">07:30</option>
+                                    <option value="08:00">08:00</option>
+                                    <option value="08:30">08:30</option>
+                                    <option value="09:00">09:00</option>
+                                    <option value="09:30">09:30</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="10:30">10:30</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="11:30">11:30</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="12:30">12:30</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="13:30">13:30</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="14:30">14:30</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="15:30">15:30</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="16:30">16:30</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="17:30">17:30</option>
+                                    <option value="18:00">18:00</option>
+                                    <option value="18:30">18:30</option>
+                                    <option value="19:00">19:00</option>
+                                    <option value="19:30">19:30</option>
+                                    <option value="20:00">20:00</option>
+                                    <option value="20:30">20:30</option>
+                                    <option value="21:00">21:00</option>
+                                    <option value="21:30">21:30</option>
+                                    <option value="22:00">22:00</option>
+                                    <option value="22:30">22:30</option>
+                                    <option value="23:00">23:00</option>
+                                    <option value="23:30">23:30</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> <label>  {{val.CancelPolicy}}  </label></td>
+                            <td>
+                                <label style="text-decoration: underline;">  {{val.HotelCancelTypeName}}</label>
+                                <span>
+                                    {{val.RefundableInfotext}}
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-repeat="val in vm.reservationResolveData" ng-if="$last">
+                <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                <div class="col-md-5 col-sm-5 col-xs-12" style="margin-top:20px;">
+
+                </div>
+                <div align="center" class="col-md-12 col-sm-12 col-xs-12">
+                    <input style=" margin: 4px" type="submit" id="btnupdate" ng-if="val.btnupdate=='update'" class="btn btn-primary" ng-click="vm.updatereservations(val)" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'btnupdate'" value="{{value.TextMessage}}" />
+                    <input style=" margin: 4px;" ng-if="val.btnCancelSelected==1" type="submit" id="btnCancelSelected" class="btn btn-primary" ng-click="vm.CancelSelectedroomReservations('CancelSelected',val)" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'btnCancelSelected'" value="{{value.TextMessage}}" />
+                    <input style=" margin: 4px; " ng-if="val.btnCancel==1" type="submit" id="btnCancel" class="btn btn-primary" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'btnCancel'" value="{{value.TextMessage}}" ng-click="vm.CancelSelectedroomReservations('CancelAll',val);">
+                    <input style=" margin: 4px" type="submit" id="btncancel" class="btn btn-primary" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'btncancel'" value="{{value.TextMessage}}" ng-click="vm.cancelupdate();">
+                    <label id="lblselectroom" style="color:red;display:none">Please Select Atleast One Room</label>
+                    <label id="lblsuccsess" style="color:green;display:none" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'lblsuccsess'">{{value.TextMessage}}</label>
+                </div>
+            </div>
+            </fieldset>
+</div>
+    <div id="tblreveiw" ng-if="!vm.isHidereview" ng-repeat="val in vm.reservationResolveData">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="mb20"></div>
+                <form name="review" ng-submit="vm.saveReview()" novalidate>
+                    <h4 align="center"><span id="lblreview" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'lblreview'">{{value.TextMessage}}</span></h4>
+                    <div class="add-property-box">
+                        <div class="form-horizontal">
+                            <div class="form-group gap-20 mb5">
+                                <label class="col-sm-3 control-label" id="lblreservationidreview" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'lblreservationidreview'">{{value.TextMessage}}</label>
+                                <div class="col-sm-9" style="margin-top:8px">
+                                    <div class="text-mt"><span id="spnreveiwid" ng-model="vm.reviewdata.ReservationId">{{val.ID}}</span></div>
+                                </div>
+                            </div>
+
+                            <div class="form-group gap-20 mb5">
+                                <label class="col-sm-3 control-label" id="lblreservationinfo" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'lblreservationinfo'">{{value.TextMessage}}</label>
+                                <div class="col-sm-9" style="margin-top:8px">
+                                    <div class="text-mt"><span id="spnproperty">{{val.HotelName}}</span>&nbsp;(<span id="spnchin">{{val.CheckInDate}}</span> -<span id="spnchout">{{val.CheckOutDate}}</span>) </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group gap-20 mb5">
+                                <label class="col-sm-3 control-label" id="lbltrveltype" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'lbltrveltype'">{{value.TextMessage}}</label>
+                                <div class="col-sm-5">
+                                    <select class="form-control form-control-sm" id="travelertype" ng-model="vm.travelerType[$index]" ng-class="{'inputError':review.travelType.$touched && review.travelType.$invalid || review.travelType.$invalid && review.$submitted}" name="travelType" required>
+                                        <option ng-repeat="data in vm.listWriteReview" id="drptrvelertype" value="{{data.Id}}" style="color: darkgray;">{{data.Travelertype}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb5">
+                                <div class="col-sm-10 col-sm-offset-2">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input class="i-check filtertypehotelclass" ng-model="vm.reviewdata.isNameDisplay" id="chkmyname" value="Yes" type="checkbox" />
+                                            <span id="lblmynamedisplay" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'lblmynamedisplay'">{{value.TextMessage}}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div class="col-sm-5 col-sm-offset-1">
+                                <ul id="ullistid" class="list booking-item-raiting-summary-list stats-list-select alt mb0">
+                                    <li ng-repeat="data in vm.listTypeReview">
+                                        <div class="booking-item-raiting-list-title">{{data.Typereview}}</div>
+                                        <ul id="@item.ID" class="icon-group booking-item-rating-stars">
+                                            <li id="{{data.Id}}" class="{{data.Id}}" value="2" ng-click="vm.setReview(2, data.Id)">
+                                                <i class="fa fa-smile-o" value="2"></i>
+                                            </li>
+                                            <li id="{{data.Id}}" class="{{data.Id}}" value="4" ng-click="vm.setReview(4, data.Id)">
+                                                <i class="fa fa-smile-o" value="4"></i>
+                                            </li>
+                                            <li id="{{data.Id}}" class="{{data.Id}}" value="6" ng-click="vm.setReview(6, data.Id)">
+                                                <i class="fa fa-smile-o" value="6"></i>
+                                            </li>
+                                            <li id="{{data.Id}}" class="{{data.Id}}" value="8" ng-click="vm.setReview(8, data.Id)">
+                                                <i class="fa fa-smile-o" value="8"></i>
+                                            </li>
+                                            <li id="{{data.Id}}" class="{{data.Id}}" value="10" ng-click="vm.setReview(10, data.Id)">
+                                                <i class="fa fa-smile-o" value="10"></i>
+                                            </li>
+                                        </ul>
+
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <div class="clear"></div>
+
+                            <hr />
+                            <input type="hidden" ng-model="vm.reviewdata.Cleaning" />
+                            <div class="form-group mb5 gap-20">
+                                <label class="col-sm-3 control-label"><i class="fa fa-circle mr5 text-success" rel="tooltip" data-placement="top" title="positive review"></i><span id="positiveFeedback"></span></label>
+                                <div class="col-sm-7">
+                                    <textarea class="form-control form-control-sm" id="txtpositive" rows="5" ng-model="vm.positive"></textarea>
+
+
+                                </div>
+                                <label for="tc-3" id="lblpositive" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'lblpositive'">{{value.TextMessage}} </label>
+                                <div style="margin-top:20px;color: darkgray;"><label id="lblex2"></label></div>
+                            </div>
+
+                            <div class="form-group mb5 gap-20">
+                                <label class="col-sm-3 control-label"><i class="fa fa-circle mr5 text-danger" rel="tooltip" data-placement="top" title="negative review"></i><span id="negativeFeedback"></span> </label>
+                                <div class="col-sm-7">
+                                    <textarea class="form-control form-control-sm" id="txtnegative" rows="5" ng-model="vm.negative"></textarea>
+                                </div>
+                                <label for="tc-3" id="lblnegative" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'lblnegative'">{{value.TextMessage}}</label>
+                                <div style="margin-top:20px;color: darkgray;"><label id="lblex2"></label></div>
+                            </div>
+
+                            <hr />
+                        </div>
+                    </div>
+                    <input type="submit" class="btn btn-primary" id="btnsave1" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'btnsave1'" value="{{value.TextMessage}}" />
+                    <input type="button" class="btn btn-primary" id="btnback1" ng-repeat="(key, value) in vm.manageReservationlabel | objectByKeyValFilter:'LblId':'btnback1'" value="{{value.TextMessage}}" ng-click="vm.hideReview();" />
+                    <div>
+                        <label style="color:red;display:none;" id="lblselectscore"></label>
+                        <label style="color:green;display:none;" id="lblsuccessreview"></label>
+                        <label style="color:red;display:none;" id="lblfailreview">Your review was Already received</label>
+                    </div>
+                    <div class="mb10"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="printpreview" style="display:none">
+    <div id="tblprintpreview1" align="center">
+        <table ng-repeat="val in vm.reservationResolveData" ng-if="$last"  class="table table-responsive" style="width:79%;background-color: #f2efe2; border: 1px solid #e3dec0; margin-bottom: 20px; margin-top: 20px;">
+            <thead>
+                <tr>
+                    <th colspan="2">
+
+                        <img src="/Images/logo.png">
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="col-md-6 col-sm-6 col-xs-6">
+                <tr>
+                    <td> <label>{{val.ReservationIDs}}</label></td>
+                    <td> <label>{{val.ID}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.PinCodes}}</label></td>
+                    <td>
+                        <label>{{val.PinCode}}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.Reserver}}</label></td>
+                    <td> <label>{{val.FullName}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.ReservationDates}}</label></td>
+                    <td> <label>{{val.ReservationDate}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.Propertys}}</label></td>
+                    <td> <label>{{val.HotelName}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.HotelAddresss}}</label></td>
+                    <td> <label>{{val.Address}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.HotelContact}}</label></td>
+                    <td> <label>{{val.Phone}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.ReservationStatuss}}</label></td>
+                    <td> <label>{{val.HotelReservationStatusName}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.CheckInDates}}</label></td>
+                    <td> <label>{{val.CheckInDate}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.CheckOutDates}}</label></td>
+                    <td> <label>{{val.CheckOutDate}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.NightCounts}}</label></td>
+                    <td> <label>{{val.NightCount}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.Emails}}</label></td>
+                    <td> <label>{{val.Email}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.Countrys}}</label></td>
+                    <td> <label>{{val.Country}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.Citys}}</label></td>
+                    <td> <label>{{val.City}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.Postcodes}}</label></td>
+                    <td> <label>{{val.PostCode}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.RoomCounts}}</label></td>
+                    <td> <label>{{val.RoomCount}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.PeopleCounts}}</label></td>
+                    <td> <label>{{val.PeopleCount}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.PayableAmounts}}</label></td>
+                    <td> <label>{{val.PayableAmount}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.HotelConditions}}</label></td>
+                    <td> <label>{{val.HotelConditionText | trust}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.GuestNote}}</label></td>
+                    <td> <label>{{val.Note}}</label></td>
+                </tr>
+            </tbody><!--<table-->
+        </table>
+    </div>
+    <div id="tblprintpreview" align="center">
+
+        <table ng-repeat="val in vm.reservationResolveData" class="table table-responsive" style="background-color: #f2efe2; border: 1px solid #e3dec0; margin-bottom: 20px; margin-top: 20px;">
+            <thead><tr><th colspan="2">
+    <span>{{val.RoomTypeName}} </span>
+</th></tr></thead>
+            <tbody class="col-md-6 col-sm-6 col-xs-6">
+                <tr>
+                    <td> <label>{{val.ReservationStatuss}}</label></td>
+                    <td> <label>{{val.HotelReservationStatusName}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.AccommodationTypes}}</label></td>
+                    <td> <label>{{val.HotelAccommodationTypeName}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.GuestNames}}</label></td>
+                    <td> <label>{{val.GuestName}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.PeopleCounts}}</label></td>
+                    <td> <label>{{val.PeopleCount}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.BedPreferences}}</label></td>
+                    <td> <label>{{val.BedTypeNameWithCount}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.TotalRoomPrices}}</label></td>
+                    <td> <span>{{val.CurrencySymbol}}</span><span>{{val.Amount}}</span></td>
+                </tr>
+                <tr>
+                    <td>{{val.NightPrice}}</td>
+                    <td>
+                        <div class="row roomrate">
+                            <div class="col-sm-2 form-group NoWrap resTble" ng-repeat="data in val.roomratesinglenight">
+                                <label ng-bind-html="data.tblheader | trust"></label>
+                                <label ng-bind-html="data.tblbobyvalues | trust"></label>
+                            </div>
+                        </div>
+                        <!--<table class="GridTable">
+                            <tbody ng-repeat="data in val.roomratesinglenight">
+                                <tr style="border: 1px solid #ABAAA5" ng-bind-html="data.tblheader | trust"></tr>
+                                <tr style="border: 1px solid #ABAAA5" ng-bind-html="data.tblbobyvalues | trust"></tr>
+                            </tbody>
+                        </table>-->
+                    </td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.TravellerTypes}}</label></td>
+                    <td> <label>{{val.TravellerTypeName}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.EstimatedArrivalTimes}}</label></td>
+                    <td> <label>{{val.EstimatedArrivalTime}}</label></td>
+                </tr>
+                <tr>
+                    <td> <label>{{val.CancelPolicy}}</label></td>
+                    <td> <label style="text-decoration: underline;">{{val.HotelCancelTypeName}}</label><br>
+                    <span>{{val.RefundableInfotext}}</span></td>
+                </tr>
+            </tbody><!--<table-->
+        </table>
+    </div>
+
+</div>
+
+<style>
+    .table > tbody + tbody {
+        border-top: none;
+    }
+</style>

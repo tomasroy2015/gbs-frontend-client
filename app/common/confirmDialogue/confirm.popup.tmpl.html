@@ -1,0 +1,20 @@
+﻿<div class="modal-content" role="dialog">
+    <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" aria-label="Close" ng-click="vm.closePopup()"><span aria-hidden="true">×</span></button>
+                <h5><span class="glyphicon glyphicon-alertConfirm" aria-hidden="true"></span>Confirm</h5>
+            <hr />
+                <div class="row" style="text-align:center">
+                    <div>
+                        <label>{{vm.Message}}</label>
+                        Do you want to continue...
+                    </div>
+                    <hr />
+                    <div class="col-sm-12 pull-right">
+                        <input type="button" class="btn btn-primary btn-sm" ng-click="vm.yes()" value="Yes">
+                        <input type="button" class="btn btn-primary btn-sm" ng-click="vm.closePopup()" value="No">
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

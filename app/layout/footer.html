@@ -1,0 +1,87 @@
+﻿<div class="container stopscr">
+    <div class="row row-wrap">
+        <div class="col-md-3">
+            <a class="logo" href="/">
+                <label style=" font-size: 27px; padding: 12px 22px 15px 0px; font-family: Audiowide, Arial, Helvetica, sans-serif; font-weight: normal; color: #FFFFFF; cursor: pointer">GBS HOTELS</label>
+            </a>
+            <p class="mb20" id="lblGBSOffer" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'lblGBSOffer'">{{value.TextMessage}}</p>
+            <div class="iata-logo">
+
+                <img src="/Images/Logo.jpg" alt="IATA">
+            </div>
+            <p class="copy-right" id="lblGbshotelsCopyRight" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'lblGbshotelsCopyRight'">{{value.TextMessage}}</p>
+        </div>
+
+        <div class="col-md-2">
+            <ul class="list list-footer">
+                <li>
+                    <a ui-sref="master.gbs.aboutus" id="lblAboutus" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'lblAboutus'">{{value.TextMessage}}</a>
+                </li>
+                <li>
+                    <a ui-sref="master.gbs.contactus" id="lblContactUs" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'lblContactUs'">{{value.TextMessage}}</a>
+                </li>
+                <li>
+                    <a ui-sref="master.gbs.faq" id="lblFAQ" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'lblFAQ'">{{value.TextMessage}}</a>
+                </li>
+                <li>
+                    <a ui-sref="master.gbs.termsandcondition" id="lblTermsAndConditions" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'lblTermsAndConditions'">{{value.TextMessage}}</a>
+                </li>
+                <li>
+                    <a ng-click="showmanagereservation()" class="popupnew2" href="javascript:void(0);" id="lblDisplayReservation" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'lblDisplayReservation'">{{value.TextMessage}}</a>
+                </li>
+                <li>
+                    <a ui-sref="master.gbs.property" id="lblHotelApplication" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'lblHotelApplication'">{{value.TextMessage}}</a>
+                </li>
+                <li>
+                    <a href="http://www.gbsextranet.com" id="lblExtranetLogin" target="_blank" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'lblExtranetLogin'">{{value.TextMessage}}</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-3">
+            <h4 id="lblFOLLOWUS" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'lblFOLLOWUS'">{{value.TextMessage}}</h4>
+            <p class="mb20" id="lblJoinUs" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'lblJoinUs'">{{value.TextMessage}}</p>
+            <ul class="list list-horizontal list-space mb30">
+                <li>
+                    <a class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top" href="https://www.facebook.com/Global-Booking-System-562479320497494/"></a>
+                </li>
+                <li>
+                    <a class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top" href="https://twitter.com/gbs_hotels"></a>
+                </li>
+                <li>
+                    <a class="fa fa-google-plus box-icon-normal round animate-icon-bottom-to-top" href="https://plus.google.com/u/0/107749099270729477152/about"></a>
+                </li>
+            </ul>
+
+            <a href="javascript:void(0);" ng-click="showmanagereservation()" class="btn btn-xs btn-success" style="margin-bottom: 5px;" id="lnkDisplayReservation" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'lnkDisplayReservation'">{{value.TextMessage}}</a>
+            <a ui-sref="master.gbs.property" class="btn btn-xs btn-info" style="margin-bottom: 5px;" id="lnkHotelApplication" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'lnkHotelApplication'">{{value.TextMessage}}</a>
+            <a href="http://www.gbsextranet.com" class="btn btn-xs btn-danger" style="margin-bottom: 5px;" id="lnkExtranetLogin" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'lnkExtranetLogin'">{{value.TextMessage}}</a>
+
+        </div>
+
+        <div class="col-md-4">
+
+
+            <h4><label id="lblsubscribenow" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'lblsubscribenow'">{{value.TextMessage}}</label></h4>
+            <form>
+                <label class="mb20" id="lblsignup" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'lblsignup'">{{value.TextMessage}}</label>
+
+                <input type="text" class="form-control" id="txtname_box" ng-model="vm.subscribeData.username" placeholder="{{value.TextMessage}}" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'txtname_box'">
+                <div style="margin-top:6px;">
+                    <input type="text" class="form-control" id="txtemail_box" ng-model="vm.subscribeData.email" placeholder="{{value.TextMessage}}" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'txtemail_box'">
+                    <!--<label id="lblverification" class="newsletter_arr" style="display:none;color:red">Please enter a valid email address!</label>-->
+                </div>
+
+                <p class="mt5">
+                    <span><small style="display: inline-flex;">*<label id="lblneversend" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'lblneversend'">{{value.TextMessage}}</label></small></span>
+                </p>
+                <input type="button" class="btn btn-primary" id="btnsub" ng-click="vm.subscribe()" value="{{value.TextMessage}}" ng-repeat="(key, value) in vm.footerlabel | objectByKeyValFilter:'LblId':'btnsub'">
+            </form>
+           
+
+        </div>
+
+
+    </div>
+</div>
+      

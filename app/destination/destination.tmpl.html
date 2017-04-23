@@ -1,0 +1,299 @@
+﻿<div class="container">
+    <ul class="breadcrumb alt clearfix" ng-repeat="country in vm.continentsCountry" ng-if="country.Rowcounts ==0">
+        <li><a ui-sref=" master.gbs.home"><i class=" fa fa-home"></i> &nbsp;</a></li>
+        <li><a href="#" id="destination1">{{country.Destination}}</a></li>
+        <li class="active" id="lblcontinents">{{country.Continents}}</li>
+    </ul>
+
+    <div class="booking-item-details" ng-repeat="country in vm.continentsCountry" ng-if="country.Rowcounts ==0">
+        <header class="booking-item-header">
+            <h2 class="lh1em inline-rating-stars" id="destination">{{country.Destination}}</h2>
+            <p>{{country.Didtext}} {{country.HotelCount}} {{country.Hotel}}</p>
+
+        </header>
+    </div>
+
+    <div class="mb20"></div>
+    <div class="row">
+
+        <div class="col-md-3">
+            <aside class="sidebar-left">
+                <ul class="nav nav-pills nav-stacked nav-side mb30">
+                    <li style="cursor: pointer;" ng-repeat="conti in vm.continents" ng-class="{ 'active': vm.selectedId == conti.Id}" id="{{conti.Id}}">
+                        <a ng-click="vm.getCountryWithContinents(conti.Id)">{{conti.Name}}</a>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+        <div class="col-md-9">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default" id="diva" ng-repeat="con in vm.countrywithcontient">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="javascript:void(0);" data-target="#collapse-{{con.countryStartChar}}" class=""><span>{{con.countryStartChar}}</span></a></h4>
+                    </div>
+                    <div class="panel-collapse collapse" ng-class="{'in':$index==0}" id="collapse-{{con.countryStartChar}}" style="height: auto;">
+                        <div class="panel-body">
+                            <ul class="destination-list clearfix row" id="adiv">
+                                <li style="list-style-type: none;" class="col-xss-12 col-xs-6 col-sm-4 " ng-repeat="data in con.country"><a ui-sref="master.gbs.region({'regionId':data.Id})" class="aname">{{data.CountryName}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+             
+                <!--<div class="panel panel-default" id="divc" >
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-3" class=""><span>C</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-3" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="cdiv" ng-if="coun.CountryName.charAt(0) == 'C'">
+                        <li style="list-style-type: none;" class="col-xss-12 col-xs-6 col-sm-4 "><a href="../Home/HotelRegion_en?As2Dw=54" class="cname">{{cont.CountryName}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divd" ng-if="coun.CountryName.charAt(0) == 'D'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-4" class=""><span>D</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-4" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="ddiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="dive" ng-if="coun.CountryName.charAt(0) == 'E'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-5" class=""><span>E</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-5" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="ediv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divf" ng-if="coun.CountryName.charAt(0) == 'F'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-6" class=""><span>F</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-6" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="fdiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divg" ng-if="coun.CountryName.charAt(0) == 'G'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-7" class=""><span>G</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-7" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="gdiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divh" ng-if="coun.CountryName.charAt(0) == 'H'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-8" class=""><span>H</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-8" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="hdiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divi" ng-if="coun.CountryName.charAt(0) == 'I'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-9" class=""><span>I</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-9" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="idiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divj" ng-if="coun.CountryName.charAt(0) == 'J'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-10" class=""><span>J</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-10" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="jdiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divk" ng-if="coun.CountryName.charAt(0) == 'K'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-11" class=""><span>K</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-11" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="kdiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divl" ng-if="coun.CountryName.charAt(0) == 'L'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-12" class=""><span>L</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-12" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="ldiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divm" ng-if="coun.CountryName.charAt(0) == 'M'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-13" class=""><span>M</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-13" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="mdiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divn" ng-if="coun.CountryName.charAt(0) == 'N'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-14" class=""><span>N</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-14" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="ndiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divo" ng-if="coun.CountryName.charAt(0) == 'O'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-15" class=""><span>O</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-15" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="odiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divp" ng-if="coun.CountryName.charAt(0) == 'P'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-16" class=""><span>P</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-16" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="pdiv"></ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default" id="divq" ng-if="coun.CountryName.charAt(0) == 'Q'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-17" class=""><span>Q</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-17" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="qdiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divr" ng-if="coun.CountryName.charAt(0) == 'R'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-18" class=""><span>R</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-18" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="rdiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divs" ng-if="coun.CountryName.charAt(0) == 'S'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-19" class=""><span>S</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-19" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="sdiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divt" ng-if="coun.CountryName.charAt(0) == 'T'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-20" class=""><span>T</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-20" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="tdiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divu" ng-if="coun.CountryName.charAt(0) == 'U'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-21" class=""><span>U</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-21" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="udiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divv" ng-if="coun.CountryName.charAt(0) == 'V'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-22" class=""><span>V</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-22" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="vdiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divw" ng-if="coun.CountryName.charAt(0) == 'W'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-23" class=""><span>W</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-23" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="wdiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divx" ng-if="coun.CountryName.charAt(0) == 'X'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-24" class=""><span>X</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-24" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="xdiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divy" ng-if="coun.CountryName.charAt(0) == 'Y'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-25" class=""><span>Y</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-25" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="ydiv"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="divz" ng-if="coun.CountryName.charAt(0) == 'Z'">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse-26" class=""><span>Z</span></a></h4>
+            </div>
+            <div class="panel-collapse collapse in" id="collapse-26" style="height: auto;">
+                <div class="panel-body">
+                    <ul class="destination-list clearfix row" id="zdiv"></ul>
+                </div>
+            </div>
+        </div>-->
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+    <div class="mb30"></div>
+   
+</div>
